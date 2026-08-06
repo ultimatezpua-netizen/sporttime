@@ -1,0 +1,34 @@
+# Node modules (EAS runs npm install on the server)
+node_modules/
+
+# Native build artifacts (EAS generates these on the server)
+android/
+ios/
+
+# Previous APK builds
+*.apk
+*.aab
+
+# Build output
+dist/
+
+# Expo local artifacts
+.expo/
+.expo_local/
+
+# Design assets not used at runtime
+design_assets/
+attached_assets/
+reports/
+scratch/
+scripts/
+
+# Misc
+.replit-artifact/
+*.bak
+*.log
+watch_code.txt
+bundle_error.json
+build.json
+eas-build.log
+.catalog-notification-state.json

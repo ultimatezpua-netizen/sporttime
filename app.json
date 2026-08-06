@@ -1,0 +1,72 @@
+{
+  "expo": {
+    "name": "GARMIN Sport Time",
+    "slug": "sporttime",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "sporttime",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#111113",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/logo-mountain.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#111113"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.sporttime.app",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false,
+        "NSCameraUsageDescription": "Дозвіл на використання камери для створення фото чеку та гарантійного талона Garmin.",
+        "NSPhotoLibraryUsageDescription": "Дозвіл на доступ до фотогалереї для вибору фотографії чеку гарантії."
+      }
+    },
+    "android": {
+      "package": "com.sporttime.app",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_MEDIA_IMAGES"
+      ],
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#111113"
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-router",
+        {
+          "origin": "https://replit.com/"
+        }
+      ],
+      "expo-font",
+      "expo-web-browser",
+      "expo-notifications",
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Дозвіл на доступ до фотогалереї для вибору фотографії чеку гарантії.",
+          "cameraPermission": "Дозвіл на використання камери для створення фото чеку та гарантійного талона Garmin."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true,
+      "reactCompiler": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "5e36a8ba-3099-4e4a-92c2-c4cdb6ed8916"
+      }
+    },
+    "owner": "dedartemka"
+  }
+}

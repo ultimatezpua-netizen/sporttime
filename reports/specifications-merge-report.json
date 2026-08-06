@@ -1,0 +1,1922 @@
+{
+  "generatedAt": "2026-08-01T04:32:59.553587+00:00",
+  "physicalFileCount": 27,
+  "uniqueFileCount": 13,
+  "duplicateFileCount": 14,
+  "physicalRowsRead": 428,
+  "uniqueRowsRead": 213,
+  "matchedRows": 196,
+  "addedSpecifications": 479,
+  "unmatchedRows": 15,
+  "ambiguousRows": 2,
+  "matchedProductCount": 196,
+  "newFieldCounts": {
+    "GPS (ехолоти)": 1,
+    "Має вбудований приймач": 1,
+    "Підтримує WAAS": 1,
+    "Контури GARMIN QUICKDRAW": 1,
+    "Відображає ехолот": 1,
+    "Традиційний ехолот (подвійна частота/промінь)": 1,
+    "BOTTOM LOCK (показує повернення знизу вгору)": 1,
+    "Журнал температури води": 1,
+    "Виклик через Bluetooth": 1,
+    "FISH SYMBOL ID (допомагає ідентифікувати цільову рибу)": 1,
+    "Технологія AUTOGAIN (мінімізує безладмаксимізує цілі)": 1,
+    "Регульована лінія глибини (вимірює глибину підводних об": 1,
+    "A-SCOPE (в реальному часі риба, що проходить через промінь датчика)": 1,
+    "Датчик температури води в комлекті": 1,
+    "Затінення діапазону глибини": 1,
+    "Знімний модуль": 4,
+    "Передача пульсу в режимі реального часу через підключення ANT": 4,
+    "Підтримує варіабельність серцевого ритму (ВСР)": 4,
+    "Передає частоту серцевих скорочень у реальному часі та підтримує HRV": 4,
+    "ІНФОРМАЦІЯ ПРО БЕЗПЕКУ:": 4,
+    "Термін служби батареї": 4,
+    "Тип дверцят батареї": 2,
+    "Підключення датчика": 2,
+    "Розмір": 37,
+    "Вага": 3,
+    "Водостійкість": 3,
+    "Тип батареї": 3,
+    "Кількість підтримуваних одночасних підключень": 2,
+    "Оновлення безпеки щонайменше до (рррр-мм-дд)": 1,
+    "Розмір ліхтаря": 2,
+    "Вага ліхтаря": 2,
+    "Світлові режими": 2,
+    "Люмен": 2,
+    "Водостійкість ліхтаря": 2,
+    "Термін служби батареї ліхтаря": 2,
+    "ANT+": 2,
+    "PRODUCTSPECVIEWINGANGLE": 2,
+    "Дальність видимості": 2,
+    "Розумна фара": 2,
+    "Матеріал лінз": 1,
+    "MIL-STD-810": 1,
+    "Сенсорний екран": 3,
+    "Тип дисплея": 1,
+    "Розмір дисплея": 1,
+    "Роздільна здатність дисплея": 1,
+    "Пам'ять/історія навігатора": 1,
+    "Інтерфейс": 1,
+    "Попередньо завантажені карти": 1,
+    "Можливість додавати карти": 3,
+    "Базова карта": 3,
+    "Автоматичне прокладання маршруту для активного відпочинку": 1,
+    "Сегменти карти": 1,
+    "Супутникові знімки": 1,
+    "Детальні гідрографічні особливості (берегові лінії, водно-болотні угіддя, потоки)": 3,
+    "Об’єкти інтересу з можливістю пошуку (парки, кемпінги, оглядові майданчики)": 3,
+    "Відображає національні, державні та місцеві парки, ліси та пустелі": 3,
+    "Зберігання та потужність": 1,
+    "Пункти/вибране/місця": 1,
+    "Доріжки": 1,
+    "Журнал навігаційного шляху": 1,
+    "Навігаційні маршрути": 1,
+    "Лісорубка Рінекс": 3,
+    "GPS": 5,
+    "ГЛОНАСС": 5,
+    "Галілей": 3,
+    "Барометричний висотомір": 3,
+    "Компас": 1,
+    "Високочутливий приймач": 3,
+    "GPS компас (під час руху)": 3,
+    "Connect IQ ™ (завантаж. циферблати, поля даних, віджети, програми)": 3,
+    "Розумні сповіщення на КПК": 3,
+    "Прогнози погоди": 3,
+    "Активна погода": 3,
+    "Дистанційне керування камерою VIRB навігатора": 3,
+    "Сумісний із Garmin Connect ™ Mobile": 3,
+    "LiveTrack": 3,
+    "Локації XERO ™": 3,
+    "Двохточкова навігація": 3,
+    "Розрахунок площі": 3,
+    "Рибний прогноз": 3,
+    "Інформація про сонце і місяць": 3,
+    "Геокешінг зручний": 1,
+    "Сумісність із власними картами": 1,
+    "Переглядач зображень": 3,
+    "Віддалений віджет inReach": 3,
+    "Світлодіодний ліхтарик маячок": 3,
+    "Сумісний з дистанційним керуванням inReach": 3,
+    "Сумісний із додатком Garmin Explore": 3,
+    "Стеження за собакою": 1,
+    "Підключення бездротове": 1,
+    "Оновлення безпеки щонайменше до": 1,
+    "GARMIN PAY": 2,
+    "РОЗМІР": 2,
+    "ВАГА": 2,
+    "ВОДОСТІЙКІСТЬ": 2,
+    "СЕНСОРНИЙ ЕКРАН": 2,
+    "ТИП ДИСПЛЕЯ": 2,
+    "РОЗМІР ДИСПЛЕЯ": 2,
+    "РОЗДІЛЬНА ЗДАТНІСТЬ ДИСПЛЕЯ": 2,
+    "КОЛЬОРОВИЙ ДИСПЛЕЙ": 2,
+    "ВБУДОВАНИЙ ДИНАМІК": 2,
+    "ТИП БАТАРЕЇ": 2,
+    "ТЕРМІН СЛУЖБИ БАТАРЕЇ": 2,
+    "РЕЖИМ ЕКОНОМІЇ ЗАРЯДУ БАТАРЕЇ": 2,
+    "СУМІСНІСТЬ ІЗ ЖИВЛЕННЯМ ПІД ЧАС ПОЇЗДКИ": 2,
+    "МОЖЛИВІСТЬ ДОДАВАТИ КАРТИ": 2,
+    "МЕНЕДЖЕР КАРТ WI-FI": 2,
+    "БАЗОВА КАРТА": 2,
+    "ЗБЕРІГАННЯ ТА ПОТУЖНІСТЬ": 2,
+    "ПУНКТИ/ВИБРАНЕ/МІСЦЯ": 2,
+    "НАВІГАЦІЙНІ МАРШРУТИ": 2,
+    "ІСТОРІЯ": 2,
+    "БАРОМЕТРИЧНИЙ ВИСОТОМІР": 2,
+    "ГАЛІЛЕЙ": 2,
+    "ГІРОСКОП": 2,
+    "АКСЕЛЕРОМЕТР": 2,
+    "ДАТЧИК ЗОВНІШНЬОГО ОСВІТЛЕННЯ": 2,
+    "БАГАТОДІАПАЗОННА GNSS": 2,
+    "МАГНІТОМЕТР": 2,
+    "ПІДКЛЮЧЕННЯ": 2,
+    "CONNECT IQ ™ (ЗАВАНТАЖУВАНІ ЦИФЕРБЛАТИ, ПОЛЯ ДАНИХ, ВІДЖЕТИ ТА ПРОГРАМИ)": 2,
+    "НА ПРИСТРОЇ CONNECT IQ ™ STORE": 2,
+    "РОЗУМНІ СПОВІЩЕННЯ": 2,
+    "ТЕКСТОВА ВІДПОВІДЬ/ВІДХИЛЕННЯ ТЕЛЕФОННОГО ДЗВІНКА З ТЕКСТОВИМ ПОВІДОМЛЕННЯМ (ТІЛЬКИ ANDROID)": 2,
+    "ПРОГНОЗИ ПОГОДИ": 2,
+    "НАЛАШТУВАННЯ В РЕАЛЬНОМУ ЧАСІ СИНХРОНІЗУЮТЬСЯ З GARMIN CONNECT  MOBILE": 2,
+    "КЕРУЄ МУЗИКОЮ НА СМАРТФОНІ": 2,
+    "ДИСТАНЦІЙНЕ КЕРУВАННЯ КАМЕРОЮ VIRB": 2,
+    "РОЗУМНЕ КЕРУВАННЯ ТРЕНАЖЕРОМ": 2,
+    "СУМІСНІСТЬ ЗІ СМАРТФОНОМ": 2,
+    "ДОПОМОГА": 2,
+    "LIVETRACK": 2,
+    "GROUPTRACK": 2,
+    "ГРУПОВА ПОЇЗДКА (ВЕЛОСИПЕД)": 2,
+    "ЗМАГАННЯ ТА НАГОРОДЖЕННЯ GROUPRIDE": 2,
+    "ОБМІН ПОВІДОМЛЕННЯМИ МІЖ ВОДІЯМИ": 2,
+    "ВИЯВЛЕННЯ ІНЦИДЕНТІВ": 2,
+    "ВИЯВЛЕННЯ ІНЦИДЕНТІВ GROUPRIDE": 2,
+    "ЗВІТИ ПРО НЕБЕЗПЕКИ, СТВОРЕНІ СПІЛЬНОТОЮ": 2,
+    "FIND MY EDGE": 2,
+    "ВЕЛОСИГНАЛІЗАЦІЯ": 2,
+    "СПОВІЩЕННЯ ПРО ПОГОДУ": 2,
+    "СУМІСНИЙ З INREACH": 2,
+    "СПАЛЕНІ КАЛОРІЇ": 2,
+    "ХВИЛИНИ ІНТЕНСИВНОСТІ": 2,
+    "НАСТРОЮВАНІ ЕКРАНИ": 2,
+    "ПЛАНИ ТРЕНУВАНЬ, ЯКІ МОЖНА ЗАВАНТАЖИТИ": 2,
+    "РЕКОМЕНДАЦІЇ ЩОДО ЩОДЕННИХ ТРЕНУВАНЬ": 2,
+    "ОСНОВНІ ТА ДОДАТКОВІ ЦІЛІ ТРЕНУВАННЯ": 2,
+    "АВТОМАТИЧНА ПАУЗА": 2,
+    "ІНТЕРВАЛЬНИЙ ТРЕНІНГ": 2,
+    "РОЗШИРЕНІ ТРЕНУВАННЯ": 2,
+    "AUTO LAP": 2,
+    "VO2 МАКС": 2,
+    "СТАТУС ТРЕНУВАННЯ - ВЕЛОСПОРТ": 2,
+    "ТРЕНУВАЛЬНЕ НАВАНТАЖЕННЯ - ВЕЛОСПОРТ": 2,
+    "ФОКУС ТРЕНУВАЛЬНОГО НАВАНТАЖЕННЯ - ЇЗДА НА ВЕЛОСИПЕДІ": 2,
+    "ВИТРИВАЛІСТЬ У РЕАЛЬНОМУ ЧАСІ - ЇЗДА НА ВЕЛОСИПЕДІ": 2,
+    "АНАЛІЗ НАВИЧОК ЇЗДИ НА ВЕЛОСИПЕДІ": 2,
+    "КУРС ВИМАГАЄ АНАЛІЗУ": 2,
+    "ТРЕНУВАЛЬНИЙ ЕФЕКТ": 2,
+    "РАДНИК З ВІДНОВЛЕННЯ": 2,
+    "ВІРТУАЛЬНИЙ ПАРТНЕР": 2,
+    "ЗМАГАЙТЕСЯ": 2,
+    "СЕГМЕНТИ": 2,
+    "АВТОМАТИЧНА ПРОКРУТКА": 2,
+    "PHYSIO TRUEUP": 2,
+    "УНІФІКОВАНИЙ СТАТУС НАВЧАННЯ": 2,
+    "CLIMBPRO ASCENT PLANNER - ВЕЛОСПОРТ": 2,
+    "CLIMBPRO - КУРСИ": 2,
+    "CLIMBPRO - ВІЛЬНА ЇЗДА": 2,
+    "КУРСИ": 2,
+    "СПОВІЩЕННЯ (ПРИ ДОСЯГНЕННІ ЦІЛЕЙ)": 2,
+    "FTP (ФУНКЦІОНАЛЬНА ПОРОГОВА ПОТУЖНІСТЬ)": 2,
+    "ВЕЛОСИПЕДНА КАРТА GARMIN (ПРОКЛАДНА КАРТА ВУЛИЦЬ ДЛЯ ВЕЛОСИПЕДИСТІВ)": 2,
+    "МТБ ДИНАМІКА": 2,
+    "СУМІСНІСТЬ ІЗ РАДАРОМ VARIA (РАДАР, СПРЯМОВАНИЙ ЗЗАДУ)": 2,
+    "СУМІСНІСТЬ ІЗ КАМЕРОЮ VARIA RADAR": 2,
+    "СУМІСНИЙ З ЛІХТАРЯМИ VARIA": 2,
+    "СУМІСНИЙ З ВИМІРЮВАЧЕМ ПОТУЖНОСТІ": 2,
+    "СТВОРЮВАЧ КУРСУ НА ПРИСТРОЇ": 2,
+    "ПОШУК МІСЦЕЗНАХОДЖЕННЯ НА ПРИСТРОЇ": 2,
+    "ПОСІБНИК З ЖИВЛЕННЯ": 2,
+    "ТРЕНДЛАЙН ПОПУЛЯРНИЙ МАРШРУТ - ВЕЛОСИПЕД": 2,
+    "ТЕПЛОВА КАРТА ПОПУЛЯРНОСТІ": 2,
+    "СУМІСНІСТЬ ІЗ CYCLING DYNAMICS": 2,
+    "ІНТЕГРОВАНІ ДАНІ TRAILFORKS": 2,
+    "EBIKE SMART RANGE ROUTING": 2,
+    "ДИСТАНЦІЙНЕ КЕРУВАННЯ EDGE": 2,
+    "ДИСТАНЦІЙНЕ КЕРУВАННЯ VARIA": 2,
+    "ЕЛЕКТРОННЕ ПЕРЕМИКАННЯ ПЕРЕДАЧ ANT+": 2,
+    "ІНТЕГРАЦІЯ SHIMANO DI2 SYNCHRO SHIFT": 2,
+    "ІНТЕГРАЦІЯ SRAM AXS": 2,
+    "РОЗШИРЕНИЙ ДИСПЛЕЙ (ОБМІН ЕКРАНАМИ ДАНИХ НА EDGE )": 2,
+    "ОНОВЛЕННЯ БЕЗПЕКИ ЩОНАЙМЕНШЕ ДО": 1,
+    "Сумісність з серією": 32,
+    "Сумісність з моделями": 12
+  },
+  "skippedExistingFields": 0,
+  "skipped_russian_duplicate": 70,
+  "skipped_identity_column": 250,
+  "skipped_group_marker": 74,
+  "emptySpecificationCells": 414,
+  "rowsWithoutSku": 0,
+  "rowsWithSkuButNoSpecifications": 312,
+  "workbooks": {
+    "cellStats": {
+      "physicalRowsRead": 428,
+      "skipped_sku_column": 428,
+      "skipped_identity_column": 250,
+      "emptySpecificationCells": 414,
+      "skipped_group_marker": 74,
+      "skipped_russian_duplicate": 70,
+      "rowsWithSkuButNoSpecifications": 312,
+      "uniqueRowsRead": 428
+    },
+    "workbooks": [
+      {
+        "file": "hid_specifications_381.1785425417_1785427573284.xlsx",
+        "rowsRead": 0
+      },
+      {
+        "file": "hid_specifications_381.1785425417_1785430404603.xlsx",
+        "rowsRead": 0
+      },
+      {
+        "file": "hid_specifications_381.1785425417_1785437072928.xlsx",
+        "rowsRead": 0
+      },
+      {
+        "file": "hid_specifications_457.1785425445_1785430404604.xlsx",
+        "rowsRead": 1
+      },
+      {
+        "file": "hid_specifications_457.1785425445_1785437072929.xlsx",
+        "rowsRead": 1
+      },
+      {
+        "file": "hid_specifications_458.1785425464_1785430404604.xlsx",
+        "rowsRead": 4
+      },
+      {
+        "file": "hid_specifications_458.1785425464_1785437072929.xlsx",
+        "rowsRead": 4
+      },
+      {
+        "file": "hid_specifications_459.1785429795_1785430404604.xlsx",
+        "rowsRead": 2
+      },
+      {
+        "file": "hid_specifications_459.1785429795_1785437072929.xlsx",
+        "rowsRead": 2
+      },
+      {
+        "file": "hid_specifications_460.1785429809_1785430404604.xlsx",
+        "rowsRead": 3
+      },
+      {
+        "file": "hid_specifications_460.1785429809_1785437072930.xlsx",
+        "rowsRead": 3
+      },
+      {
+        "file": "hid_specifications_461.1785429856_1785430404604.xlsx",
+        "rowsRead": 2
+      },
+      {
+        "file": "hid_specifications_461.1785429856_1785437072930.xlsx",
+        "rowsRead": 2
+      },
+      {
+        "file": "hid_specifications_462.1785429863_1785430404604.xlsx",
+        "rowsRead": 80
+      },
+      {
+        "file": "hid_specifications_462.1785429863_1785437072930.xlsx",
+        "rowsRead": 80
+      },
+      {
+        "file": "hid_specifications_463.1785429867_1785430404604.xlsx",
+        "rowsRead": 35
+      },
+      {
+        "file": "hid_specifications_463.1785429867_1785437072930.xlsx",
+        "rowsRead": 35
+      },
+      {
+        "file": "hid_specifications_464.1785429872_1785430404604.xlsx",
+        "rowsRead": 10
+      },
+      {
+        "file": "hid_specifications_464.1785429872_1785437072930.xlsx",
+        "rowsRead": 10
+      },
+      {
+        "file": "hid_specifications_465.1785429879_1785430404605.xlsx",
+        "rowsRead": 10
+      },
+      {
+        "file": "hid_specifications_465.1785429879_1785437072930.xlsx",
+        "rowsRead": 10
+      },
+      {
+        "file": "hid_specifications_466.1785429885_1785430404605.xlsx",
+        "rowsRead": 43
+      },
+      {
+        "file": "hid_specifications_466.1785429885_1785437072930.xlsx",
+        "rowsRead": 43
+      },
+      {
+        "file": "hid_specifications_467.1785429889_1785430404605.xlsx",
+        "rowsRead": 21
+      },
+      {
+        "file": "hid_specifications_467.1785429889_1785437072930.xlsx",
+        "rowsRead": 21
+      },
+      {
+        "file": "hid_specifications_468.1785429897_1785430404605.xlsx",
+        "rowsRead": 3
+      },
+      {
+        "file": "hid_specifications_468.1785429897_1785437072931.xlsx",
+        "rowsRead": 3
+      }
+    ]
+  },
+  "unmatchedRowsDetail": [
+    {
+      "article": "010-02776-14",
+      "nameUa": "",
+      "nameRu": "",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 5,
+      "specs": []
+    },
+    {
+      "article": "010-02445-00",
+      "nameUa": "Garmin Forerunner 745 Black",
+      "nameRu": "Garmin Forerunner 745 Black",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 13,
+      "specs": []
+    },
+    {
+      "article": "010-02638-10",
+      "nameUa": "",
+      "nameRu": "",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 16,
+      "specs": []
+    },
+    {
+      "article": "010-02809-00",
+      "nameUa": "Garmin Forerunner 965 Titanium Bezel with Whitestone Case and Whitestone/Powder Gray Silicone Band",
+      "nameRu": "Garmin Forerunner 965 Titanium Bezel with Whitestone Case and Whitestone/Powder Gray Silicone Band",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 17,
+      "specs": [],
+      "failure": "ambiguous_sku"
+    },
+    {
+      "article": "010-02839-14",
+      "nameUa": "Garmin Lily 2 Metallic Lilac with Lilac Silicone Band",
+      "nameRu": "Garmin Lily 2 Metallic Lilac with Lilac Silicone Band",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 19,
+      "specs": []
+    },
+    {
+      "article": "010-02429-00",
+      "nameUa": "",
+      "nameRu": "",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 24,
+      "specs": []
+    },
+    {
+      "article": "010-02064-00",
+      "nameUa": "",
+      "nameRu": "",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 30,
+      "specs": []
+    },
+    {
+      "article": "010-02701-01",
+      "nameUa": "",
+      "nameRu": "",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 31,
+      "specs": []
+    },
+    {
+      "article": "0100290310",
+      "nameUa": "",
+      "nameRu": "",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 56,
+      "specs": [],
+      "failure": "ambiguous_sku"
+    },
+    {
+      "article": "SS050858000",
+      "nameUa": "Suunto Vertical Titanium Solar Black",
+      "nameRu": "Suunto Vertical Titanium Solar Black",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 69,
+      "specs": []
+    },
+    {
+      "article": "SS051208000",
+      "nameUa": "Suunto Vertical 2 Titanium Black",
+      "nameRu": "Suunto Vertical 2 Titanium Black",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 70,
+      "specs": []
+    },
+    {
+      "article": "SS051110000",
+      "nameUa": "copy_Suunto Vertical Titanium Solar Black",
+      "nameRu": "copy_Suunto Vertical Titanium Solar Black",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 71,
+      "specs": []
+    },
+    {
+      "article": "SS051273000",
+      "nameUa": "copy_copy_Suunto Vertical Titanium Solar Black",
+      "nameRu": "copy_copy_Suunto Vertical Titanium Solar Black",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 72,
+      "specs": []
+    },
+    {
+      "article": "SS0512730002",
+      "nameUa": "copy_copy_copy_Suunto Vertical Titanium Solar Black",
+      "nameRu": "copy_copy_copy_Suunto Vertical Titanium Solar Black",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 73,
+      "specs": []
+    },
+    {
+      "article": "SS0512730003",
+      "nameUa": "copy_copy_copy_copy_Suunto Vertical Titanium Solar Black",
+      "nameRu": "copy_copy_copy_copy_Suunto Vertical Titanium Solar Black",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 74,
+      "specs": []
+    },
+    {
+      "article": "SS0512730004",
+      "nameUa": "copy_copy_copy_copy_copy_Suunto Vertical Titanium Solar Black",
+      "nameRu": "copy_copy_copy_copy_copy_Suunto Vertical Titanium Solar Black",
+      "sourceFile": "hid_specifications_462.1785429863_1785430404604.xlsx",
+      "sourceRow": 75,
+      "specs": []
+    },
+    {
+      "article": "010-03024-01",
+      "nameUa": "Garmin Index Sleep Monitor L - XL",
+      "nameRu": "Garmin Index Sleep Monitor L - XL",
+      "sourceFile": "hid_specifications_468.1785429897_1785430404605.xlsx",
+      "sourceRow": 4,
+      "specs": []
+    }
+  ],
+  "examples": [
+    {
+      "sku": "21050374",
+      "productId": "1160",
+      "name": "Нейлоновий ремінець Quick Release18 mm - Black",
+      "before": {
+        "paramCount": 1,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "Сумісність з серією",
+          "label": "Сумісність з серією",
+          "value": "Forerunner 570-42 mm; Forerunner 265S; Forerunner 255S; Vivoactive 4S; Venu 3S; Venu 2S",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        },
+        {
+          "key": "Розмір",
+          "label": "Розмір",
+          "value": "18 мм",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 3,
+        "supplementalCount": 2,
+        "filterFacets": {
+          "bodySize": [
+            "18 мм"
+          ]
+        }
+      }
+    },
+    {
+      "sku": "21038693",
+      "productId": "645",
+      "name": "Ремінець 18 mm Garmin Venu - Army Gold",
+      "before": {
+        "paramCount": 1,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "Сумісність з серією",
+          "label": "Сумісність з серією",
+          "value": "Forerunner 265S; Forerunner 255S; Vivoactive 4S; Venu 2S; Venu 3S",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        },
+        {
+          "key": "Розмір",
+          "label": "Розмір",
+          "value": "18 мм",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 3,
+        "supplementalCount": 2,
+        "filterFacets": {
+          "bodySize": [
+            "18 мм"
+          ]
+        }
+      }
+    },
+    {
+      "sku": "21039010",
+      "productId": "653",
+      "name": "Ремінець 20 mm Garmin Venu - Black Gold",
+      "before": {
+        "paramCount": 1,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "Сумісність з серією",
+          "label": "Сумісність з серією",
+          "value": "Venu; Forerunner 745; Forerunner 645; Forerunner 245 (Music); Forerunner 165 (Music); Vivoactive 3 (Music); Vivoactive 5; Vivoactive 6; Forerunner 55; Venu 2 Plus ; Venu Sq 2 (Music); Venu Sq; Vivomove",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        },
+        {
+          "key": "Розмір",
+          "label": "Розмір",
+          "value": "20 мм",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 3,
+        "supplementalCount": 2,
+        "filterFacets": {
+          "bodySize": [
+            "20 мм"
+          ]
+        }
+      }
+    },
+    {
+      "sku": "21039577",
+      "productId": "664",
+      "name": "Сталевий ремінець Garmin Lily - Black",
+      "before": {
+        "paramCount": 1,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "Сумісність з серією",
+          "label": "Сумісність з серією",
+          "value": "Lily",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        },
+        {
+          "key": "Розмір",
+          "label": "Розмір",
+          "value": "14 мм",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 3,
+        "supplementalCount": 2,
+        "filterFacets": {
+          "bodySize": [
+            "14 мм"
+          ]
+        }
+      }
+    },
+    {
+      "sku": "21039973",
+      "productId": "668",
+      "name": "Ремінець Garmin Instinct 22 mm - Army Green",
+      "before": {
+        "paramCount": 1,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "Сумісність з серією",
+          "label": "Сумісність з серією",
+          "value": "Instinct 1/2/3-45 mm",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        },
+        {
+          "key": "Розмір",
+          "label": "Розмір",
+          "value": "22 мм",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 3,
+        "supplementalCount": 2,
+        "filterFacets": {
+          "bodySize": [
+            "22 мм"
+          ]
+        }
+      }
+    },
+    {
+      "sku": "21039652",
+      "productId": "679",
+      "name": "Ремінець 26 mm Instinct 2X - Army Green",
+      "before": {
+        "paramCount": 1,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "Сумісність з серією",
+          "label": "Сумісність з серією",
+          "value": "Instinct 2X/3-50 mm",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        },
+        {
+          "key": "Розмір",
+          "label": "Розмір",
+          "value": "26 мм",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 3,
+        "supplementalCount": 2,
+        "filterFacets": {
+          "bodySize": [
+            "26 мм"
+          ]
+        }
+      }
+    },
+    {
+      "sku": "21040153",
+      "productId": "689",
+      "name": "Ремінець Garmin Forerunner 230 - Жовтий з чорним",
+      "before": {
+        "paramCount": 1,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "Сумісність з серією",
+          "label": "Сумісність з серією",
+          "value": "Forerunner 230",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        },
+        {
+          "key": "Розмір",
+          "label": "Розмір",
+          "value": "15 мм",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 3,
+        "supplementalCount": 2,
+        "filterFacets": {
+          "bodySize": [
+            "15 мм"
+          ]
+        }
+      }
+    },
+    {
+      "sku": "21039515",
+      "productId": "695",
+      "name": "Ремінець силіконовий Garmin Lily 2 - Black",
+      "before": {
+        "paramCount": 1,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "Сумісність з серією",
+          "label": "Сумісність з серією",
+          "value": "Lily 2",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        },
+        {
+          "key": "Розмір",
+          "label": "Розмір",
+          "value": "14 мм",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 3,
+        "supplementalCount": 2,
+        "filterFacets": {
+          "bodySize": [
+            "14 мм"
+          ]
+        }
+      }
+    },
+    {
+      "sku": "21039072",
+      "productId": "707",
+      "name": "Ремінець силіконовий Garmin Lily - Black",
+      "before": {
+        "paramCount": 1,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "Сумісність з серією",
+          "label": "Сумісність з серією",
+          "value": "Lily",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        },
+        {
+          "key": "Розмір",
+          "label": "Розмір",
+          "value": "14 мм",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 3,
+        "supplementalCount": 2,
+        "filterFacets": {
+          "bodySize": [
+            "14 мм"
+          ]
+        }
+      }
+    },
+    {
+      "sku": "21040870",
+      "productId": "718",
+      "name": "Ремінець Силіконовий 20 mm Garmin Fenix 6S - Army Green Gold",
+      "before": {
+        "paramCount": 1,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "Сумісність з серією",
+          "label": "Сумісність з серією",
+          "value": "Fenix 5s/6s/7s/8-43 mm; Epix Pro-42 mm",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        },
+        {
+          "key": "Розмір",
+          "label": "Розмір",
+          "value": "20 мм",
+          "sourceFile": "hid_specifications_463.1785429867_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 3,
+        "supplementalCount": 2,
+        "filterFacets": {
+          "bodySize": [
+            "20 мм"
+          ]
+        }
+      }
+    },
+    {
+      "sku": "010-01674-00",
+      "productId": "732",
+      "name": "Garmin Varia UT800 Smart Headlight Trail Edition",
+      "before": {
+        "paramCount": 0,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "Розмір ліхтаря",
+          "label": "Розмір ліхтаря",
+          "value": "3,8 дюйма x 1,3 дюйма x 1,2 дюйма (96,6 мм x 33,5 мм x 29,7 мм); 1,8 дюйма з фланцем (44,7 мм із фланцем)",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "Вага ліхтаря",
+          "label": "Вага ліхтаря",
+          "value": "4,6 унції (130,0 г)",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "Світлові режими",
+          "label": "Світлові режими",
+          "value": "високий, середній, низький, нічний спалах і денний спалах",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "Люмен",
+          "label": "Люмен",
+          "value": "800 високих, 400 середніх, 200 низьких, нічний спалах і денний спалах",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "Водостійкість ліхтаря",
+          "label": "Водостійкість ліхтаря",
+          "value": "IPX7",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "Термін служби батареї ліхтаря",
+          "label": "Термін служби батареї ліхтаря",
+          "value": "1,5 години, висока\n3 години, середня\n6 годин, низька\n25 годин, денний спалах\n6 годин, нічний спалах",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "ANT+",
+          "label": "ANT+",
+          "value": "так (велосипедні фари)",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "PRODUCTSPECVIEWINGANGLE",
+          "label": "PRODUCTSPECVIEWINGANGLE",
+          "value": "270°",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "Дальність видимості",
+          "label": "Дальність видимості",
+          "value": "1 миля (1,6 км)",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "Розумна фара",
+          "label": "Розумна фара",
+          "value": "Да",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 10,
+        "supplementalCount": 10,
+        "filterFacets": {
+          "bodySize": [
+            "3,8 дюйма x 1,3 дюйма x 1,2 дюйма (96,6 мм x 33,5 мм x 29,7 мм); 1,8 дюйма з фланцем (44,7 мм із фланцем)"
+          ],
+          "waterResistance": [
+            "IPX7"
+          ],
+          "battery": [
+            "1,5 години, висока\n3 години, середня\n6 годин, низька\n25 годин, денний спалах\n6 годин, нічний спалах"
+          ]
+        }
+      }
+    },
+    {
+      "sku": "010-01673-00",
+      "productId": "733",
+      "name": "Garmin Varia UT800 Smart Headlight Urban Edition",
+      "before": {
+        "paramCount": 0,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "Розмір ліхтаря",
+          "label": "Розмір ліхтаря",
+          "value": "3,8 дюйма x 1,3 дюйма x 1,2 дюйма (96,6 мм x 33,5 мм x 29,7 мм); 1,8 дюйма з фланцем (44,7 мм із фланцем",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "Вага ліхтаря",
+          "label": "Вага ліхтаря",
+          "value": "4,6 унції (130,0 г)",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "Світлові режими",
+          "label": "Світлові режими",
+          "value": "високий, середній, низький, нічний спалах і денний спалах",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "Люмен",
+          "label": "Люмен",
+          "value": "800 високих, 400 середніх, 200 низьких, нічний спалах і денний спалах",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "Водостійкість ліхтаря",
+          "label": "Водостійкість ліхтаря",
+          "value": "IPX7",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "Термін служби батареї ліхтаря",
+          "label": "Термін служби батареї ліхтаря",
+          "value": "1,5 години, висока\n3 години, середня\n6 годин, низька\n25 годин, денний спалах\n6 годин, нічний спалах",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "ANT+",
+          "label": "ANT+",
+          "value": "так (велосипедні фари)",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "PRODUCTSPECVIEWINGANGLE",
+          "label": "PRODUCTSPECVIEWINGANGLE",
+          "value": "270°",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "Дальність видимості",
+          "label": "Дальність видимості",
+          "value": "1 миля (1,6 км)",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        },
+        {
+          "key": "Розумна фара",
+          "label": "Розумна фара",
+          "value": "Да",
+          "sourceFile": "hid_specifications_459.1785429795_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 10,
+        "supplementalCount": 10,
+        "filterFacets": {
+          "bodySize": [
+            "3,8 дюйма x 1,3 дюйма x 1,2 дюйма (96,6 мм x 33,5 мм x 29,7 мм); 1,8 дюйма з фланцем (44,7 мм із фланцем"
+          ],
+          "waterResistance": [
+            "IPX7"
+          ],
+          "battery": [
+            "1,5 години, висока\n3 години, середня\n6 годин, низька\n25 годин, денний спалах\n6 годин, нічний спалах"
+          ]
+        }
+      }
+    },
+    {
+      "sku": "010-02890-00",
+      "productId": "734",
+      "name": "Garmin Edge 1050 Premium Cycling Computer",
+      "before": {
+        "paramCount": 0,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "GARMIN PAY",
+          "label": "GARMIN PAY",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "РОЗМІР",
+          "label": "РОЗМІР",
+          "value": "60,2 x 118,5 x 16,3 мм (2,4 дюйма x 4,7 дюйма x 0,6 дюйма)",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ВАГА",
+          "label": "ВАГА",
+          "value": "161 г (5,7 унції)",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ВОДОСТІЙКІСТЬ",
+          "label": "ВОДОСТІЙКІСТЬ",
+          "value": "IPX7",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СЕНСОРНИЙ ЕКРАН",
+          "label": "СЕНСОРНИЙ ЕКРАН",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ТИП ДИСПЛЕЯ",
+          "label": "ТИП ДИСПЛЕЯ",
+          "value": "Рідкокристалічний",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "РОЗМІР ДИСПЛЕЯ",
+          "label": "РОЗМІР ДИСПЛЕЯ",
+          "value": "Діагональ 88,9 мм (3,5 дюйма)",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "РОЗДІЛЬНА ЗДАТНІСТЬ ДИСПЛЕЯ",
+          "label": "РОЗДІЛЬНА ЗДАТНІСТЬ ДИСПЛЕЯ",
+          "value": "480 x 800 px",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "КОЛЬОРОВИЙ ДИСПЛЕЙ",
+          "label": "КОЛЬОРОВИЙ ДИСПЛЕЙ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ВБУДОВАНИЙ ДИНАМІК",
+          "label": "ВБУДОВАНИЙ ДИНАМІК",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ТИП БАТАРЕЇ",
+          "label": "ТИП БАТАРЕЇ",
+          "value": "li-ion",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ТЕРМІН СЛУЖБИ БАТАРЕЇ",
+          "label": "ТЕРМІН СЛУЖБИ БАТАРЕЇ",
+          "value": "До 20 годин роботи за потреби\nДо 60 годин, режим економії заряду акумулятора",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "РЕЖИМ ЕКОНОМІЇ ЗАРЯДУ БАТАРЕЇ",
+          "label": "РЕЖИМ ЕКОНОМІЇ ЗАРЯДУ БАТАРЕЇ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СУМІСНІСТЬ ІЗ ЖИВЛЕННЯМ ПІД ЧАС ПОЇЗДКИ",
+          "label": "СУМІСНІСТЬ ІЗ ЖИВЛЕННЯМ ПІД ЧАС ПОЇЗДКИ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "МОЖЛИВІСТЬ ДОДАВАТИ КАРТИ",
+          "label": "МОЖЛИВІСТЬ ДОДАВАТИ КАРТИ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "МЕНЕДЖЕР КАРТ WI-FI",
+          "label": "МЕНЕДЖЕР КАРТ WI-FI",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "БАЗОВА КАРТА",
+          "label": "БАЗОВА КАРТА",
+          "value": "Попередньо завантажена велокарта Garmin",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ЗБЕРІГАННЯ ТА ПОТУЖНІСТЬ",
+          "label": "ЗБЕРІГАННЯ ТА ПОТУЖНІСТЬ",
+          "value": "64 ГБ (внутрішня пам'ять)",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ПУНКТИ/ВИБРАНЕ/МІСЦЯ",
+          "label": "ПУНКТИ/ВИБРАНЕ/МІСЦЯ",
+          "value": "200",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "НАВІГАЦІЙНІ МАРШРУТИ",
+          "label": "НАВІГАЦІЙНІ МАРШРУТИ",
+          "value": "100 курсів",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ІСТОРІЯ",
+          "label": "ІСТОРІЯ",
+          "value": "До 200 годин",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "GPS",
+          "label": "GPS",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ГЛОНАСС",
+          "label": "ГЛОНАСС",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "БАРОМЕТРИЧНИЙ ВИСОТОМІР",
+          "label": "БАРОМЕТРИЧНИЙ ВИСОТОМІР",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ГАЛІЛЕЙ",
+          "label": "ГАЛІЛЕЙ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ГІРОСКОП",
+          "label": "ГІРОСКОП",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "АКСЕЛЕРОМЕТР",
+          "label": "АКСЕЛЕРОМЕТР",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ДАТЧИК ЗОВНІШНЬОГО ОСВІТЛЕННЯ",
+          "label": "ДАТЧИК ЗОВНІШНЬОГО ОСВІТЛЕННЯ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "БАГАТОДІАПАЗОННА GNSS",
+          "label": "БАГАТОДІАПАЗОННА GNSS",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "МАГНІТОМЕТР",
+          "label": "МАГНІТОМЕТР",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ПІДКЛЮЧЕННЯ",
+          "label": "ПІДКЛЮЧЕННЯ",
+          "value": "Bluetooth®, ANT+, Wi-Fi",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "CONNECT IQ ™ (ЗАВАНТАЖУВАНІ ЦИФЕРБЛАТИ, ПОЛЯ ДАНИХ, ВІДЖЕТИ ТА ПРОГРАМИ)",
+          "label": "CONNECT IQ ™ (ЗАВАНТАЖУВАНІ ЦИФЕРБЛАТИ, ПОЛЯ ДАНИХ, ВІДЖЕТИ ТА ПРОГРАМИ)",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "НА ПРИСТРОЇ CONNECT IQ ™ STORE",
+          "label": "НА ПРИСТРОЇ CONNECT IQ ™ STORE",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "РОЗУМНІ СПОВІЩЕННЯ",
+          "label": "РОЗУМНІ СПОВІЩЕННЯ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ТЕКСТОВА ВІДПОВІДЬ/ВІДХИЛЕННЯ ТЕЛЕФОННОГО ДЗВІНКА З ТЕКСТОВИМ ПОВІДОМЛЕННЯМ (ТІЛЬКИ ANDROID)",
+          "label": "ТЕКСТОВА ВІДПОВІДЬ/ВІДХИЛЕННЯ ТЕЛЕФОННОГО ДЗВІНКА З ТЕКСТОВИМ ПОВІДОМЛЕННЯМ (ТІЛЬКИ ANDROID)",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ПРОГНОЗИ ПОГОДИ",
+          "label": "ПРОГНОЗИ ПОГОДИ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "НАЛАШТУВАННЯ В РЕАЛЬНОМУ ЧАСІ СИНХРОНІЗУЮТЬСЯ З GARMIN CONNECT  MOBILE",
+          "label": "НАЛАШТУВАННЯ В РЕАЛЬНОМУ ЧАСІ СИНХРОНІЗУЮТЬСЯ З GARMIN CONNECT  MOBILE",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "КЕРУЄ МУЗИКОЮ НА СМАРТФОНІ",
+          "label": "КЕРУЄ МУЗИКОЮ НА СМАРТФОНІ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ДИСТАНЦІЙНЕ КЕРУВАННЯ КАМЕРОЮ VIRB",
+          "label": "ДИСТАНЦІЙНЕ КЕРУВАННЯ КАМЕРОЮ VIRB",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "РОЗУМНЕ КЕРУВАННЯ ТРЕНАЖЕРОМ",
+          "label": "РОЗУМНЕ КЕРУВАННЯ ТРЕНАЖЕРОМ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СУМІСНІСТЬ ЗІ СМАРТФОНОМ",
+          "label": "СУМІСНІСТЬ ЗІ СМАРТФОНОМ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ДОПОМОГА",
+          "label": "ДОПОМОГА",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "LIVETRACK",
+          "label": "LIVETRACK",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "GROUPTRACK",
+          "label": "GROUPTRACK",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ГРУПОВА ПОЇЗДКА (ВЕЛОСИПЕД)",
+          "label": "ГРУПОВА ПОЇЗДКА (ВЕЛОСИПЕД)",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ЗМАГАННЯ ТА НАГОРОДЖЕННЯ GROUPRIDE",
+          "label": "ЗМАГАННЯ ТА НАГОРОДЖЕННЯ GROUPRIDE",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ОБМІН ПОВІДОМЛЕННЯМИ МІЖ ВОДІЯМИ",
+          "label": "ОБМІН ПОВІДОМЛЕННЯМИ МІЖ ВОДІЯМИ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ВИЯВЛЕННЯ ІНЦИДЕНТІВ",
+          "label": "ВИЯВЛЕННЯ ІНЦИДЕНТІВ",
+          "value": "Так (включаючи бездоріжжя)",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ВИЯВЛЕННЯ ІНЦИДЕНТІВ GROUPRIDE",
+          "label": "ВИЯВЛЕННЯ ІНЦИДЕНТІВ GROUPRIDE",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ЗВІТИ ПРО НЕБЕЗПЕКИ, СТВОРЕНІ СПІЛЬНОТОЮ",
+          "label": "ЗВІТИ ПРО НЕБЕЗПЕКИ, СТВОРЕНІ СПІЛЬНОТОЮ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "FIND MY EDGE",
+          "label": "FIND MY EDGE",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ВЕЛОСИГНАЛІЗАЦІЯ",
+          "label": "ВЕЛОСИГНАЛІЗАЦІЯ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СПОВІЩЕННЯ ПРО ПОГОДУ",
+          "label": "СПОВІЩЕННЯ ПРО ПОГОДУ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СУМІСНИЙ З INREACH",
+          "label": "СУМІСНИЙ З INREACH",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СПАЛЕНІ КАЛОРІЇ",
+          "label": "СПАЛЕНІ КАЛОРІЇ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ХВИЛИНИ ІНТЕНСИВНОСТІ",
+          "label": "ХВИЛИНИ ІНТЕНСИВНОСТІ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "НАСТРОЮВАНІ ЕКРАНИ",
+          "label": "НАСТРОЮВАНІ ЕКРАНИ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ПЛАНИ ТРЕНУВАНЬ, ЯКІ МОЖНА ЗАВАНТАЖИТИ",
+          "label": "ПЛАНИ ТРЕНУВАНЬ, ЯКІ МОЖНА ЗАВАНТАЖИТИ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "РЕКОМЕНДАЦІЇ ЩОДО ЩОДЕННИХ ТРЕНУВАНЬ",
+          "label": "РЕКОМЕНДАЦІЇ ЩОДО ЩОДЕННИХ ТРЕНУВАНЬ",
+          "value": "Так (спеціальна подія)",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ОСНОВНІ ТА ДОДАТКОВІ ЦІЛІ ТРЕНУВАННЯ",
+          "label": "ОСНОВНІ ТА ДОДАТКОВІ ЦІЛІ ТРЕНУВАННЯ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "АВТОМАТИЧНА ПАУЗА",
+          "label": "АВТОМАТИЧНА ПАУЗА",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ІНТЕРВАЛЬНИЙ ТРЕНІНГ",
+          "label": "ІНТЕРВАЛЬНИЙ ТРЕНІНГ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "РОЗШИРЕНІ ТРЕНУВАННЯ",
+          "label": "РОЗШИРЕНІ ТРЕНУВАННЯ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "AUTO LAP",
+          "label": "AUTO LAP",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "VO2 МАКС",
+          "label": "VO2 МАКС",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СТАТУС ТРЕНУВАННЯ - ВЕЛОСПОРТ",
+          "label": "СТАТУС ТРЕНУВАННЯ - ВЕЛОСПОРТ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ТРЕНУВАЛЬНЕ НАВАНТАЖЕННЯ - ВЕЛОСПОРТ",
+          "label": "ТРЕНУВАЛЬНЕ НАВАНТАЖЕННЯ - ВЕЛОСПОРТ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ФОКУС ТРЕНУВАЛЬНОГО НАВАНТАЖЕННЯ - ЇЗДА НА ВЕЛОСИПЕДІ",
+          "label": "ФОКУС ТРЕНУВАЛЬНОГО НАВАНТАЖЕННЯ - ЇЗДА НА ВЕЛОСИПЕДІ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ВИТРИВАЛІСТЬ У РЕАЛЬНОМУ ЧАСІ - ЇЗДА НА ВЕЛОСИПЕДІ",
+          "label": "ВИТРИВАЛІСТЬ У РЕАЛЬНОМУ ЧАСІ - ЇЗДА НА ВЕЛОСИПЕДІ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "АНАЛІЗ НАВИЧОК ЇЗДИ НА ВЕЛОСИПЕДІ",
+          "label": "АНАЛІЗ НАВИЧОК ЇЗДИ НА ВЕЛОСИПЕДІ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "КУРС ВИМАГАЄ АНАЛІЗУ",
+          "label": "КУРС ВИМАГАЄ АНАЛІЗУ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ТРЕНУВАЛЬНИЙ ЕФЕКТ",
+          "label": "ТРЕНУВАЛЬНИЙ ЕФЕКТ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "РАДНИК З ВІДНОВЛЕННЯ",
+          "label": "РАДНИК З ВІДНОВЛЕННЯ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ВІРТУАЛЬНИЙ ПАРТНЕР",
+          "label": "ВІРТУАЛЬНИЙ ПАРТНЕР",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ЗМАГАЙТЕСЯ",
+          "label": "ЗМАГАЙТЕСЯ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СЕГМЕНТИ",
+          "label": "СЕГМЕНТИ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "АВТОМАТИЧНА ПРОКРУТКА",
+          "label": "АВТОМАТИЧНА ПРОКРУТКА",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "PHYSIO TRUEUP",
+          "label": "PHYSIO TRUEUP",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "УНІФІКОВАНИЙ СТАТУС НАВЧАННЯ",
+          "label": "УНІФІКОВАНИЙ СТАТУС НАВЧАННЯ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "CLIMBPRO ASCENT PLANNER - ВЕЛОСПОРТ",
+          "label": "CLIMBPRO ASCENT PLANNER - ВЕЛОСПОРТ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "CLIMBPRO - КУРСИ",
+          "label": "CLIMBPRO - КУРСИ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "CLIMBPRO - ВІЛЬНА ЇЗДА",
+          "label": "CLIMBPRO - ВІЛЬНА ЇЗДА",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "КУРСИ",
+          "label": "КУРСИ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СПОВІЩЕННЯ (ПРИ ДОСЯГНЕННІ ЦІЛЕЙ)",
+          "label": "СПОВІЩЕННЯ (ПРИ ДОСЯГНЕННІ ЦІЛЕЙ)",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "FTP (ФУНКЦІОНАЛЬНА ПОРОГОВА ПОТУЖНІСТЬ)",
+          "label": "FTP (ФУНКЦІОНАЛЬНА ПОРОГОВА ПОТУЖНІСТЬ)",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ВЕЛОСИПЕДНА КАРТА GARMIN (ПРОКЛАДНА КАРТА ВУЛИЦЬ ДЛЯ ВЕЛОСИПЕДИСТІВ)",
+          "label": "ВЕЛОСИПЕДНА КАРТА GARMIN (ПРОКЛАДНА КАРТА ВУЛИЦЬ ДЛЯ ВЕЛОСИПЕДИСТІВ)",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "МТБ ДИНАМІКА",
+          "label": "МТБ ДИНАМІКА",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СУМІСНІСТЬ ІЗ РАДАРОМ VARIA (РАДАР, СПРЯМОВАНИЙ ЗЗАДУ)",
+          "label": "СУМІСНІСТЬ ІЗ РАДАРОМ VARIA (РАДАР, СПРЯМОВАНИЙ ЗЗАДУ)",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СУМІСНІСТЬ ІЗ КАМЕРОЮ VARIA RADAR",
+          "label": "СУМІСНІСТЬ ІЗ КАМЕРОЮ VARIA RADAR",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СУМІСНИЙ З ЛІХТАРЯМИ VARIA",
+          "label": "СУМІСНИЙ З ЛІХТАРЯМИ VARIA",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СУМІСНИЙ З ВИМІРЮВАЧЕМ ПОТУЖНОСТІ",
+          "label": "СУМІСНИЙ З ВИМІРЮВАЧЕМ ПОТУЖНОСТІ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СТВОРЮВАЧ КУРСУ НА ПРИСТРОЇ",
+          "label": "СТВОРЮВАЧ КУРСУ НА ПРИСТРОЇ",
+          "value": "Покращений",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ПОШУК МІСЦЕЗНАХОДЖЕННЯ НА ПРИСТРОЇ",
+          "label": "ПОШУК МІСЦЕЗНАХОДЖЕННЯ НА ПРИСТРОЇ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ПОСІБНИК З ЖИВЛЕННЯ",
+          "label": "ПОСІБНИК З ЖИВЛЕННЯ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ТРЕНДЛАЙН ПОПУЛЯРНИЙ МАРШРУТ - ВЕЛОСИПЕД",
+          "label": "ТРЕНДЛАЙН ПОПУЛЯРНИЙ МАРШРУТ - ВЕЛОСИПЕД",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ТЕПЛОВА КАРТА ПОПУЛЯРНОСТІ",
+          "label": "ТЕПЛОВА КАРТА ПОПУЛЯРНОСТІ",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "СУМІСНІСТЬ ІЗ CYCLING DYNAMICS",
+          "label": "СУМІСНІСТЬ ІЗ CYCLING DYNAMICS",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ІНТЕГРОВАНІ ДАНІ TRAILFORKS",
+          "label": "ІНТЕГРОВАНІ ДАНІ TRAILFORKS",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "EBIKE SMART RANGE ROUTING",
+          "label": "EBIKE SMART RANGE ROUTING",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ДИСТАНЦІЙНЕ КЕРУВАННЯ EDGE",
+          "label": "ДИСТАНЦІЙНЕ КЕРУВАННЯ EDGE",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ДИСТАНЦІЙНЕ КЕРУВАННЯ VARIA",
+          "label": "ДИСТАНЦІЙНЕ КЕРУВАННЯ VARIA",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ЕЛЕКТРОННЕ ПЕРЕМИКАННЯ ПЕРЕДАЧ ANT+",
+          "label": "ЕЛЕКТРОННЕ ПЕРЕМИКАННЯ ПЕРЕДАЧ ANT+",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ІНТЕГРАЦІЯ SHIMANO DI2 SYNCHRO SHIFT",
+          "label": "ІНТЕГРАЦІЯ SHIMANO DI2 SYNCHRO SHIFT",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "ІНТЕГРАЦІЯ SRAM AXS",
+          "label": "ІНТЕГРАЦІЯ SRAM AXS",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        },
+        {
+          "key": "РОЗШИРЕНИЙ ДИСПЛЕЙ (ОБМІН ЕКРАНАМИ ДАНИХ НА EDGE )",
+          "label": "РОЗШИРЕНИЙ ДИСПЛЕЙ (ОБМІН ЕКРАНАМИ ДАНИХ НА EDGE )",
+          "value": "Да",
+          "sourceFile": "hid_specifications_461.1785429856_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 105,
+        "supplementalCount": 105,
+        "filterFacets": {
+          "bodySize": [
+            "60,2 x 118,5 x 16,3 мм (2,4 дюйма x 4,7 дюйма x 0,6 дюйма)",
+            "Діагональ 88,9 мм (3,5 дюйма)"
+          ],
+          "displayType": [
+            "Да",
+            "Рідкокристалічний"
+          ],
+          "waterResistance": [
+            "IPX7"
+          ],
+          "battery": [
+            "li-ion",
+            "До 20 годин роботи за потреби\nДо 60 годин, режим економії заряду акумулятора",
+            "Да"
+          ],
+          "sensors": [
+            "Да"
+          ],
+          "gps": [
+            "Да"
+          ]
+        }
+      }
+    },
+    {
+      "sku": "010-02618-10",
+      "productId": "738",
+      "name": "Garmin Xero C1 Pro Chronograph",
+      "before": {
+        "paramCount": 0,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "Сенсорний екран",
+          "label": "Сенсорний екран",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Можливість додавати карти",
+          "label": "Можливість додавати карти",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Базова карта",
+          "label": "Базова карта",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Детальні гідрографічні особливості (берегові лінії, водно-болотні угіддя, потоки)",
+          "label": "Детальні гідрографічні особливості (берегові лінії, водно-болотні угіддя, потоки)",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Об’єкти інтересу з можливістю пошуку (парки, кемпінги, оглядові майданчики)",
+          "label": "Об’єкти інтересу з можливістю пошуку (парки, кемпінги, оглядові майданчики)",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Відображає національні, державні та місцеві парки, ліси та пустелі",
+          "label": "Відображає національні, державні та місцеві парки, ліси та пустелі",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Лісорубка Рінекс",
+          "label": "Лісорубка Рінекс",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "GPS",
+          "label": "GPS",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "ГЛОНАСС",
+          "label": "ГЛОНАСС",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Галілей",
+          "label": "Галілей",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Барометричний висотомір",
+          "label": "Барометричний висотомір",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Високочутливий приймач",
+          "label": "Високочутливий приймач",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "GPS компас (під час руху)",
+          "label": "GPS компас (під час руху)",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Connect IQ ™ (завантаж. циферблати, поля даних, віджети, програми)",
+          "label": "Connect IQ ™ (завантаж. циферблати, поля даних, віджети, програми)",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Розумні сповіщення на КПК",
+          "label": "Розумні сповіщення на КПК",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Прогнози погоди",
+          "label": "Прогнози погоди",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Активна погода",
+          "label": "Активна погода",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Дистанційне керування камерою VIRB навігатора",
+          "label": "Дистанційне керування камерою VIRB навігатора",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Сумісний із Garmin Connect ™ Mobile",
+          "label": "Сумісний із Garmin Connect ™ Mobile",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "LiveTrack",
+          "label": "LiveTrack",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Локації XERO ™",
+          "label": "Локації XERO ™",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Двохточкова навігація",
+          "label": "Двохточкова навігація",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Розрахунок площі",
+          "label": "Розрахунок площі",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Рибний прогноз",
+          "label": "Рибний прогноз",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Інформація про сонце і місяць",
+          "label": "Інформація про сонце і місяць",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Переглядач зображень",
+          "label": "Переглядач зображень",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Віддалений віджет inReach",
+          "label": "Віддалений віджет inReach",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Світлодіодний ліхтарик маячок",
+          "label": "Світлодіодний ліхтарик маячок",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Сумісний з дистанційним керуванням inReach",
+          "label": "Сумісний з дистанційним керуванням inReach",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        },
+        {
+          "key": "Сумісний із додатком Garmin Explore",
+          "label": "Сумісний із додатком Garmin Explore",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_460.1785429809_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 30,
+        "supplementalCount": 30,
+        "filterFacets": {
+          "displayType": [
+            "Нет"
+          ],
+          "sensors": [
+            "Нет"
+          ],
+          "gps": [
+            "Нет"
+          ]
+        }
+      }
+    },
+    {
+      "sku": "010-13314-00",
+      "productId": "740",
+      "name": "Garmin HRM-Fit",
+      "before": {
+        "paramCount": 0,
+        "specificationKeys": []
+      },
+      "added": [
+        {
+          "key": "Термін служби батареї",
+          "label": "Термін служби батареї",
+          "value": "змінна батарея до 1 року",
+          "sourceFile": "hid_specifications_458.1785425464_1785430404604.xlsx"
+        },
+        {
+          "key": "Тип дверцят батареї",
+          "label": "Тип дверцят батареї",
+          "value": "Закручування",
+          "sourceFile": "hid_specifications_458.1785425464_1785430404604.xlsx"
+        },
+        {
+          "key": "Знімний модуль",
+          "label": "Знімний модуль",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_458.1785425464_1785430404604.xlsx"
+        },
+        {
+          "key": "Підключення датчика",
+          "label": "Підключення датчика",
+          "value": "Bluetooth® , ANT+ ® , Wi-Fi®",
+          "sourceFile": "hid_specifications_458.1785425464_1785430404604.xlsx"
+        },
+        {
+          "key": "Передача пульсу в режимі реального часу через підключення ANT",
+          "label": "Передача пульсу в режимі реального часу через підключення ANT",
+          "value": "Да",
+          "sourceFile": "hid_specifications_458.1785425464_1785430404604.xlsx"
+        },
+        {
+          "key": "Підтримує варіабельність серцевого ритму (ВСР)",
+          "label": "Підтримує варіабельність серцевого ритму (ВСР)",
+          "value": "Да",
+          "sourceFile": "hid_specifications_458.1785425464_1785430404604.xlsx"
+        },
+        {
+          "key": "Передає частоту серцевих скорочень у реальному часі та підтримує HRV",
+          "label": "Передає частоту серцевих скорочень у реальному часі та підтримує HRV",
+          "value": "Да",
+          "sourceFile": "hid_specifications_458.1785425464_1785430404604.xlsx"
+        },
+        {
+          "key": "ІНФОРМАЦІЯ ПРО БЕЗПЕКУ:",
+          "label": "ІНФОРМАЦІЯ ПРО БЕЗПЕКУ:",
+          "value": "Нет",
+          "sourceFile": "hid_specifications_458.1785425464_1785430404604.xlsx"
+        }
+      ],
+      "after": {
+        "paramCount": 8,
+        "supplementalCount": 8,
+        "filterFacets": {
+          "battery": [
+            "змінна батарея до 1 року",
+            "Закручування"
+          ],
+          "sensors": [
+            "Bluetooth® , ANT+ ® , Wi-Fi®"
+          ]
+        }
+      }
+    }
+  ]
+}

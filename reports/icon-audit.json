@@ -1,0 +1,57 @@
+{
+  "date": "2026-07-30",
+  "result": "fixed-and-verified-at-bundle-level",
+  "cause": {
+    "summary": "Ionicons and Feather icon fonts were not included in the root useFonts gate before native screens mounted.",
+    "androidSymptom": "Missing font glyph fallback rendered as a rectangle with an X.",
+    "webDifference": "Metro/web asset handling and development reload timing can hide native font-registration timing issues."
+  },
+  "libraries": {
+    "@expo/vector-icons": "15.1.1",
+    "iconSets": [
+      "Ionicons",
+      "Feather"
+    ],
+    "otherIconPaths": [
+      "expo-symbols SymbolView on the iOS liquid-glass/native-tab path",
+      "expo-router unstable-native-tabs Icon on the iOS liquid-glass/native-tab path; Android is explicitly excluded"
+    ],
+    "unsupportedIconPackagesFound": []
+  },
+  "glyphAudit": {
+    "Ionicons": {
+      "glyphCount": 1357,
+      "fontFile": "Ionicons.ttf",
+      "fontBytes": 389724,
+      "md5": "b4eb097d35f44ed943676fd56f6bdc51"
+    },
+    "Feather": {
+      "glyphCount": 287,
+      "fontFile": "Feather.ttf",
+      "fontBytes": 55596,
+      "md5": "ca4b48e04dc1ce10bfbddb262c8b835f"
+    },
+    "unknownStaticNames": []
+  },
+  "changedFiles": [
+    "app/_layout.tsx",
+    "components/SafeIonicons.tsx"
+  ],
+  "validation": {
+    "typescript": "passed",
+    "gitDiffCheck": "passed",
+    "androidExpoExport": "passed",
+    "androidProductionBundle": "passed",
+    "iconFontsInAndroidAssetGraph": true,
+    "workflowRestarted": true,
+    "physicalAndroidTest": "blocked-by-missing-local-toolchain-and-device",
+    "androidNavigationGuard": "NativeTabs/SF Symbols are iOS-only; Android uses classic tabs with bundled Feather glyphs"
+  },
+  "environmentLimitations": [
+    "No android/ directory",
+    "No Java/JDK",
+    "No Android SDK",
+    "No Gradle",
+    "No ADB"
+  ]
+}

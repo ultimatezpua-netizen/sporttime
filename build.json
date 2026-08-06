@@ -1,0 +1,48 @@
+{
+  "id": "2677805b-4d05-4225-9208-4e99cbe51bf4",
+  "status": "ERRORED",
+  "platform": "ANDROID",
+  "error": {
+    "errorCode": "EAS_BUILD_UNKNOWN_GRADLE_ERROR",
+    "message": "Gradle build failed with unknown error. See logs for the \"Run gradlew\" phase for more information."
+  },
+  "artifacts": {},
+  "fingerprint": {
+    "id": "019fba8c-3cce-704d-ba27-5b3c18a73c45",
+    "hash": "06f2de95ba75146c54751625e09cedf10e68221c"
+  },
+  "initiatingActor": {
+    "id": "3f91d54e-3b1d-4741-99eb-ee4f193d468a",
+    "displayName": "dedartemka"
+  },
+  "logFiles": [
+    "https://storage.googleapis.com/eas-workflows-production/logs/5e36a8ba-3099-4e4a-92c2-c4cdb6ed8916/2677805b-4d05-4225-9208-4e99cbe51bf4/2026-08-01T20%3A45%3A07Z-c2fff187-4d9b-46e1-8969-f35fc3d764ff.txt?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=www-production%40exponentjs.iam.gserviceaccount.com%2F20260801%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20260801T211923Z&X-Goog-Expires=900&X-Goog-SignedHeaders=host&X-Goog-Signature=314224b5ade7efc9fb690e29f566a6feeb5a8564d7d27d698dd9f415beadfa43b5eab5a993a69ee6665a82f2fae52eab13d4791f1e90066994a3b01b3e0f230233b60292ecdbb8e04a90ab979ce3a6bd2410ba013b219fdc0f8c5598c56e6658a1e8e9efc9ad742d55199b6822f289b18bdb7f6042d5f9d454d22d85fb40ef5194db42e2042a2af10d5c5446f627b6c39bb516da80b0b2f39f64428e451d86753fa21d592966d6a0ca2c77737269dca3117bb9857d35e8fc3a84e4cfd356f8ca67898770ee8fb7ef2aff5fcc09fd8a0430c7bb3b964e6dc89b7cb6e843b608854b1e70d04721e032439575adabd8515a59ae942f25cce4762999dd917a03b296"
+  ],
+  "project": {
+    "id": "5e36a8ba-3099-4e4a-92c2-c4cdb6ed8916",
+    "name": "sporttime",
+    "slug": "sporttime",
+    "ownerAccount": {
+      "id": "5c36438f-bc35-428f-a3d8-34a4f0404330",
+      "name": "dedartemka"
+    }
+  },
+  "distribution": "INTERNAL",
+  "buildProfile": "preview",
+  "sdkVersion": "54.0.0",
+  "appVersion": "1.0.1",
+  "appBuildVersion": "7",
+  "gitCommitHash": "3baf6bd6ae81d85556b7e7088398376ac75ad6bd",
+  "gitCommitMessage": "Add payment confirmation screen and payment method badge on order detail\n\nReplit-Task-Id: 0ad8dd3d-811b-4af7-b32f-6c76241f8919",
+  "priority": "NORMAL",
+  "createdAt": "2026-08-01T20:45:02.630Z",
+  "updatedAt": "2026-08-01T20:50:45.306Z",
+  "completedAt": "2026-08-01T20:50:45.127Z",
+  "expirationDate": "2026-08-15T20:45:02.661Z",
+  "isForIosSimulator": false,
+  "metrics": {
+    "buildWaitTime": 4426,
+    "buildQueueTime": 4898,
+    "buildDuration": 333173
+  }
+}

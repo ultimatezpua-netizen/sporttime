@@ -1,0 +1,202 @@
+[
+  {
+    "id": "1084",
+    "name": "Garmin",
+    "parentId": null
+  },
+  {
+    "id": "1090",
+    "name": "Смарт-годинники за серіями",
+    "parentId": "1084"
+  },
+  {
+    "id": "1099",
+    "name": "Garmin Fenix",
+    "parentId": "1090"
+  },
+  {
+    "id": "1100",
+    "name": "Garmin Epix",
+    "parentId": "1090"
+  },
+  {
+    "id": "1101",
+    "name": "Garmin Descent",
+    "parentId": "1090"
+  },
+  {
+    "id": "1102",
+    "name": "Garmin Enduro",
+    "parentId": "1090"
+  },
+  {
+    "id": "1103",
+    "name": "Garmin Forerunner",
+    "parentId": "1090"
+  },
+  {
+    "id": "1104",
+    "name": "Garmin Instinct",
+    "parentId": "1090"
+  },
+  {
+    "id": "1105",
+    "name": "Garmin Lily",
+    "parentId": "1090"
+  },
+  {
+    "id": "1106",
+    "name": "Garmin MARQ",
+    "parentId": "1090"
+  },
+  {
+    "id": "1107",
+    "name": "Garmin Quatix",
+    "parentId": "1090"
+  },
+  {
+    "id": "1108",
+    "name": "Garmin Tactix",
+    "parentId": "1090"
+  },
+  {
+    "id": "1109",
+    "name": "Garmin Venu",
+    "parentId": "1090"
+  },
+  {
+    "id": "1110",
+    "name": "Garmin Vivoactive",
+    "parentId": "1090"
+  },
+  {
+    "id": "1111",
+    "name": "Garmin Vivofit",
+    "parentId": "1090"
+  },
+  {
+    "id": "1112",
+    "name": "Garmin Vivomove",
+    "parentId": "1090"
+  },
+  {
+    "id": "1113",
+    "name": "Garmin Vivosmart",
+    "parentId": "1090"
+  },
+  {
+    "id": "1121",
+    "name": "Garmin Bounce",
+    "parentId": "1090"
+  },
+  {
+    "id": "1091",
+    "name": "Смарт-годинники за призначенням",
+    "parentId": "1084"
+  },
+  {
+    "id": "1114",
+    "name": "Жіночі смарт-годинники",
+    "parentId": "1091"
+  },
+  {
+    "id": "1116",
+    "name": "Тактичні смарт-годинники",
+    "parentId": "1091"
+  },
+  {
+    "id": "1117",
+    "name": "Спортивні смарт-годинники",
+    "parentId": "1091"
+  },
+  {
+    "id": "1118",
+    "name": "Повсякденні смарт-годинники",
+    "parentId": "1091"
+  },
+  {
+    "id": "1119",
+    "name": "Преміум смарт-годинники",
+    "parentId": "1091"
+  },
+  {
+    "id": "1122",
+    "name": "Suunto",
+    "parentId": null
+  },
+  {
+    "id": "1123",
+    "name": "Coros",
+    "parentId": null
+  },
+  {
+    "id": "1089",
+    "name": "Аксесуари до смартгодинників",
+    "parentId": null
+  },
+  {
+    "id": "1092",
+    "name": "Ремінці",
+    "parentId": "1089"
+  },
+  {
+    "id": "1093",
+    "name": "Зарядні пристрої",
+    "parentId": "1089"
+  },
+  {
+    "id": "1094",
+    "name": "Кріплення",
+    "parentId": "1089"
+  },
+  {
+    "id": "1095",
+    "name": "Захисне скло",
+    "parentId": "1089"
+  },
+  {
+    "id": "1096",
+    "name": "Безель",
+    "parentId": "1089"
+  },
+  {
+    "id": "1097",
+    "name": "Датчики",
+    "parentId": "1089"
+  },
+  {
+    "id": "1085",
+    "name": "Велокомп'ютери та аксесуари",
+    "parentId": null
+  },
+  {
+    "id": "1098",
+    "name": "Велокомп'ютери Garmin",
+    "parentId": "1085"
+  },
+  {
+    "id": "1087",
+    "name": "Датчики для велокомп'ютерів",
+    "parentId": "1085"
+  },
+  {
+    "id": "1082",
+    "name": "Ліхтарі",
+    "parentId": "1085"
+  },
+  {
+    "id": "1086",
+    "name": "Гаджети для активного відпочинку",
+    "parentId": null
+  },
+  {
+    "id": "1088",
+    "name": "Навігатори",
+    "parentId": "1086"
+  },
+  {
+    "id": "1083",
+    "name": "Ехолоти",
+    "parentId": "1086"
+  }
+]
