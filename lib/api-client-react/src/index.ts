@@ -1,5 +1,4 @@
-export type ApiClient = {
-  // TODO: implement API client methods
-};
-
-export const apiClient: ApiClient = {} as ApiClient;
+export * from "./generated/api";
+export * from "./generated/api.schemas";
+export { setBaseUrl, setAuthTokenGetter } from "./custom-fetch";
+export type { AuthTokenGetter } from "./custom-fetch";
