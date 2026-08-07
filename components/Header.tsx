@@ -255,6 +255,14 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
   return (
     <>
       <View style={[styles.container, { paddingTop: topPad }]}>
+        {/* Background hero image */}
+        <Image
+          source={require('../assets/images/6adc357f-6bbd-4076-9896-99619d83ea0f.jpeg')}
+          style={styles.headerBg}
+          resizeMode="cover"
+        />
+        {/* Dark overlay to match design */}
+        <View style={styles.headerOverlay} />
         {/* LEFT SECTION: BURGER MENU */}
         <Pressable
           onPress={onMenuPress}
@@ -432,6 +440,24 @@ const styles = StyleSheet.create({
     paddingBottom: 6,
     borderBottomWidth: 1,
     borderBottomColor: '#1C1C1E',
+    height: 92,
+    overflow: 'hidden',
+  },
+  headerBg: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: 92,
+    width: '100%',
+  },
+  headerOverlay: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: 92,
+    backgroundColor: 'rgba(0,0,0,0.55)'
   },
   iconBtn: {
     padding: 4,
