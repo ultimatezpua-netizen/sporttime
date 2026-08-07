@@ -1,0 +1,8 @@
+packages:
+  - '.'
+
+catalog:
+  default:
+    "@tanstack/react-query": "^5.59.0"
+    "react": "19.1.0"
+    "zod": "^3.24.0"
