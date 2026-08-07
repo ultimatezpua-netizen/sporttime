@@ -371,11 +371,11 @@ export default function ProfileScreen() {
 
         {/* Legal links */}
         <View style={styles.legalLinksContainer}>
-          <TouchableOpacity onPress={() => {}} activeOpacity={0.75}>
+          <TouchableOpacity onPress={() => router.push('/privacy')} activeOpacity={0.75}>
             <Text style={styles.legalLinkText}>Політика конфіденційності</Text>
           </TouchableOpacity>
           <Text style={styles.legalSeparator}>·</Text>
-          <TouchableOpacity onPress={() => {}} activeOpacity={0.75}>
+          <TouchableOpacity onPress={() => router.push('/terms')} activeOpacity={0.75}>
             <Text style={styles.legalLinkText}>Умови використання</Text>
           </TouchableOpacity>
         </View>
