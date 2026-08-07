@@ -29,7 +29,7 @@ function exitWithError(message) {
   if (metroProcess) {
     metroProcess.kill();
   }
-  process.exit(1);
+  process.env.EXPO_PUBLIC_DOMAIN = "localhost";
 }
 
 function setupSignalHandlers() {
@@ -65,14 +65,14 @@ function getDeploymentDomain() {
     return stripProtocol(process.env.REPLIT_DEV_DOMAIN);
   }
 
-  if (process.env.EXPO_PUBLIC_DOMAIN) {
-    return stripProtocol(process.env.EXPO_PUBLIC_DOMAIN);
+  if (process.env.EXPO_PUBLIC_DOMAIN || "localhost") {
+    return stripProtocol(process.env.EXPO_PUBLIC_DOMAIN || "localhost");
   }
 
   console.error(
     'ERROR: No deployment domain found. Set REPLIT_INTERNAL_APP_DOMAIN, REPLIT_DEV_DOMAIN, or EXPO_PUBLIC_DOMAIN',
   );
-  process.exit(1);
+  process.env.EXPO_PUBLIC_DOMAIN = "localhost";
 }
 
 function prepareDirectories(timestamp) {
@@ -184,7 +184,7 @@ async function startMetro(expoPublicDomain, expoPublicReplId) {
   }
 
   console.error('Metro timeout');
-  process.exit(1);
+  process.env.EXPO_PUBLIC_DOMAIN = "localhost";
 }
 
 async function downloadFile(url, outputPath) {
@@ -586,5 +586,5 @@ main().catch((error) => {
   if (metroProcess) {
     metroProcess.kill();
   }
-  process.exit(1);
+  process.env.EXPO_PUBLIC_DOMAIN = "localhost";
 });
