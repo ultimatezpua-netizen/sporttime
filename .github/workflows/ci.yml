@@ -25,4 +25,4 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       - name: Typecheck TypeScript
-        run: pnpm exec tsc --noEmit
+        run: pnpm --filter @workspace/api-client-react build && pnpm exec tsc --noEmit
