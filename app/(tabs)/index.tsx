@@ -18,36 +18,44 @@ import { Feather, Ionicons } from '@expo/vector-icons';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
+// Динамически берем первые два товара из базы, чтобы ID гарантированно совпадали
+const firstProduct = PRODUCTS[0] || { id: '1', title: 'FORERUNNER® 965', price: 26500 };
+const secondProduct = PRODUCTS[1] || { id: '2', title: 'FĒNIX® 8 AMOLED', price: 43500 };
+
 const HERO_SLIDES = [
   {
     id: '1',
-    productId: 'garmin-forerunner-965',
+    productId: firstProduct.id,
     tag: 'FORERUNNER',
     subTag: 'RUNNING & TRIATHLON',
-    title: 'FORERUNNER® 965',
+    title: firstProduct.title || 'FORERUNNER® 965',
     subtitle: 'Твій темп. Твій шлях. Кожен крок до перемоги.',
     btnText: 'ОБРАТИ СВІЙ ТЕМП',
-    image: 'https://images.unsplash.com/photo-1510017803434-a899398421b3?q=80&w=1000&auto=format&fit=crop',
-    price: '26 500 ₴',
+    image: Array.isArray(firstProduct.images) && firstProduct.images[0] 
+      ? firstProduct.images[0] 
+      : 'https://images.unsplash.com/photo-1510017803434-a899398421b3?q=80&w=1000&auto=format&fit=crop',
+    price: typeof firstProduct.price === 'number' ? `${firstProduct.price.toLocaleString('uk-UA')} ₴` : `${firstProduct.price} ₴`,
   },
   {
     id: '2',
-    productId: 'garmin-fenix-8-amoled',
+    productId: secondProduct.id,
     tag: 'FĒNIX 8',
     subTag: 'OUTDOOR & MULTISPORT',
-    title: 'FĒNIX® 8 AMOLED',
+    title: secondProduct.title || 'FĒNIX® 8 AMOLED',
     subtitle: 'Будь безмежним. Преміальний мультиспорт.',
     btnText: 'ДІЗНАТИСЯ БІЛЬШЕ',
-    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1000&auto=format&fit=crop',
-    price: '43 500 ₴',
+    image: Array.isArray(secondProduct.images) && secondProduct.images[0]
+      ? secondProduct.images[0]
+      : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1000&auto=format&fit=crop',
+    price: typeof secondProduct.price === 'number' ? `${secondProduct.price.toLocaleString('uk-UA')} ₴` : `${secondProduct.price} ₴`,
   },
 ];
 
 const PURPOSE_CATEGORIES = [
-  { id: 'running', title: 'Для бігу', subtitle: 'Трек та асфальт', icon: 'fitness', category: '1117' },
-  { id: 'tactical', title: 'Тактичні', subtitle: 'Надійність', icon: 'shield-checkmark', category: '1116' },
-  { id: 'outdoor', title: 'Туризм', subtitle: 'Гори та ліс', icon: 'compass', category: '1088' },
-  { id: 'women', title: 'Жіночі', subtitle: 'Стиль та фітнес', icon: 'heart', category: '1114' },
+  { id: 'running', title: 'Для бігу', subtitle: 'Трек та асфальт', icon: 'fitness', category: 'running' },
+  { id: 'tactical', title: 'Тактичні', subtitle: 'Надійність', icon: 'shield-checkmark', category: 'tactical' },
+  { id: 'outdoor', title: 'Туризм', subtitle: 'Гори та ліс', icon: 'compass', category: 'outdoor' },
+  { id: 'women', title: 'Жіночі', subtitle: 'Стиль та фітнес', icon: 'women' },
 ];
 
 export default function HomeScreen() {
