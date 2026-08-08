@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+<\!doctype html><html><head><meta charset="utf-8"><title>Header.tsx</title><style>body{background:#0f172a;color:#e2e8f0;font-family:Menlo,monospace;white-space:pre;line-height:1.4;padding:20px;}pre{margin:0;}</style></head><body><pre>import React, { memo, useState } from 'react';
 import {
   Linking,
   Modal,
@@ -21,7 +21,7 @@ import { GarminLogo } from './GarminLogo';
 interface HeaderProps {
   showBack?: boolean;
   title?: string;
-  onSearch?: () => void;
+  onSearch?: () =&gt; void;
 }
 
 type DrawerPage =
@@ -67,7 +67,7 @@ const GARMIN_SERIES_ITEMS: DrawerItem[] = [
   ['1112', 'Garmin Vivomove'],
   ['1113', 'Garmin Vivosmart'],
   ['1121', 'Garmin Bounce'],
-].map(([category, label]) => ({ label, category }));
+].map(([category, label]) =&gt; ({ label, category }));
 
 const GARMIN_PURPOSE_ITEMS: DrawerItem[] = [
   ['1114', 'Жіночі смартгодинники'],
@@ -75,7 +75,7 @@ const GARMIN_PURPOSE_ITEMS: DrawerItem[] = [
   ['1117', 'Спортивні смартгодинники'],
   ['1118', 'Повсякденні смартгодинники'],
   ['1119', 'Преміум смартгодинники'],
-].map(([category, label]) => ({ label, category }));
+].map(([category, label]) =&gt; ({ label, category }));
 
 const CATALOG_MENU_ITEMS: DrawerItem[] = [
   { label: 'Garmin', page: 'garmin' },
@@ -98,20 +98,20 @@ const ACCESSORY_MENU_ITEMS: DrawerItem[] = [
   ['1095', 'Захисне скло'],
   ['1096', 'Безель'],
   ['1097', 'Датчики'],
-].map(([category, label]) => ({ label, category }));
+].map(([category, label]) =&gt; ({ label, category }));
 
 const CYCLING_MENU_ITEMS: DrawerItem[] = [
   ['1098', 'Велокомп’ютери Garmin'],
   ['1087', 'Датчики для велокомп’ютерів'],
   ['1082', 'Ліхтарі'],
-].map(([category, label]) => ({ label, category }));
+].map(([category, label]) =&gt; ({ label, category }));
 
 const OUTDOOR_MENU_ITEMS: DrawerItem[] = [
   { label: 'Навігатори', category: '1088' },
   { label: 'Ехолоти', category: '1083' },
 ];
 
-const DRAWER_PAGE_TITLES: Record<Exclude<DrawerPage, 'main'>, string> = {
+const DRAWER_PAGE_TITLES: Record&lt;Exclude&lt;DrawerPage, 'main'&gt;, string&gt; = {
   catalog: 'Каталог',
   garmin: 'Garmin',
   'garmin-series': 'Смартгодинники за серіями',
@@ -126,22 +126,22 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
   const router = useRouter();
   const { cartCount } = useApp();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [drawerPage, setDrawerPage] = useState<DrawerPage>('main');
+  const [drawerPage, setDrawerPage] = useState&lt;DrawerPage&gt;('main');
   const [drawerSearchQuery, setDrawerSearchQuery] = useState('');
   const [isSearchVisible, setIsSearchVisible] = useState(false);
   const topPad = Platform.OS === 'web' ? 10 : insets.top + 6;
 
-  const openDrawer = () => {
+  const openDrawer = () =&gt; {
     setDrawerPage('main');
     setMenuOpen(true);
   };
 
-  const closeDrawer = () => {
+  const closeDrawer = () =&gt; {
     setMenuOpen(false);
     setDrawerPage('main');
   };
 
-  const navigateFromMenu = (item: DrawerItem) => {
+  const navigateFromMenu = (item: DrawerItem) =&gt; {
     if (item.page) {
       setDrawerPage(item.page);
       return;
@@ -154,8 +154,8 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
     }
   };
 
-  const goBackInDrawer = () => {
-    const parentPages: Record<Exclude<DrawerPage, 'main' | 'catalog'>, DrawerPage> = {
+  const goBackInDrawer = () =&gt; {
+    const parentPages: Record&lt;Exclude&lt;DrawerPage, 'main' | 'catalog'&gt;, DrawerPage&gt; = {
       garmin: 'catalog',
       'garmin-series': 'garmin',
       'garmin-purpose': 'garmin',
@@ -171,29 +171,29 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
     setDrawerPage(parentPages[drawerPage]);
   };
 
-  const handleDrawerSearchSubmit = () => {
+  const handleDrawerSearchSubmit = () =&gt; {
     if (drawerSearchQuery.trim()) {
       closeDrawer();
       router.push({ pathname: '/catalog', params: { q: drawerSearchQuery.trim() } } as never);
     }
   };
 
-  const handlePhoneCall = () => {
-    void Linking.openURL('tel:+380671022571').catch(() => {});
+  const handlePhoneCall = () =&gt; {
+    void Linking.openURL('tel:+380671022571').catch(() =&gt; {});
   };
 
-  const handleTelegram = () => {
-    void Linking.openURL('https://t.me/+380671022571').catch(() => {});
+  const handleTelegram = () =&gt; {
+    void Linking.openURL('https://t.me/+380671022571').catch(() =&gt; {});
   };
 
-  const handleViber = () => {
-    void Linking.openURL('viber://chat?number=%2B380671022571').catch(() => {
-      void Linking.openURL('https://viber.click/380671022571').catch(() => {});
+  const handleViber = () =&gt; {
+    void Linking.openURL('viber://chat?number=%2B380671022571').catch(() =&gt; {
+      void Linking.openURL('https://viber.click/380671022571').catch(() =&gt; {});
     });
   };
 
-  const handleWhatsApp = () => {
-    void Linking.openURL('https://wa.me/380671022571').catch(() => {});
+  const handleWhatsApp = () =&gt; {
+    void Linking.openURL('https://wa.me/380671022571').catch(() =&gt; {});
   };
 
   const drawerItems = drawerPage === 'main'
@@ -212,20 +212,20 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
                 ? CYCLING_MENU_ITEMS
                 : OUTDOOR_MENU_ITEMS;
 
-  const renderDrawerItem = (item: DrawerItem) => (
-    <Pressable
+  const renderDrawerItem = (item: DrawerItem) =&gt; (
+    &lt;Pressable
       key={item.label}
-      onPress={() => navigateFromMenu(item)}
-      style={({ pressed }) => [styles.menuItem, pressed && styles.menuItemPressed]}
+      onPress={() =&gt; navigateFromMenu(item)}
+      style={({ pressed }) =&gt; [styles.menuItem, pressed &amp;&amp; styles.menuItemPressed]}
       accessibilityRole="button"
       accessibilityLabel={item.label}
-    >
-      <Text style={styles.menuLabel}>{item.label}</Text>
-      <Ionicons name="chevron-forward" size={16} color="#8E8E93" />
-    </Pressable>
+    &gt;
+      &lt;Text style={styles.menuLabel}&gt;{item.label}&lt;/Text&gt;
+      &lt;Ionicons name="chevron-forward" size={16} color="#8E8E93" /&gt;
+    &lt;/Pressable&gt;
   );
 
-  const handleBackPress = () => {
+  const handleBackPress = () =&gt; {
     if (router.canGoBack()) {
       router.back();
     } else {
@@ -234,31 +234,31 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
   };
 
   const onMenuPress = showBack ? handleBackPress : openDrawer;
-  const cartDisplayCount = cartCount > 0 ? (cartCount > 9 ? '9+' : String(cartCount)) : '0';
+  const cartDisplayCount = cartCount &gt; 0 ? (cartCount &gt; 9 ? '9+' : String(cartCount)) : '0';
 
   return (
-    <>
-      <View style={[styles.container, { paddingTop: topPad }]}> 
+    &lt;&gt;
+      &lt;View style={[styles.container, { paddingTop: topPad }]}&gt; 
         {/* LEFT: BURGER / BACK */}
-        <Pressable
+        &lt;Pressable
           onPress={onMenuPress}
           style={styles.iconBtn}
           hitSlop={8}
           accessibilityRole="button"
           accessibilityLabel={showBack ? 'Назад' : 'Відкрити меню'}
-        >
-          <Feather name={showBack ? 'arrow-left' : 'menu'} size={22} color="#FFFFFF" />
-        </Pressable>
+        &gt;
+          &lt;Feather name={showBack ? 'arrow-left' : 'menu'} size={22} color="#FFFFFF" /&gt;
+        &lt;/Pressable&gt;
 
         {/* CENTER: LOGО */}
-        <Pressable onPress={() => router.push('/')} style={styles.logoPressable}>
-          <GarminLogo width={110} height={18} color="#FFFFFF" />
-        </Pressable>
+        &lt;Pressable onPress={() =&gt; router.push('/')} style={styles.logoPressable}&gt;
+          &lt;GarminLogo width={110} height={18} color="#FFFFFF" /&gt;
+        &lt;/Pressable&gt;
 
         {/* RIGHT: SEARCH, CART, PROFILE */}
-        <View style={styles.rightActions}>
-          <Pressable
-            onPress={() => {
+        &lt;View style={styles.rightActions}&gt;
+          &lt;Pressable
+            onPress={() =&gt; {
               setIsSearchVisible(!isSearchVisible);
               onSearch?.();
             }}
@@ -266,71 +266,71 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
             hitSlop={8}
             accessibilityRole="button"
             accessibilityLabel="Пошук"
-          >
-            <Feather name="search" size={20} color="#FFFFFF" />
-          </Pressable>
+          &gt;
+            &lt;Feather name="search" size={20} color="#FFFFFF" /&gt;
+          &lt;/Pressable&gt;
 
-          <Pressable
-            onPress={() => router.push('/(tabs)/cart')}
+          &lt;Pressable
+            onPress={() =&gt; router.push('/(tabs)/cart')}
             style={styles.cartIconWrapper}
             hitSlop={8}
             accessibilityRole="button"
             accessibilityLabel={`Кошик, товарів: ${cartDisplayCount}`}
-          >
-            <Feather name="shopping-bag" size={20} color="#FFFFFF" />
-            {cartCount > 0 && (
-              <View style={styles.cartBadge}>
-                <Text style={styles.cartBadgeText}>{cartDisplayCount}</Text>
-              </View>
+          &gt;
+            &lt;Feather name="shopping-bag" size={20} color="#FFFFFF" /&gt;
+            {cartCount &gt; 0 &amp;&amp; (
+              &lt;View style={styles.cartBadge}&gt;
+                &lt;Text style={styles.cartBadgeText}&gt;{cartDisplayCount}&lt;/Text&gt;
+              &lt;/View&gt;
             )}
-          </Pressable>
+          &lt;/Pressable&gt;
 
-          <Pressable
-            onPress={() => router.push('/(tabs)/profile')}
+          &lt;Pressable
+            onPress={() =&gt; router.push('/(tabs)/profile')}
             style={styles.iconBtn}
             hitSlop={8}
             accessibilityRole="button"
             accessibilityLabel="Профіль"
-          >
-            <Feather name="user" size={20} color="#FFFFFF" />
-          </Pressable>
-        </View>
-      </View>
+          &gt;
+            &lt;Feather name="user" size={20} color="#FFFFFF" /&gt;
+          &lt;/Pressable&gt;
+        &lt;/View&gt;
+      &lt;/View&gt;
 
       {/* SEARCH PANEL */}
-      {isSearchVisible && (
-        <View style={styles.searchPanel}>
-          <Feather name="search" size={18} color="#1C1C1E" style={styles.searchPanelIcon} />
-          <TextInput
+      {isSearchVisible &amp;&amp; (
+        &lt;View style={styles.searchPanel}&gt;
+          &lt;Feather name="search" size={18} color="#1C1C1E" style={styles.searchPanelIcon} /&gt;
+          &lt;TextInput
             style={styles.searchPanelInput}
             placeholder="Search garmin.com"
             placeholderTextColor="#6E6E73"
             autoFocus
             returnKeyType="search"
-          />
-        </View>
+          /&gt;
+        &lt;/View&gt;
       )}
 
       {/* LEFT DRAWER MODAL */}
-      <Modal
+      &lt;Modal
         visible={menuOpen}
         transparent
         animationType="fade"
-        onRequestClose={() => setMenuOpen(false)}
-      >
-        <View style={styles.modalRoot}>
+        onRequestClose={() =&gt; setMenuOpen(false)}
+      &gt;
+        &lt;View style={styles.modalRoot}&gt;
           {/* DRAWER PANEL (LEFT SIDE) */}
-          <View style={[styles.drawer, { paddingTop: topPad + 6 }]}> 
-            <View style={styles.drawerHeader}>
-              <Text style={styles.drawerTitle}>Меню</Text>
-              <Pressable onPress={closeDrawer} hitSlop={8}>
-                <Ionicons name="close" size={24} color="#8E8E93" />
-              </Pressable>
-            </View>
+          &lt;View style={[styles.drawer, { paddingTop: topPad + 6 }]}&gt; 
+            &lt;View style={styles.drawerHeader}&gt;
+              &lt;Text style={styles.drawerTitle}&gt;Меню&lt;/Text&gt;
+              &lt;Pressable onPress={closeDrawer} hitSlop={8}&gt;
+                &lt;Ionicons name="close" size={24} color="#8E8E93" /&gt;
+              &lt;/Pressable&gt;
+            &lt;/View&gt;
 
-            <View style={styles.drawerSearchBox}>
-              <Ionicons name="search-outline" size={18} color="#8E8E93" style={styles.searchIcon} />
-              <TextInput
+            &lt;View style={styles.drawerSearchBox}&gt;
+              &lt;Ionicons name="search-outline" size={18} color="#8E8E93" style={styles.searchIcon} /&gt;
+              &lt;TextInput
                 style={styles.drawerSearchInput}
                 placeholder="Пошук моделей та аксесуарів..."
                 placeholderTextColor="#8E8E93"
@@ -338,82 +338,82 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
                 onChangeText={setDrawerSearchQuery}
                 onSubmitEditing={handleDrawerSearchSubmit}
                 returnKeyType="search"
-              />
-            </View>
+              /&gt;
+            &lt;/View&gt;
 
-            {drawerPage !== 'main' && (
-              <View style={styles.drawerPageHeader}>
-                <Pressable
+            {drawerPage !== 'main' &amp;&amp; (
+              &lt;View style={styles.drawerPageHeader}&gt;
+                &lt;Pressable
                   onPress={goBackInDrawer}
                   style={styles.drawerPageBack}
                   hitSlop={8}
                   accessibilityLabel="Назад у меню"
-                >
-                  <Ionicons name="arrow-back-outline" size={22} color="#FFFFFF" />
-                </Pressable>
-                <Text style={styles.drawerPageTitle} numberOfLines={1}>
+                &gt;
+                  &lt;Ionicons name="arrow-back-outline" size={22} color="#FFFFFF" /&gt;
+                &lt;/Pressable&gt;
+                &lt;Text style={styles.drawerPageTitle} numberOfLines={1}&gt;
                   {DRAWER_PAGE_TITLES[drawerPage]}
-                </Text>
-              </View>
+                &lt;/Text&gt;
+              &lt;/View&gt;
             )}
 
-            <ScrollView
+            &lt;ScrollView
               style={styles.drawerScroll}
               contentContainerStyle={styles.menuList}
               showsVerticalScrollIndicator={false}
-            >
+            &gt;
               {drawerItems.map(renderDrawerItem)}
-            </ScrollView>
+            &lt;/ScrollView&gt;
 
-            <View style={styles.drawerFooter}>
-              <Pressable onPress={() => { closeDrawer(); router.push('/contacts'); }} hitSlop={6}>
-                <Text style={styles.drawerFooterTitle}>КОНТАКТИ ТА РЕКВІЗИТИ ›</Text>
-              </Pressable>
-              <Pressable onPress={handlePhoneCall} hitSlop={6}>
-                <Text style={styles.drawerFooterPhone}>067 102-25-71</Text>
-              </Pressable>
+            &lt;View style={styles.drawerFooter}&gt;
+              &lt;Pressable onPress={() =&gt; { closeDrawer(); router.push('/contacts'); }} hitSlop={6}&gt;
+                &lt;Text style={styles.drawerFooterTitle}&gt;КОНТАКТИ ТА РЕКВІЗИТИ ›&lt;/Text&gt;
+              &lt;/Pressable&gt;
+              &lt;Pressable onPress={handlePhoneCall} hitSlop={6}&gt;
+                &lt;Text style={styles.drawerFooterPhone}&gt;067 102-25-71&lt;/Text&gt;
+              &lt;/Pressable&gt;
 
-              <View style={styles.messengerRow}>
-                <Pressable
+              &lt;View style={styles.messengerRow}&gt;
+                &lt;Pressable
                   onPress={handlePhoneCall}
-                  style={({ pressed }) => [styles.messengerBtn, pressed && styles.messengerBtnPressed]}
+                  style={({ pressed }) =&gt; [styles.messengerBtn, pressed &amp;&amp; styles.messengerBtnPressed]}
                   hitSlop={6}
-                >
-                  <FontAwesome5 name="phone-alt" size={17} color="#FF5500" />
-                </Pressable>
+                &gt;
+                  &lt;FontAwesome5 name="phone-alt" size={17} color="#FF5500" /&gt;
+                &lt;/Pressable&gt;
 
-                <Pressable
+                &lt;Pressable
                   onPress={handleTelegram}
-                  style={({ pressed }) => [styles.messengerBtn, pressed && styles.messengerBtnPressed]}
+                  style={({ pressed }) =&gt; [styles.messengerBtn, pressed &amp;&amp; styles.messengerBtnPressed]}
                   hitSlop={6}
-                >
-                  <FontAwesome5 name="telegram-plane" size={21} color="#FF5500" />
-                </Pressable>
+                &gt;
+                  &lt;FontAwesome5 name="telegram-plane" size={21} color="#FF5500" /&gt;
+                &lt;/Pressable&gt;
 
-                <Pressable
+                &lt;Pressable
                   onPress={handleViber}
-                  style={({ pressed }) => [styles.messengerBtn, pressed && styles.messengerBtnPressed]}
+                  style={({ pressed }) =&gt; [styles.messengerBtn, pressed &amp;&amp; styles.messengerBtnPressed]}
                   hitSlop={6}
-                >
-                  <FontAwesome5 name="viber" size={21} color="#FF5500" />
-                </Pressable>
+                &gt;
+                  &lt;FontAwesome5 name="viber" size={21} color="#FF5500" /&gt;
+                &lt;/Pressable&gt;
 
-                <Pressable
+                &lt;Pressable
                   onPress={handleWhatsApp}
-                  style={({ pressed }) => [styles.messengerBtn, pressed && styles.messengerBtnPressed]}
+                  style={({ pressed }) =&gt; [styles.messengerBtn, pressed &amp;&amp; styles.messengerBtnPressed]}
                   hitSlop={6}
-                >
-                  <FontAwesome5 name="whatsapp" size={21} color="#FF5500" />
-                </Pressable>
-              </View>
-            </View>
-          </View>
+                &gt;
+                  &lt;FontAwesome5 name="whatsapp" size={21} color="#FF5500" /&gt;
+                &lt;/Pressable&gt;
+              &lt;/View&gt;
+            &lt;/View&gt;
+          &lt;/View&gt;
 
           {/* SCRIM BACKDROP (RIGHT SIDE) */}
-          <Pressable style={styles.scrim} onPress={() => setMenuOpen(false)} />
-        </View>
-      </Modal>
-    </>
+          &lt;Pressable style={styles.scrim} onPress={() =&gt; setMenuOpen(false)} /&gt;
+        &lt;/View&gt;
+      &lt;/Modal&gt;
+    &lt;/&gt;
   );
 });
 
@@ -613,3 +613,4 @@ const styles = StyleSheet.create({
 });
 
 export default Header;
+</pre></body></html>
