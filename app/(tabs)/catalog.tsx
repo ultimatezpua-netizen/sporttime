@@ -82,7 +82,7 @@ type CatalogTag = {
 
 const CATALOG_TAGS: CatalogTag[] = [
   { key: 'all', label: 'Усі', type: 'all' },
-  { key: 'sale', label: '🔥 Акції', type: 'sale' },
+  { key: 'sale', label: '🔥 Акции', type: 'sale' },
   { key: 'Fenix', label: 'Fenix', type: 'series', series: 'Fenix' },
   { key: 'Forerunner', label: 'Forerunner', type: 'series', series: 'Forerunner' },
   { key: 'Instinct', label: 'Instinct', type: 'series', series: 'Instinct' },
