@@ -35,10 +35,12 @@ if (Platform.OS !== 'web') {
 }
 
 const queryClient = new QueryClient();
-const SPLASH_IMAGE = require('../assets/images/logo-mountain.png');
+const LAUNCH_SCREEN_DURATION_MS = 3000;
+const LAUNCH_PROGRESS_INTERVAL_MS = 100;
+const SPLASH_IMAGE = require('../assets/images/splash-screen-localized.png');
 const SPLASH_IMAGE_SOURCE =
   Platform.OS === 'web'
-    ? { uri: '/assets/?unstable_path=.%2Fassets%2Fimages%2Flogo-mountain.png' }
+    ? { uri: '/assets/?unstable_path=.%2Fassets%2Fimages%2Fsplash-screen-localized.png' }
     : SPLASH_IMAGE;
 
 function RootLayoutNav() {
@@ -109,14 +111,17 @@ export default function RootLayout() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setLaunchProgress(current => Math.min(100, current + (launchReady ? 4 : 1)));
-    }, 80);
+      setLaunchProgress(current => {
+        if (!launchReady) return Math.min(95, current + 1);
+        return Math.min(100, current + (100 / (LAUNCH_SCREEN_DURATION_MS / LAUNCH_PROGRESS_INTERVAL_MS)));
+      });
+    }, LAUNCH_PROGRESS_INTERVAL_MS);
     return () => clearInterval(interval);
   }, [launchReady]);
 
   useEffect(() => {
     if (!launchReady || launchProgress < 100) return undefined;
-    const timer = setTimeout(() => setShowLaunchScreen(false), 260);
+    const timer = setTimeout(() => setShowLaunchScreen(false), 0);
     return () => clearTimeout(timer);
   }, [launchReady, launchProgress]);
 
@@ -173,14 +178,14 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   launchScreen: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: '#0D0D0D',
+    backgroundColor: '#111113',
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 100,
   },
   launchImage: {
-    width: 240,
-    height: 90,
+    width: '100%',
+    height: '100%',
   },
   launchProgressLayer: {
     position: 'absolute',
