@@ -29,6 +29,38 @@ const SORT_LABELS: Record<SortOption, string> = {
 };
 
 const SERIES_CHIPS: Series[] = ['Fenix', 'Forerunner', 'Instinct', 'Epix', 'Venu', 'Tactix'];
+const FILTER_SERIES: Series[] = [
+  'Descent',
+  'Enduro',
+  'Forerunner',
+  'Instinct',
+  'Lily',
+  'MARQ',
+  'Quatix',
+  'Tactix',
+  'Venu',
+  'Vivoactive',
+  'Vivofit',
+  'Vivomove',
+  'Vivosmart',
+  'Fenix',
+  'Epix',
+];
+
+const COLOR_FILTERS = [
+  { key: 'black', label: 'Чорний', hex: '#111111', aliases: ['black', 'чорн'] },
+  { key: 'white', label: 'Білий', hex: '#FFFFFF', aliases: ['white', 'білий', 'біл'] },
+  { key: 'beige', label: 'Бежевий', hex: '#D8C3A5', aliases: ['beige', 'ivory', 'беж', 'коричн', 'brown'] },
+  { key: 'lavender', label: 'Світло-фіолетовий', hex: '#C9B6FF', aliases: ['бузк', 'purple', 'фіолет', 'lavender'] },
+  { key: 'gray', label: 'Сірий', hex: '#8E8E93', aliases: ['gray', 'grey', 'сір', 'сріб'] },
+  { key: 'pink', label: 'Рожевий', hex: '#FF9BCB', aliases: ['pink', 'рожев', 'фукс'] },
+  { key: 'yellow', label: 'Жовтий', hex: '#FFD60A', aliases: ['yellow', 'жовт', 'золот'] },
+  { key: 'green', label: 'Зелений', hex: '#34C759', aliases: ['green', 'зел', 'mint', 'army', 'салат'] },
+  { key: 'blue', label: 'Блакитний', hex: '#5AC8FA', aliases: ['blue', 'блак', 'син', 'navy', 'sapphire'] },
+  { key: 'turquoise', label: 'Бірюзовий', hex: '#30D5C8', aliases: ['teal', 'бірюз', 'aqua'] },
+  { key: 'orange', label: 'Помаранчевий', hex: '#FF9500', aliases: ['orange', 'помаранч'] },
+  { key: 'red', label: 'Червоний', hex: '#FF3B30', aliases: ['red', 'черв', 'борд', 'wine'] },
+];
 const SERIES_PRIORITY: Record<string, number> = {
   Fenix: 6,
   Forerunner: 5,
@@ -88,6 +120,11 @@ export default function CatalogScreen() {
 
   const [selectedCategory, setSelectedCategory] = useState<CatalogCategoryKey>(initialCategory);
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(initialSeries);
+  const [selectedFilterSeries, setSelectedFilterSeries] = useState<Series[]>(initialSeries ? [initialSeries] : []);
+  const [selectedColors, setSelectedColors] = useState<string[]>([]);
+  const [minPriceInput, setMinPriceInput] = useState('');
+  const [maxPriceInput, setMaxPriceInput] = useState('');
+  const [priceRange, setPriceRange] = useState<{ min?: number; max?: number }>({});
   const [showOnlySale, setShowOnlySale] = useState(false);
   const [searchQuery, setSearchQuery] = useState(params.q ?? '');
   const [sort, setSort] = useState<SortOption>('popular');
@@ -111,6 +148,7 @@ export default function CatalogScreen() {
     if (tag.type === 'all') {
       setSelectedCategory('all');
       setSelectedSeries(null);
+      setSelectedFilterSeries([]);
       setShowOnlySale(false);
     } else if (tag.type === 'sale') {
       setShowOnlySale(current => !current);
@@ -120,6 +158,7 @@ export default function CatalogScreen() {
       setShowOnlySale(false);
       setSelectedCategory('watches');
       setSelectedSeries(current => current === tag.series ? null : tag.series!);
+      setSelectedFilterSeries(current => current.includes(tag.series!) ? current.filter(series => series !== tag.series) : [...current, tag.series!]);
     } else if (tag.type === 'category' && tag.category) {
       setShowOnlySale(false);
       setSelectedCategory(current => current === tag.category ? 'all' : tag.category!);
@@ -129,7 +168,7 @@ export default function CatalogScreen() {
 
   const isTagSelected = (tag: CatalogTag) => {
     if (tag.type === 'all') {
-      return selectedCategory === 'all' && selectedSeries === null && !showOnlySale;
+      return selectedCategory === 'all' && selectedSeries === null && selectedFilterSeries.length === 0 && !showOnlySale;
     }
     if (tag.type === 'sale') {
       return showOnlySale;
@@ -149,7 +188,12 @@ export default function CatalogScreen() {
     setShowInStock(false);
     setShowOnlySale(false);
     setSelectedFacets({});
+    setSelectedColors([]);
+    setPriceRange({});
+    setMinPriceInput('');
+    setMaxPriceInput('');
     setSelectedSeries(null);
+    setSelectedFilterSeries([]);
     setSelectedCategory('all');
     setSearchQuery('');
   };
@@ -159,9 +203,55 @@ export default function CatalogScreen() {
     (showSolar ? 1 : 0) +
     (showInStock ? 1 : 0) +
     (showOnlySale ? 1 : 0) +
-    Object.values(selectedFacets).filter(Boolean).length;
+    Object.values(selectedFacets).filter(Boolean).length +
+    selectedFilterSeries.length +
+    selectedColors.length +
+    (priceRange.min !== undefined || priceRange.max !== undefined ? 1 : 0);
 
   const facetOptions = useMemo(() => extractFacetOptions(PRODUCTS), []);
+
+  const seriesCounts = useMemo(() => FILTER_SERIES.reduce<Record<string, number>>((acc, series) => {
+    acc[series] = PRODUCTS.filter(product => product.series === series).length;
+    return acc;
+  }, {}), []);
+
+  const getProductColorKeys = (product: Product) => {
+    const source = [...(product.colors || []), ...(product.colorHexes || [])].join(' ').toLowerCase();
+    return COLOR_FILTERS.filter(color => color.aliases.some(alias => source.includes(alias))).map(color => color.key);
+  };
+
+  const applyPriceRange = () => {
+    const min = Number(minPriceInput.replace(/\s/g, ''));
+    const max = Number(maxPriceInput.replace(/\s/g, ''));
+    setPriceRange({
+      min: Number.isFinite(min) && min > 0 ? min : undefined,
+      max: Number.isFinite(max) && max > 0 ? max : undefined,
+    });
+  };
+
+  const removeActiveFilter = (type: 'series' | 'color' | 'price', value?: string) => {
+    if (type === 'series' && value) {
+      setSelectedFilterSeries(current => current.filter(series => series !== value));
+      if (selectedSeries === value) setSelectedSeries(null);
+    }
+    if (type === 'color' && value) setSelectedColors(current => current.filter(color => color !== value));
+    if (type === 'price') {
+      setPriceRange({});
+      setMinPriceInput('');
+      setMaxPriceInput('');
+    }
+  };
+
+  const activeFilterChips = [
+    ...selectedFilterSeries.map(series => ({ key: `series-${series}`, label: `Серія Garmin: ${series}`, type: 'series' as const, value: series })),
+    ...selectedColors.map(colorKey => {
+      const color = COLOR_FILTERS.find(item => item.key === colorKey);
+      return { key: `color-${colorKey}`, label: `Колір: ${color?.label ?? colorKey}`, type: 'color' as const, value: colorKey };
+    }),
+    ...(priceRange.min !== undefined || priceRange.max !== undefined
+      ? [{ key: 'price', label: `Ціна: ${priceRange.min ?? 0}–${priceRange.max ?? '∞'} грн`, type: 'price' as const, value: undefined }]
+      : []),
+  ];
 
   const filtered = useMemo(() => {
     let result = PRODUCTS;
@@ -176,8 +266,20 @@ export default function CatalogScreen() {
       result = result.filter(p => p.categoryPath.includes('Аксесуари до смартгодинників'));
     }
 
-    if (selectedSeries) {
-      result = result.filter(p => p.series === selectedSeries);
+    const seriesToFilter = selectedFilterSeries.length > 0 ? selectedFilterSeries : (selectedSeries ? [selectedSeries] : []);
+    if (seriesToFilter.length > 0) {
+      result = result.filter(p => seriesToFilter.includes(p.series));
+    }
+
+    if (priceRange.min !== undefined) {
+      result = result.filter(p => p.price >= priceRange.min!);
+    }
+    if (priceRange.max !== undefined) {
+      result = result.filter(p => p.price <= priceRange.max!);
+    }
+
+    if (selectedColors.length > 0) {
+      result = result.filter(p => getProductColorKeys(p).some(color => selectedColors.includes(color)));
     }
 
     if (searchQuery.trim()) {
@@ -242,6 +344,9 @@ export default function CatalogScreen() {
     showOnlySale,
     selectedCategory,
     selectedSeries,
+    selectedFilterSeries,
+    selectedColors,
+    priceRange,
     searchQuery,
     showAmoled,
     showSolar,
@@ -361,20 +466,117 @@ export default function CatalogScreen() {
         )}
 
         {showFilters && (
-          <View style={[styles.filterPanel, { backgroundColor: colors.card, borderColor: colors.border }]}>
+          <ScrollView
+            style={[styles.filterPanel, { backgroundColor: colors.card, borderColor: colors.border }]}
+            contentContainerStyle={styles.filterPanelContent}
+            showsVerticalScrollIndicator={false}
+            nestedScrollEnabled
+          >
             <View style={styles.filterPanelHeader}>
               <Text style={[styles.filterPanelTitle, { color: colors.foreground }]}>Фільтри каталогу</Text>
               {activeFiltersCount > 0 && (
                 <Pressable onPress={resetFilters} hitSlop={8}>
-                  <Text style={[styles.clearText, { color: colors.primary }]}>Скинути</Text>
+                  <Text style={[styles.clearText, { color: colors.primary }]}>Очистити фільтр</Text>
                 </Pressable>
               )}
             </View>
+
+            <View style={styles.activeFiltersBlock}>
+              <Text style={[styles.facetLabel, { color: colors.mutedForeground }]}>Активні фільтри</Text>
+              {activeFilterChips.length > 0 ? (
+                <View style={styles.activeChipsWrap}>
+                  {activeFilterChips.map(chip => (
+                    <Pressable
+                      key={chip.key}
+                      onPress={() => removeActiveFilter(chip.type, chip.value)}
+                      style={[styles.activeFilterChip, { backgroundColor: colors.secondary, borderColor: colors.border }]}
+                    >
+                      <Text style={[styles.activeFilterText, { color: colors.foreground }]}>{chip.label}</Text>
+                      <Ionicons name="close" size={14} color={colors.mutedForeground} />
+                    </Pressable>
+                  ))}
+                </View>
+              ) : (
+                <Text style={[styles.emptyFiltersText, { color: colors.mutedForeground }]}>Фільтри ще не вибрані</Text>
+              )}
+            </View>
+
             <View style={styles.filterOptions}>
               <FilterOption label="AMOLED" active={showAmoled} onPress={() => setShowAmoled(current => !current)} colors={colors} />
               <FilterOption label="Solar" active={showSolar} onPress={() => setShowSolar(current => !current)} colors={colors} icon="sunny-outline" />
               <FilterOption label="В наявності" active={showInStock} onPress={() => setShowInStock(current => !current)} colors={colors} icon="checkmark-circle-outline" />
             </View>
+
+            <View style={styles.facetGroup}>
+              <Text style={[styles.facetTitle, { color: colors.foreground }]}>Ціна, грн</Text>
+              <View style={styles.priceRow}>
+                <TextInput
+                  style={[styles.priceInput, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.secondary }]}
+                  placeholder="від"
+                  placeholderTextColor={colors.mutedForeground}
+                  value={minPriceInput}
+                  onChangeText={setMinPriceInput}
+                  keyboardType="numeric"
+                />
+                <TextInput
+                  style={[styles.priceInput, { color: colors.foreground, borderColor: colors.border, backgroundColor: colors.secondary }]}
+                  placeholder="до"
+                  placeholderTextColor={colors.mutedForeground}
+                  value={maxPriceInput}
+                  onChangeText={setMaxPriceInput}
+                  keyboardType="numeric"
+                />
+                <Pressable onPress={applyPriceRange} style={[styles.priceApplyButton, { backgroundColor: colors.primary }]}>
+                  <Text style={[styles.priceApplyText, { color: colors.primaryForeground }]}>ОК</Text>
+                </Pressable>
+              </View>
+            </View>
+
+            <View style={styles.facetGroup}>
+              <Text style={[styles.facetTitle, { color: colors.foreground }]}>Колір</Text>
+              <View style={styles.colorGrid}>
+                {COLOR_FILTERS.map(color => {
+                  const active = selectedColors.includes(color.key);
+                  return (
+                    <Pressable
+                      key={color.key}
+                      onPress={() => setSelectedColors(current => active ? current.filter(item => item !== color.key) : [...current, color.key])}
+                      style={[styles.colorSwatchButton, { borderColor: active ? colors.primary : colors.border }]}
+                    >
+                      <View style={[styles.colorSwatch, { backgroundColor: color.hex, borderColor: color.key === 'white' ? colors.border : color.hex }]} />
+                      {active && <Ionicons name="checkmark-circle" size={16} color={colors.primary} style={styles.colorCheck} />}
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </View>
+
+            <View style={styles.facetGroup}>
+              <Text style={[styles.facetTitle, { color: colors.foreground }]}>Серія Garmin</Text>
+              <View style={styles.seriesList}>
+                {FILTER_SERIES.map(series => {
+                  const active = selectedFilterSeries.includes(series);
+                  return (
+                    <Pressable
+                      key={series}
+                      onPress={() => {
+                        setSelectedFilterSeries(current => active ? current.filter(item => item !== series) : [...current, series]);
+                        if (!active) setSelectedCategory('watches');
+                        if (selectedSeries === series) setSelectedSeries(null);
+                      }}
+                      style={styles.seriesRow}
+                    >
+                      <View style={[styles.checkbox, { borderColor: active ? colors.primary : colors.border, backgroundColor: active ? colors.primary : 'transparent' }]}>
+                        {active && <Ionicons name="checkmark" size={14} color={colors.primaryForeground} />}
+                      </View>
+                      <Text style={[styles.seriesText, { color: colors.foreground }]}>{series}</Text>
+                      <Text style={[styles.seriesCount, { color: colors.mutedForeground }]}>({seriesCounts[series] ?? 0})</Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </View>
+
             {facetOptions.map(facet => (
               <View key={facet.key} style={styles.facetGroup}>
                 <Text style={[styles.facetLabel, { color: colors.mutedForeground }]}>{facet.label}</Text>
@@ -388,24 +590,16 @@ export default function CatalogScreen() {
                           ...current,
                           [facet.key]: active ? undefined : value,
                         }))}
-                        style={[
-                          styles.facetChip,
-                          {
-                            backgroundColor: active ? colors.primary : colors.secondary,
-                            borderColor: active ? colors.primary : colors.border,
-                          },
-                        ]}
+                        style={[styles.facetChip, { backgroundColor: active ? colors.primary : colors.secondary, borderColor: active ? colors.primary : colors.border }]}
                       >
-                        <Text style={[styles.facetChipText, { color: active ? colors.primaryForeground : colors.foreground }]} numberOfLines={1}>
-                          {value}
-                        </Text>
+                        <Text style={[styles.facetChipText, { color: active ? colors.primaryForeground : colors.foreground }]} numberOfLines={1}>{value}</Text>
                       </Pressable>
                     );
                   })}
                 </ScrollView>
               </View>
             ))}
-          </View>
+          </ScrollView>
         )}
 
         {/* Minimal Results Counter */}
@@ -581,13 +775,33 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   sortMenuText: { fontSize: 14, fontFamily: FONTS.medium },
-  filterPanel: { borderRadius: 11, borderWidth: 1, padding: 13, gap: 12, marginTop: 4 },
+  filterPanel: { borderRadius: 11, borderWidth: 1, marginTop: 4, maxHeight: 560 },
+  filterPanelContent: { padding: 13, gap: 14 },
   filterPanelHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   filterPanelTitle: { fontSize: 14, fontFamily: FONTS.bold },
   clearText: { fontSize: 13, fontFamily: FONTS.semibold },
+  activeFiltersBlock: { gap: 8 },
+  activeChipsWrap: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  activeFilterChip: { minHeight: 32, borderRadius: 16, borderWidth: 1, paddingHorizontal: 10, flexDirection: 'row', alignItems: 'center', gap: 6 },
+  activeFilterText: { fontSize: 12, fontFamily: FONTS.medium },
+  emptyFiltersText: { fontSize: 12, fontFamily: FONTS.regular },
   filterOptions: { flexDirection: 'row', gap: 8, flexWrap: 'wrap' },
   facetGroup: { gap: 7 },
   facetLabel: { fontSize: 12, fontFamily: FONTS.semibold },
+  facetTitle: { fontSize: 14, fontFamily: FONTS.bold },
+  priceRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  priceInput: { flex: 1, minHeight: 40, borderRadius: 8, borderWidth: 1, paddingHorizontal: 10, fontSize: 13, fontFamily: FONTS.medium },
+  priceApplyButton: { minHeight: 40, borderRadius: 8, paddingHorizontal: 14, alignItems: 'center', justifyContent: 'center' },
+  priceApplyText: { fontSize: 13, fontFamily: FONTS.bold },
+  colorGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
+  colorSwatchButton: { width: 36, height: 36, borderRadius: 18, borderWidth: 2, alignItems: 'center', justifyContent: 'center', position: 'relative' },
+  colorSwatch: { width: 24, height: 24, borderRadius: 12, borderWidth: 1 },
+  colorCheck: { position: 'absolute', right: -3, bottom: -3 },
+  seriesList: { gap: 8 },
+  seriesRow: { minHeight: 30, flexDirection: 'row', alignItems: 'center', gap: 8 },
+  checkbox: { width: 20, height: 20, borderRadius: 5, borderWidth: 1, alignItems: 'center', justifyContent: 'center' },
+  seriesText: { flex: 1, fontSize: 13, fontFamily: FONTS.medium },
+  seriesCount: { fontSize: 12, fontFamily: FONTS.regular },
   facetOptions: { gap: 7, paddingRight: 4 },
   facetChip: {
     maxWidth: 230,
