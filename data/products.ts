@@ -13,6 +13,20 @@ export interface SupplementalProductSpec extends ProductSpec {
   sourceFile: string;
 }
 
+export interface ProductFeatureBlock {
+  title: string;
+  description: string;
+  image?: any;
+  iconName?: string;
+}
+
+export interface ProductRichSection {
+  title: string;
+  subtitle?: string;
+  bannerImage?: any;
+  features: ProductFeatureBlock[];
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -59,6 +73,11 @@ export interface Product {
   music: boolean;
   isNew?: boolean;
   discount?: number;
+  fullDescription?: string;
+  highlights?: string[];
+  promoBanners?: any[];
+  featureGrid?: ProductFeatureBlock[];
+  richSections?: ProductRichSection[];
 }
 
 export type Series = string;
@@ -83,6 +102,11 @@ export const PRODUCTS: Product[] = (catalog as any[]).map(p => ({
   merchantData: p.merchantData && typeof p.merchantData === "object" ? p.merchantData : {},
   supplementalSpecs: Array.isArray(p.supplementalSpecs) ? p.supplementalSpecs : [],
   filterFacets: p.filterFacets && typeof p.filterFacets === "object" ? p.filterFacets : {},
+  fullDescription: typeof p.fullDescription === "string" ? p.fullDescription : (typeof p.description === "string" ? p.description : ""),
+  highlights: Array.isArray(p.highlights) ? p.highlights : [],
+  promoBanners: Array.isArray(p.promoBanners) ? p.promoBanners : [],
+  featureGrid: Array.isArray(p.featureGrid) ? p.featureGrid : [],
+  richSections: Array.isArray(p.richSections) ? p.richSections : [],
 }));
 
 export const PRODUCT_IMAGES = {};
