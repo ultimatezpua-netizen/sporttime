@@ -9,7 +9,6 @@ import {
   Dimensions,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Header } from '@/components/Header';
 import { ProductCard } from '@/components/ProductCard';
 import { WatchSimulator } from '@/components/WatchSimulator';
@@ -63,50 +62,47 @@ export default function HomeScreen() {
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         
-        {/* 1. HERO СЛАЙДЕР С ГРАДИЕНТОМ */}
+        {/* 1. HERO BANNERS */}
         <View style={styles.heroSection}>
           <Image
             source={{ uri: HERO_SLIDES[activeSlide].image }}
             style={styles.heroImage}
             resizeMode="cover"
           />
-          <LinearGradient
-            colors={['transparent', 'rgba(0,0,0,0.4)', '#050505']}
-            style={styles.heroGradient}
-          >
-            <View style={styles.heroContent}>
-              <View style={styles.tagRow}>
-                <View style={styles.tagOrange}>
-                  <Text style={styles.tagOrangeText}>{HERO_SLIDES[activeSlide].tag}</Text>
-                </View>
-                <View style={styles.tagDark}>
-                  <Text style={styles.tagDarkText}>{HERO_SLIDES[activeSlide].subTag}</Text>
-                </View>
+          <View style={styles.heroDarkOverlay} />
+          
+          <View style={styles.heroContent}>
+            <View style={styles.tagRow}>
+              <View style={styles.tagOrange}>
+                <Text style={styles.tagOrangeText}>{HERO_SLIDES[activeSlide].tag}</Text>
               </View>
-              
-              <Text style={styles.heroTitle}>{HERO_SLIDES[activeSlide].title}</Text>
-              <Text style={styles.heroSubtitle}>{HERO_SLIDES[activeSlide].subtitle}</Text>
-              
-              <View style={styles.heroPriceRow}>
-                <Text style={styles.heroPrice}>{HERO_SLIDES[activeSlide].price}</Text>
-                <View style={styles.stockBadge}>
-                  <View style={styles.stockDot} />
-                  <Text style={styles.heroInStock}>У наявності</Text>
-                </View>
+              <View style={styles.tagDark}>
+                <Text style={styles.tagDarkText}>{HERO_SLIDES[activeSlide].subTag}</Text>
               </View>
-
-              <Pressable
-                style={({ pressed }) => [styles.heroBtn, pressed && styles.heroBtnPressed]}
-                onPress={() => router.push(`/product/${HERO_SLIDES[activeSlide].productId}` as never)}
-              >
-                <Text style={styles.heroBtnText}>{HERO_SLIDES[activeSlide].btnText}</Text>
-                <Ionicons name="arrow-forward" size={16} color="#FFFFFF" style={{ marginLeft: 6 }} />
-              </Pressable>
             </View>
-          </LinearGradient>
+            
+            <Text style={styles.heroTitle}>{HERO_SLIDES[activeSlide].title}</Text>
+            <Text style={styles.heroSubtitle}>{HERO_SLIDES[activeSlide].subtitle}</Text>
+            
+            <View style={styles.heroPriceRow}>
+              <Text style={styles.heroPrice}>{HERO_SLIDES[activeSlide].price}</Text>
+              <View style={styles.stockBadge}>
+                <View style={styles.stockDot} />
+                <Text style={styles.heroInStock}>У наявності</Text>
+              </View>
+            </View>
+
+            <Pressable
+              style={({ pressed }) => [styles.heroBtn, pressed && styles.heroBtnPressed]}
+              onPress={() => router.push(`/product/${HERO_SLIDES[activeSlide].productId}` as never)}
+            >
+              <Text style={styles.heroBtnText}>{HERO_SLIDES[activeSlide].btnText}</Text>
+              <Ionicons name="arrow-forward" size={16} color="#FFFFFF" style={{ marginLeft: 6 }} />
+            </Pressable>
+          </View>
         </View>
 
-        {/* 2. ЛЕВИТИРУЮЩИЕ БЫСТРЫЕ КНОПКИ */}
+        {/* 2. FLOATING QUICK ACTIONS */}
         <View style={styles.quickActionsContainer}>
           <View style={styles.quickActions}>
             <Pressable style={styles.actionItem} onPress={() => router.push('/catalog' as never)}>
@@ -139,12 +135,9 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        {/* 3. КАРТОЧКА: ИНТЕРАКТИВНЫЙ СИМУЛЯТОР */}
+        {/* 3. SIMULATOR CARD */}
         <View style={styles.simulatorWrapper}>
-          <LinearGradient
-            colors={['#1C1C1E', '#0F0F11']}
-            style={styles.simulatorCard}
-          >
+          <View style={styles.simulatorCard}>
             <View style={styles.simulatorHeader}>
               <View>
                 <Text style={styles.simulatorTitle}>Відчуй на дотик</Text>
@@ -156,10 +149,10 @@ export default function HomeScreen() {
               </View>
             </View>
             <WatchSimulator />
-          </LinearGradient>
+          </View>
         </View>
 
-        {/* 4. ПІДБІР ЗА ПРИЗНАЧЕННЯМ */}
+        {/* 4. PURPOSE CATEGORIES */}
         <View style={styles.sectionContainer}>
           <Text style={styles.sectionTitle}>Підбір за призначенням</Text>
           <View style={styles.purposeGrid}>
@@ -181,7 +174,7 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        {/* 5. ПОПУЛЯРНІ МОДЕЛІ */}
+        {/* 5. POPULAR PRODUCTS */}
         <View style={[styles.sectionContainer, { marginTop: 32 }]}>
           <View style={styles.sectionHeaderRow}>
             <Text style={styles.sectionTitle}>Хіти продажу</Text>
@@ -200,7 +193,7 @@ export default function HomeScreen() {
           </ScrollView>
         </View>
 
-        {/* 6. БЛОК ДОВІРИ */}
+        {/* 6. TRUST BAR */}
         <View style={styles.trustBarWrapper}>
           <View style={styles.trustBar}>
             <View style={styles.trustItem}>
@@ -235,20 +228,22 @@ const styles = StyleSheet.create({
   heroSection: {
     height: 480,
     position: 'relative',
+    justifyContent: 'flex-end',
   },
   heroImage: {
     ...StyleSheet.absoluteFillObject,
     width: '100%',
     height: '100%',
   },
-  heroGradient: {
+  heroDarkOverlay: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
-    paddingHorizontal: 20,
-    paddingBottom: 60,
+    backgroundColor: 'rgba(5, 5, 5, 0.65)',
   },
   heroContent: {
     alignItems: 'flex-start',
+    paddingHorizontal: 20,
+    paddingBottom: 60,
+    zIndex: 2,
   },
   tagRow: {
     flexDirection: 'row',
@@ -333,11 +328,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 30,
     marginTop: 20,
-    shadowColor: '#FF5500',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 5,
   },
   heroBtnPressed: {
     opacity: 0.8,
@@ -363,11 +353,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderWidth: 1,
     borderColor: '#27272A',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.5,
-    shadowRadius: 15,
-    elevation: 10,
   },
   actionItem: {
     alignItems: 'center',
@@ -403,6 +388,7 @@ const styles = StyleSheet.create({
   simulatorCard: {
     borderRadius: 24,
     padding: 20,
+    backgroundColor: '#121214',
     borderWidth: 1,
     borderColor: '#27272A',
   },
