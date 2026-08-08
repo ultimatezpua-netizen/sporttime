@@ -1,468 +1,225 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import {
-  Animated,
-  Easing,
-  Image,
-  ImageBackground,
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  Platform,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
   View,
-  useWindowDimensions,
+  Pressable,
+  Image,
+  Dimensions,
 } from 'react-native';
-import Svg, { Circle } from 'react-native-svg';
-import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useTheme } from '@/hooks/useTheme';
-import { PRODUCTS, formatPrice, Product } from '@/data/products';
-import { ProductImage } from '@/components/ProductImage';
+import { LinearGradient } from 'expo-linear-gradient';
 import { Header } from '@/components/Header';
 import { ProductCard } from '@/components/ProductCard';
-import WatchSimulator from '@/components/WatchSimulator';
+import { WatchSimulator } from '@/components/WatchSimulator';
+import { PRODUCTS } from '@/data/products';
 import { FONTS } from '@/constants/typography';
+import { Feather, Ionicons } from '@expo/vector-icons';
 
-const AnimatedCircle = Animated.createAnimatedComponent(Circle);
-const TIMER_CIRCUMFERENCE = 2 * Math.PI * 18; // ~113.1
+const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const mainSlides = [
+const HERO_SLIDES = [
   {
-    id: 'fenix8-premium',
-    sku: '010-02905-20',
-    title: 'FĒNIX® 8',
-    accent: 'PREMIUM AMOLED',
-    subtitle: 'ТИТАНОВИЙ КОРПУС, AMOLED ТА ГОТОВНІСТЬ ДО БУДЬ-ЯКОЇ ДИСТАНЦІЇ.',
-    buttonText: 'ПЕРЕГЛЯНУТИ МОДЕЛЬ',
-    image: require('../../assets/images/watch-fenix.png'),
-    route: '/product/[id]',
-    badge: 'ХІТ GARMIN',
-  },
-  {
-    id: 'forerunner-running',
-    sku: '010-02809-00',
+    id: '1',
+    productId: 'garmin-forerunner-965',
+    tag: 'FORERUNNER',
+    subTag: 'RUNNING & TRIATHLON',
     title: 'FORERUNNER® 965',
-    accent: 'RUNNING & TRIATHLON',
-    subtitle: 'ТВІЙ ТЕМП. ТВІЙ ШЛЯХ. КОЖЕН КРОК ДО ПЕРЕМОГИ.',
-    buttonText: 'ОБРАТИ СВІЙ ТЕМП',
-    image: require('../../assets/images/watch-forerunner.png'),
-    route: '/product/[id]',
-    badge: 'FORERUNNER',
+    subtitle: 'Твій темп. Твій шлях. Кожен крок до перемоги.',
+    btnText: 'ОБРАТИ СВІЙ ТЕМП',
+    image: 'https://images.unsplash.com/photo-1510017803434-a899398421b3?q=80&w=1000&auto=format&fit=crop',
+    price: '26 500 ₴',
   },
   {
-    id: 'tactix-tactical',
-    title: 'TACTIX® 7 & INSTINCT',
-    accent: 'SOLAR & TACTICAL',
-    subtitle: 'СТВОРЕНІ ДЛЯ ЕКСТРЕМУ ТА НАДЗВИЧАЙНИХ УМОВ.',
-    buttonText: 'ТАКТИЧНА СЕРІЯ',
-    sku: '010-02805-13',
-    image: require('../../assets/images/watch-instinct.png'),
-    route: '/product/[id]',
-    badge: 'TACTIX',
+    id: '2',
+    productId: 'garmin-fenix-8-amoled',
+    tag: 'FĒNIX 8',
+    subTag: 'OUTDOOR & MULTISPORT',
+    title: 'FĒNIX® 8 AMOLED',
+    subtitle: 'Будь безмежним. Преміальний мультиспорт.',
+    btnText: 'ДІЗНАТИСЯ БІЛЬШЕ',
+    image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1000&auto=format&fit=crop',
+    price: '43 500 ₴',
   },
 ];
-const PROMO_IMAGE = require('../../assets/images/splash-screen-localized.png');
-const PROMO_IMAGE_SOURCE =
-  Platform.OS === 'web'
-    ? { uri: '/assets/?unstable_path=.%2Fassets%2Fimages/splash-screen-localized.png' }
-    : PROMO_IMAGE;
 
-const quickActions = [
-  { icon: 'grid-outline', label: 'Каталог', route: '/catalog' },
-  { icon: 'star-outline', label: 'Новинки', route: '/catalog', params: { isNew: '1', sort: 'rating' } },
-  { icon: 'pricetag-outline', label: 'Акции', route: '/catalog', params: { sale: '1' } },
-  { icon: 'heart-outline', label: 'Обране', route: '/(tabs)/favorites' },
-] as const;
-
-const purposeLinks = [
-  { icon: 'walk-outline', title: 'Для бігу', subtitle: 'Forerunner', category: '1103' },
-  { icon: 'trail-sign-outline', title: 'Для туризму', subtitle: 'Fēnix / Instinct', category: '1117' },
-  { icon: 'shield-outline', title: 'Тактичні', subtitle: 'Tactix / Solar', category: '1116' },
-  { icon: 'bicycle-outline', title: 'Велоспорт', subtitle: 'Edge та датчики', category: '1098' },
-  { icon: 'watch-outline', title: 'Щоденні', subtitle: 'Venu / Vivoactive', category: '1118' },
-  { icon: 'diamond-outline', title: 'Преміум', subtitle: 'MARQ / Fēnix', category: '1119' },
-] as const;
-
-const heroOffers = [
-  {
-    sku: '010-02905-20',
-    title: 'FĒNIX 8',
-    accent: 'AMOLED',
-    tagline: 'БУДЬ БЕЗМЕЖНИМ.',
-  },
-  {
-    sku: '010-02809-00',
-    title: 'FORERUNNER 965',
-    accent: 'AMOLED',
-    tagline: 'ТВІЙ ТЕМП. ТВІЙ ШЛЯХ.',
-  },
-  {
-    sku: '010-02805-13',
-    title: 'INSTINCT 2X',
-    accent: 'SOLAR',
-    tagline: 'СТВОРЕНИЙ ДЛЯ ЕКСТРЕМУ.',
-  },
-  {
-    sku: '010-02784-00',
-    title: 'VENU 3',
-    accent: 'AMOLED',
-    tagline: 'ЗДОРОВʼЯ У ТВОЇХ РУКАХ.',
-  },
-] as const;
-
-const popularModels = [
-  { sku: '010-02905-20', title: 'Fēnix 8', subtitle: 'AMOLED' },
-  { sku: '010-02809-00', title: 'Forerunner 965', subtitle: '' },
-  { sku: '010-02805-13', title: 'Instinct 2X', subtitle: 'Solar' },
-] as const;
-
-function getProduct(sku: string) {
-  return PRODUCTS.find(product => product.sku === sku) ?? PRODUCTS[0];
-}
+const PURPOSE_CATEGORIES = [
+  { id: 'running', title: 'Для бігу', subtitle: 'Трек та асфальт', icon: 'fitness', category: '1117' },
+  { id: 'tactical', title: 'Тактичні', subtitle: 'Надійність', icon: 'shield-checkmark', category: '1116' },
+  { id: 'outdoor', title: 'Туризм', subtitle: 'Гори та ліс', icon: 'compass', category: '1088' },
+  { id: 'women', title: 'Жіночі', subtitle: 'Стиль та фітнес', icon: 'heart', category: '1114' },
+];
 
 export default function HomeScreen() {
-  const colors = useTheme();
   const router = useRouter();
-  const insets = useSafeAreaInsets();
-  const { width: screenWidth } = useWindowDimensions();
-  const [activeHero, setActiveHero] = useState(0);
+  const [activeSlide, setActiveSlide] = useState(0);
 
-  // Main Banner Animated 30-second Slider State & Logic
-  const [activeMainSlide, setActiveMainSlide] = useState(0);
-  const timerAnim = useRef(new Animated.Value(0)).current;
-  const fadeAnim = useRef(new Animated.Value(1)).current;
-
-  useEffect(() => {
-    // Fade-in animation for active slide
-    fadeAnim.setValue(0);
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 500,
-      useNativeDriver: true,
-    }).start();
-
-    // 15-second countdown timer animation
-    timerAnim.setValue(0);
-    const animation = Animated.timing(timerAnim, {
-      toValue: 1,
-      duration: 15000,
-      easing: Easing.linear,
-      useNativeDriver: false,
-    });
-
-    animation.start(({ finished }) => {
-      if (finished) {
-        setActiveMainSlide((prev) => (prev + 1) % mainSlides.length);
-      }
-    });
-
-    return () => {
-      animation.stop();
-    };
-  }, [activeMainSlide]);
-
-  const timerDashOffset = timerAnim.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0, TIMER_CIRCUMFERENCE],
-  });
-
-  const products = popularModels.map(model => ({
-    ...model,
-    product: getProduct(model.sku),
-  }));
-  const activeMainProduct = getProduct(mainSlides[activeMainSlide].sku);
-  const bottomPad = Platform.OS === 'web' ? 94 : insets.bottom + 90;
-  const heroWidth = Math.max(280, screenWidth - 32);
-
-  const openProduct = (product: Product) => {
-    router.push({ pathname: '/product/[id]', params: { id: product.id } });
-  };
-
-  const openMainSlide = () => {
-    openProduct(activeMainProduct);
-  };
-
-  const openQuickAction = (action: typeof quickActions[number]) => {
-    if ('params' in action) {
-      router.push({ pathname: action.route, params: action.params } as never);
-      return;
-    }
-    router.push(action.route as never);
-  };
+  const popularProducts = PRODUCTS.slice(0, 6);
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View style={styles.container}>
       <Header />
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={[styles.content, { paddingBottom: bottomPad }]}
-      >
-        {/* 1. Garmin Official Style Animated Main Hero Slider */}
-        <View style={styles.mainHeroContainer}>
-          <Animated.View style={[styles.mainHeroSlideContainer, { opacity: fadeAnim }]}>
-            <Image
-              source={mainSlides[activeMainSlide].image}
-              style={styles.mainHeroImage}
-              resizeMode="cover"
-            />
-            <View style={styles.mainHeroOverlay}>
-              <View style={styles.badgeRow}>
-                <Text style={styles.mainHeroBadgeText}>{mainSlides[activeMainSlide].badge}</Text>
-                <Text style={styles.mainHeroAccent}>{mainSlides[activeMainSlide].accent}</Text>
-              </View>
-              <Text style={styles.mainHeroTitle}>{mainSlides[activeMainSlide].title}</Text>
-              <Text style={styles.mainHeroSubtitle}>{mainSlides[activeMainSlide].subtitle}</Text>
-              <View style={styles.mainHeroMetaRow}>
-                <View style={styles.mainHeroStockPill}>
-                  <View style={[styles.mainHeroStockDot, { backgroundColor: activeMainProduct.inStock ? '#33C56E' : '#F05A4F' }]} />
-                  <Text style={styles.mainHeroStockText}>{activeMainProduct.inStock ? 'В наявності' : 'Під замовлення'}</Text>
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+        
+        {/* 1. HERO СЛАЙДЕР С ГРАДИЕНТОМ */}
+        <View style={styles.heroSection}>
+          <Image
+            source={{ uri: HERO_SLIDES[activeSlide].image }}
+            style={styles.heroImage}
+            resizeMode="cover"
+          />
+          <LinearGradient
+            colors={['transparent', 'rgba(0,0,0,0.4)', '#050505']}
+            style={styles.heroGradient}
+          >
+            <View style={styles.heroContent}>
+              <View style={styles.tagRow}>
+                <View style={styles.tagOrange}>
+                  <Text style={styles.tagOrangeText}>{HERO_SLIDES[activeSlide].tag}</Text>
                 </View>
-                <Text style={styles.mainHeroPrice}>від {formatPrice(activeMainProduct.price)}</Text>
+                <View style={styles.tagDark}>
+                  <Text style={styles.tagDarkText}>{HERO_SLIDES[activeSlide].subTag}</Text>
+                </View>
               </View>
+              
+              <Text style={styles.heroTitle}>{HERO_SLIDES[activeSlide].title}</Text>
+              <Text style={styles.heroSubtitle}>{HERO_SLIDES[activeSlide].subtitle}</Text>
+              
+              <View style={styles.heroPriceRow}>
+                <Text style={styles.heroPrice}>{HERO_SLIDES[activeSlide].price}</Text>
+                <View style={styles.stockBadge}>
+                  <View style={styles.stockDot} />
+                  <Text style={styles.heroInStock}>У наявності</Text>
+                </View>
+              </View>
+
               <Pressable
-                style={({ pressed }) => [
-                  styles.mainHeroBtn,
-                  pressed && { opacity: 0.9, transform: [{ scale: 0.98 }] },
-                ]}
-                onPress={openMainSlide}
+                style={({ pressed }) => [styles.heroBtn, pressed && styles.heroBtnPressed]}
+                onPress={() => router.push(`/product/${HERO_SLIDES[activeSlide].productId}` as never)}
               >
-                <Text style={styles.mainHeroBtnText}>{mainSlides[activeMainSlide].buttonText}</Text>
+                <Text style={styles.heroBtnText}>{HERO_SLIDES[activeSlide].btnText}</Text>
+                <Ionicons name="arrow-forward" size={16} color="#FFFFFF" style={{ marginLeft: 6 }} />
               </Pressable>
             </View>
-          </Animated.View>
-
-          {/* 15-Second Circular Timer Badge in Top Right Corner */}
-          <Pressable
-            style={styles.timerBadgeContainer}
-            onPress={() => setActiveMainSlide((prev) => (prev + 1) % mainSlides.length)}
-            hitSlop={8}
-          >
-            <Svg height="44" width="44" viewBox="0 0 44 44">
-              <Circle
-                cx="22"
-                cy="22"
-                r="18"
-                stroke="rgba(255, 255, 255, 0.25)"
-                strokeWidth="3"
-                fill="rgba(0, 0, 0, 0.55)"
-              />
-              <AnimatedCircle
-                cx="22"
-                cy="22"
-                r="18"
-                stroke="#FFFFFF"
-                strokeWidth="3"
-                fill="none"
-                strokeDasharray={TIMER_CIRCUMFERENCE}
-                strokeDashoffset={timerDashOffset}
-                strokeLinecap="round"
-                transform="rotate(-90 22 22)"
-              />
-            </Svg>
-            <View style={styles.pauseBars}>
-              <View style={styles.pauseBar} />
-              <View style={styles.pauseBar} />
-            </View>
-          </Pressable>
-
-          {/* Slide Indicator Dots */}
-          <View style={styles.heroDotsContainer}>
-            {mainSlides.map((slide, idx) => (
-              <Pressable
-                key={slide.id}
-                onPress={() => setActiveMainSlide(idx)}
-                style={[
-                  styles.heroDot,
-                  idx === activeMainSlide && styles.heroDotActive,
-                ]}
-              />
-            ))}
-          </View>
+          </LinearGradient>
         </View>
 
-        {/* 2. FĒNIX 8 AMOLED Slider */}
-        <View style={[styles.heroCarousel, { width: heroWidth }]}>
-          <ScrollView
-            horizontal
-            pagingEnabled
-            nestedScrollEnabled
-            showsHorizontalScrollIndicator={false}
-            decelerationRate="fast"
-            onMomentumScrollEnd={(event: NativeSyntheticEvent<NativeScrollEvent>) => {
-              const nextIndex = Math.round(event.nativeEvent.contentOffset.x / heroWidth);
-              setActiveHero(Math.max(0, Math.min(heroOffers.length - 1, nextIndex)));
-            }}
-          >
-            {heroOffers.map((offer) => {
-              const product = getProduct(offer.sku);
-              return (
-                <Pressable
-                  key={offer.sku}
-                  onPress={() => openProduct(product)}
-                  style={({ pressed }) => [
-                    styles.hero,
-                    { width: heroWidth },
-                    pressed && styles.pressed,
-                  ]}
-                >
-                  <View style={styles.heroCopy}>
-                    <Text style={[styles.heroTitle, { color: colors.foreground }]}>{offer.title}</Text>
-                    <Text style={[styles.heroAccent, { color: colors.primary }]}>{offer.accent}</Text>
-                    <Text style={[styles.heroTagline, { color: '#E6E9EA' }]}>{offer.tagline}</Text>
-                    <View style={[styles.heroButton, { backgroundColor: colors.primary }]}>
-                      <Text style={styles.heroButtonText}>ДІЗНАТИСЯ БІЛЬШЕ</Text>
-                    </View>
-                  </View>
-                  <ProductImage product={product} style={styles.heroWatch} resizeMode="contain" useRemoteImage />
-                  <View style={[styles.heroAvailability, { backgroundColor: product.inStock ? '#123A26' : '#3A1D16' }]}>
-                    <View style={[styles.availabilityDot, { backgroundColor: product.inStock ? '#33C56E' : '#F05A4F' }]} />
-                    <Text style={[styles.availabilityText, { color: product.inStock ? '#8CE0AC' : '#FF9A8E' }]}>
-                      {product.inStock ? 'В наявності' : 'Немає в наявності'}
-                    </Text>
-                  </View>
-                </Pressable>
-              );
-            })}
-          </ScrollView>
-          <View style={styles.carouselDots}>
-            {heroOffers.map((offer, index) => (
-              <View
-                key={offer.sku}
-                style={[
-                  styles.carouselDot,
-                  { backgroundColor: index === activeHero ? colors.primary : '#62676B' },
-                ]}
-              />
-            ))}
-          </View>
-        </View>
-
-        <View style={[styles.trustStrip, { backgroundColor: colors.card, borderColor: colors.border }]}>
-          <Text style={[styles.trustStripText, { color: colors.foreground }]}>Офіційний Garmin</Text>
-          <View style={styles.trustStripDivider} />
-          <Text style={[styles.trustStripText, { color: colors.foreground }]}>Гарантія 24 міс.</Text>
-          <View style={styles.trustStripDivider} />
-          <Text style={[styles.trustStripText, { color: colors.foreground }]}>Швидка доставка</Text>
-        </View>
-
-        {/* 3. Quick categories */}
-        <View style={[styles.quickActions, { backgroundColor: colors.card, borderColor: colors.border }]}>
-          {quickActions.map(action => (
-            <Pressable
-              key={action.label}
-              onPress={() => openQuickAction(action)}
-              style={({ pressed }) => [styles.quickAction, pressed && styles.pressed]}
-            >
-              <Ionicons name={action.icon} size={29} color={colors.foreground} />
-              <Text
-                style={[
-                  styles.quickLabel,
-                  { color: action.label === 'Каталог' ? colors.primary : colors.foreground },
-                ]}
-              >
-                {action.label}
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-
-        <View style={styles.sectionHeader}>
-          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Підібрати за ціллю</Text>
-        </View>
-
-        <View style={styles.purposeGrid}>
-          {purposeLinks.map(item => (
-            <Pressable
-              key={item.title}
-              onPress={() => router.push({ pathname: '/catalog', params: { category: item.category } } as never)}
-              style={({ pressed }) => [styles.purposeCard, { backgroundColor: colors.card, borderColor: colors.border }, pressed && styles.pressed]}
-            >
-              <Ionicons name={item.icon as any} size={22} color={colors.primary} />
-              <View style={styles.purposeCopy}>
-                <Text style={[styles.purposeTitle, { color: colors.foreground }]}>{item.title}</Text>
-                <Text style={[styles.purposeSubtitle, { color: colors.mutedForeground }]}>{item.subtitle}</Text>
+        {/* 2. ЛЕВИТИРУЮЩИЕ БЫСТРЫЕ КНОПКИ */}
+        <View style={styles.quickActionsContainer}>
+          <View style={styles.quickActions}>
+            <Pressable style={styles.actionItem} onPress={() => router.push('/catalog' as never)}>
+              <View style={styles.actionIconBox}>
+                <Ionicons name="grid" size={22} color="#FFFFFF" />
               </View>
+              <Text style={styles.actionText}>Каталог</Text>
             </Pressable>
-          ))}
+
+            <Pressable style={styles.actionItem} onPress={() => router.push({ pathname: '/catalog', params: { isNew: 'true' } } as never)}>
+              <View style={[styles.actionIconBox, styles.actionIconBoxActive]}>
+                <Ionicons name="sparkles" size={22} color="#FF5500" />
+              </View>
+              <Text style={styles.actionTextActive}>Новинки</Text>
+            </Pressable>
+
+            <Pressable style={styles.actionItem} onPress={() => router.push({ pathname: '/catalog', params: { sale: 'true' } } as never)}>
+              <View style={styles.actionIconBox}>
+                <Ionicons name="pricetag" size={22} color="#FFFFFF" />
+              </View>
+              <Text style={styles.actionText}>Акції</Text>
+            </Pressable>
+
+            <Pressable style={styles.actionItem} onPress={() => router.push('/(tabs)/favorites' as never)}>
+              <View style={styles.actionIconBox}>
+                <Ionicons name="heart" size={22} color="#FFFFFF" />
+              </View>
+              <Text style={styles.actionText}>Обране</Text>
+            </Pressable>
+          </View>
         </View>
 
-        {/* 4. Popular models */}
-        <View style={styles.sectionHeader}>
-          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Популярні моделі</Text>
-          <Pressable
-            onPress={() => router.push('/catalog')}
-            style={styles.seeAll}
-            hitSlop={8}
+        {/* 3. КАРТОЧКА: ИНТЕРАКТИВНЫЙ СИМУЛЯТОР */}
+        <View style={styles.simulatorWrapper}>
+          <LinearGradient
+            colors={['#1C1C1E', '#0F0F11']}
+            style={styles.simulatorCard}
           >
-            <Text style={[styles.seeAllText, { color: colors.primary }]}>Переглянути все</Text>
-            <Ionicons name="chevron-forward" size={19} color={colors.primary} />
-          </Pressable>
+            <View style={styles.simulatorHeader}>
+              <View>
+                <Text style={styles.simulatorTitle}>Відчуй на дотик</Text>
+                <Text style={styles.simulatorSubtitle}>Спробуй інтерактивний інтерфейс</Text>
+              </View>
+              <View style={styles.simulatorBadge}>
+                <Ionicons name="hand-left" size={14} color="#FF5500" />
+                <Text style={styles.simulatorBadgeText}>3D Огляд</Text>
+              </View>
+            </View>
+            <WatchSimulator />
+          </LinearGradient>
         </View>
 
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.productRow}>
-          {products.map(({ product }) => (
-            <View key={product.id} style={styles.productCardSlot}>
-              <ProductCard product={product} />
+        {/* 4. ПІДБІР ЗА ПРИЗНАЧЕННЯМ */}
+        <View style={styles.sectionContainer}>
+          <Text style={styles.sectionTitle}>Підбір за призначенням</Text>
+          <View style={styles.purposeGrid}>
+            {PURPOSE_CATEGORIES.map((item) => (
+              <Pressable
+                key={item.id}
+                style={({ pressed }) => [styles.purposeCard, pressed && styles.purposeCardPressed]}
+                onPress={() => router.push({ pathname: '/catalog', params: { category: item.category } } as never)}
+              >
+                <View style={styles.purposeIconWrapper}>
+                  <Ionicons name={item.icon as never} size={20} color="#FF5500" />
+                </View>
+                <View>
+                  <Text style={styles.purposeText}>{item.title}</Text>
+                  <Text style={styles.purposeSub}>{item.subtitle}</Text>
+                </View>
+              </Pressable>
+            ))}
+          </View>
+        </View>
+
+        {/* 5. ПОПУЛЯРНІ МОДЕЛІ */}
+        <View style={[styles.sectionContainer, { marginTop: 32 }]}>
+          <View style={styles.sectionHeaderRow}>
+            <Text style={styles.sectionTitle}>Хіти продажу</Text>
+            <Pressable onPress={() => router.push('/catalog' as never)} style={styles.seeAllBtn}>
+              <Text style={styles.seeAllText}>Всі моделі</Text>
+              <Ionicons name="chevron-forward" size={14} color="#FF5500" />
+            </Pressable>
+          </View>
+
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalProducts}>
+            {popularProducts.map((product) => (
+              <View key={product.id} style={styles.productCardSlot}>
+                <ProductCard product={product} />
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+
+        {/* 6. БЛОК ДОВІРИ */}
+        <View style={styles.trustBarWrapper}>
+          <View style={styles.trustBar}>
+            <View style={styles.trustItem}>
+              <Feather name="shield" size={20} color="#8E8E93" />
+              <Text style={styles.trustText}>Гарантія 24 міс.</Text>
             </View>
-          ))}
-        </ScrollView>
-
-        <WatchSimulator />
-
-        <Pressable
-          onPress={() => router.push('/catalog')}
-          style={({ pressed }) => [styles.partnerCard, { borderColor: colors.border }, pressed && styles.pressed]}
-        >
-          <ImageBackground
-            source={PROMO_IMAGE_SOURCE}
-            resizeMode="cover"
-            imageStyle={styles.partnerImage}
-            style={styles.partnerBackground}
-          >
-            <View style={styles.partnerShade} />
-            <View style={styles.partnerCopy}>
-              <Text style={[styles.partnerTitle, { color: colors.foreground }]}>
-                Офіційний партнер{'\n'}GARMIN в Україні
-              </Text>
-              <Text style={[styles.partnerText, { color: '#D8DDDE' }]}>
-                Преміальний досвід.{'\n'}Надійність. Точність.{'\n'}Для активного життя.
-              </Text>
+            <View style={styles.trustDivider} />
+            <View style={styles.trustItem}>
+              <Feather name="truck" size={20} color="#8E8E93" />
+              <Text style={styles.trustText}>Швидка доставка</Text>
             </View>
-          </ImageBackground>
-        </Pressable>
-
-        <View style={styles.trustRow}>
-          <TrustItem icon="shield-checkmark-outline" title="ОФІЦІЙНА" subtitle="ПРОДУКЦІЯ" colors={colors} />
-          <TrustItem icon="car-outline" title="ШВИДКА" subtitle="ДОСТАВКА" colors={colors} />
-          <TrustItem icon="ribbon-outline" title="ГАРАНТІЯ" subtitle="2 РОКИ" colors={colors} />
+            <View style={styles.trustDivider} />
+            <View style={styles.trustItem}>
+              <Feather name="check-circle" size={20} color="#8E8E93" />
+              <Text style={styles.trustText}>100% Оригінал</Text>
+            </View>
+          </View>
         </View>
       </ScrollView>
-    </View>
-  );
-}
-
-function TrustItem({
-  icon,
-  title,
-  subtitle,
-  colors,
-}: {
-  icon: string;
-  title: string;
-  subtitle: string;
-    colors: ReturnType<typeof useTheme>;
-}) {
-  return (
-    <View style={[styles.trustItem, { backgroundColor: colors.card, borderColor: colors.border }]}>
-      <Ionicons name={icon as any} size={22} color={colors.primary} />
-      <View>
-        <Text style={[styles.trustTitle, { color: colors.foreground }]}>{title}</Text>
-        <Text style={[styles.trustSubtitle, { color: colors.mutedForeground }]}>{subtitle}</Text>
-      </View>
     </View>
   );
 }
@@ -470,430 +227,314 @@ function TrustItem({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#050505',
   },
-  content: {
-    padding: 16,
-    gap: 18,
+  scrollContent: {
+    paddingBottom: 50,
   },
-
-  /* 1. Garmin Main Hero Banner Slider Styles */
-  mainHeroContainer: {
-    width: '100%',
-    height: 300,
-    backgroundColor: '#000000',
-    borderRadius: 16,
-    overflow: 'hidden',
-    position: 'relative',
-    borderWidth: 1,
-    borderColor: '#2C2C2E',
-  },
-  mainHeroSlideContainer: {
-    width: '100%',
-    height: '100%',
+  heroSection: {
+    height: 480,
     position: 'relative',
   },
-  mainHeroImage: {
+  heroImage: {
+    ...StyleSheet.absoluteFillObject,
     width: '100%',
     height: '100%',
   },
-  mainHeroOverlay: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(0,0,0,0.7)',
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 6,
+  heroGradient: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'flex-end',
+    paddingHorizontal: 20,
+    paddingBottom: 60,
   },
-  badgeRow: {
+  heroContent: {
+    alignItems: 'flex-start',
+  },
+  tagRow: {
     flexDirection: 'row',
+    gap: 8,
+    marginBottom: 12,
+  },
+  tagOrange: {
+    backgroundColor: '#FF5500',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 6,
+  },
+  tagOrangeText: {
+    color: '#FFFFFF',
+    fontSize: 10,
+    fontWeight: '900',
+    letterSpacing: 0.5,
+  },
+  tagDark: {
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)',
+  },
+  tagDarkText: {
+    color: '#FFFFFF',
+    fontSize: 10,
+    fontWeight: '700',
+  },
+  heroTitle: {
+    color: '#FFFFFF',
+    fontSize: 28,
+    fontWeight: '900',
+    fontFamily: FONTS.bold,
+    letterSpacing: 0.5,
+  },
+  heroSubtitle: {
+    color: '#A1A1AA',
+    fontSize: 14,
+    marginTop: 6,
+    fontFamily: FONTS.regular,
+    lineHeight: 20,
+  },
+  heroPriceRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    marginTop: 16,
+  },
+  heroPrice: {
+    color: '#FFFFFF',
+    fontSize: 22,
+    fontWeight: '800',
+  },
+  stockBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(52, 199, 89, 0.15)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 12,
+    gap: 4,
+  },
+  stockDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: '#34C759',
+  },
+  heroInStock: {
+    color: '#34C759',
+    fontSize: 11,
+    fontWeight: '700',
+  },
+  heroBtn: {
+    flexDirection: 'row',
+    backgroundColor: '#FF5500',
+    paddingHorizontal: 24,
+    paddingVertical: 14,
+    alignItems: 'center',
+    borderRadius: 30,
+    marginTop: 20,
+    shadowColor: '#FF5500',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 5,
+  },
+  heroBtnPressed: {
+    opacity: 0.8,
+    transform: [{ scale: 0.98 }],
+  },
+  heroBtnText: {
+    color: '#FFFFFF',
+    fontWeight: '800',
+    fontSize: 14,
+    letterSpacing: 0.5,
+  },
+  quickActionsContainer: {
+    marginTop: -35,
+    paddingHorizontal: 16,
+    zIndex: 10,
+  },
+  quickActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#121214',
+    paddingVertical: 18,
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: '#27272A',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 10 },
+    shadowOpacity: 0.5,
+    shadowRadius: 15,
+    elevation: 10,
+  },
+  actionItem: {
     alignItems: 'center',
     gap: 8,
   },
-  mainHeroBadgeText: {
-    backgroundColor: '#FF5500',
-    color: '#FFFFFF',
-    fontSize: 10,
-    fontWeight: '700',
-    letterSpacing: 2,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 4,
-    fontFamily: FONTS.bold,
+  actionIconBox: {
+    width: 48,
+    height: 48,
+    borderRadius: 16,
+    backgroundColor: '#1F1F22',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  mainHeroAccent: {
-    color: '#00E5FF',
+  actionIconBoxActive: {
+    backgroundColor: 'rgba(255, 85, 0, 0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 85, 0, 0.3)',
+  },
+  actionText: {
+    color: '#A1A1AA',
+    fontSize: 11,
+    fontWeight: '600',
+  },
+  actionTextActive: {
+    color: '#FF5500',
     fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 2,
-    fontFamily: FONTS.bold,
   },
-  mainHeroTitle: {
-    fontSize: 22,
-    fontWeight: '900',
-    color: '#FFFFFF',
-    letterSpacing: 3,
-    textAlign: 'center',
-    fontFamily: FONTS.condensedBold,
-    textTransform: 'uppercase',
+  simulatorWrapper: {
+    paddingHorizontal: 16,
+    marginTop: 24,
   },
-  mainHeroSubtitle: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: '#D8DDDE',
-    letterSpacing: 2,
-    textAlign: 'center',
-    fontFamily: FONTS.condensedBold,
-    textTransform: 'uppercase',
-    marginBottom: 4,
-  },
-  mainHeroBtn: {
-    backgroundColor: '#FF5500',
-    paddingVertical: 9,
-    paddingHorizontal: 20,
-    borderRadius: 4,
-    elevation: 3,
-    shadowColor: '#FF5500',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-  },
-  mainHeroBtnText: {
-    color: '#FFFFFF',
-    fontSize: 12,
-    fontWeight: '700',
-    letterSpacing: 2,
-    fontFamily: FONTS.condensedBold,
-  },
-  timerBadgeContainer: {
-    position: 'absolute',
-    top: 12,
-    right: 12,
-    width: 44,
-    height: 44,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 10,
-    opacity: 0.5,
-  },
-  pauseBars: {
-    position: 'absolute',
-    flexDirection: 'row',
-    gap: 3,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  pauseBar: {
-    width: 2.5,
-    height: 11,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 1.5,
-  },
-  heroDotsContainer: {
-    position: 'absolute',
-    bottom: 12,
-    left: 16,
-    flexDirection: 'row',
-    gap: 6,
-    zIndex: 10,
-  },
-  heroDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: 'rgba(255, 255, 255, 0.4)',
-  },
-  heroDotActive: {
-    backgroundColor: '#FF5500',
-    width: 20,
-  },
-
-  /* 2. Hero Carousel (FĒNIX 8) Styles */
-  heroCarousel: {
-    alignSelf: 'center',
-  },
-  hero: {
-    minHeight: 184,
-    borderRadius: 16,
+  simulatorCard: {
+    borderRadius: 24,
+    padding: 20,
     borderWidth: 1,
-    borderColor: '#2C2C2E',
-    backgroundColor: '#16191B',
-    padding: 16,
+    borderColor: '#27272A',
+  },
+  simulatorHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    position: 'relative',
-    overflow: 'hidden',
+    alignItems: 'flex-start',
+    marginBottom: 20,
   },
-  heroCopy: {
-    flex: 1,
-    paddingRight: 10,
-    zIndex: 2,
-  },
-  heroTitle: {
-    fontSize: 22,
-    fontWeight: '900',
-    letterSpacing: 2,
-    fontFamily: FONTS.condensedBold,
-    textTransform: 'uppercase',
-  },
-  heroAccent: {
-    fontSize: 13,
-    fontWeight: '700',
-    marginTop: -2,
-    marginBottom: 4,
-    letterSpacing: 1.5,
-    fontFamily: FONTS.condensedBold,
-    textTransform: 'uppercase',
-  },
-  heroTagline: {
-    fontSize: 12,
-    fontFamily: FONTS.regular,
-    opacity: 0.9,
-    marginBottom: 12,
-  },
-  heroButton: {
-    alignSelf: 'flex-start',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 4,
-  },
-  heroButtonText: {
+  simulatorTitle: {
     color: '#FFFFFF',
-    fontSize: 10,
-    fontWeight: '700',
-    letterSpacing: 1,
-    fontFamily: FONTS.condensedBold,
+    fontSize: 20,
+    fontWeight: '800',
   },
-  heroWatch: {
-    width: 140,
-    height: 140,
+  simulatorSubtitle: {
+    color: '#A1A1AA',
+    fontSize: 13,
+    marginTop: 4,
   },
-  heroAvailability: {
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
+  simulatorBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 8,
-  },
-  availabilityDot: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-  },
-  availabilityText: {
-    fontSize: 8,
-    fontWeight: '600',
-    fontFamily: FONTS.medium,
-  },
-  carouselDots: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 6,
-    marginTop: 10,
-  },
-  carouselDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-  },
-  mainHeroMetaRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-    flexWrap: 'wrap',
-  },
-  mainHeroStockPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    backgroundColor: 'rgba(255,255,255,0.14)',
-    borderRadius: 999,
-    paddingHorizontal: 9,
+    backgroundColor: 'rgba(255, 85, 0, 0.15)',
+    paddingHorizontal: 8,
     paddingVertical: 4,
+    borderRadius: 12,
   },
-  mainHeroStockDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
+  simulatorBadgeText: {
+    color: '#FF5500',
+    fontSize: 11,
+    fontWeight: '800',
   },
-  mainHeroStockText: {
+  sectionContainer: {
+    marginTop: 32,
+    paddingHorizontal: 16,
+  },
+  sectionHeaderRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  sectionTitle: {
     color: '#FFFFFF',
-    fontSize: 10,
-    fontFamily: FONTS.medium,
-  },
-  mainHeroPrice: {
-    color: '#FFFFFF',
-    fontSize: 13,
+    fontSize: 20,
     fontWeight: '800',
     fontFamily: FONTS.bold,
   },
-  trustStrip: {
-    borderWidth: 1,
-    borderRadius: 14,
-    paddingHorizontal: 12,
-    paddingVertical: 10,
+  seeAllBtn: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: 8,
-  },
-  trustStripText: {
-    fontSize: 11,
-    fontFamily: FONTS.medium,
-  },
-  trustStripDivider: {
-    width: 4,
-    height: 4,
-    borderRadius: 2,
-    backgroundColor: '#FF5500',
-    opacity: 0.8,
-  },
-
-  /* 3. Quick Actions */
-  quickActions: {
-    flexDirection: 'row',
-    borderRadius: 16,
-    borderWidth: 1,
-    paddingVertical: 14,
-  },
-  quickAction: {
-    flex: 1,
-    alignItems: 'center',
-    gap: 6,
-  },
-  quickLabel: {
-    fontSize: 12,
-    fontFamily: FONTS.medium,
-  },
-
-  /* 4. Section Header & Products */
-  sectionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginTop: 4,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '700',
-    fontFamily: FONTS.bold,
-  },
-  seeAll: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
   },
   seeAllText: {
+    color: '#FF5500',
     fontSize: 13,
-    fontFamily: FONTS.medium,
-  },
-  productRow: {
-    flexDirection: 'row',
-    gap: 12,
-    paddingRight: 16,
-  },
-  productCardSlot: {
-    width: 252,
+    fontWeight: '600',
   },
   purposeGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    gap: 10,
+    gap: 12,
+    marginTop: 16,
   },
   purposeCard: {
-    width: '48%',
-    minHeight: 78,
-    borderRadius: 14,
-    borderWidth: 1,
-    padding: 12,
+    width: (SCREEN_WIDTH - 44) / 2,
+    backgroundColor: '#121214',
+    padding: 16,
+    borderRadius: 16,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
+    gap: 12,
+    borderWidth: 1,
+    borderColor: '#27272A',
   },
-  purposeCopy: {
-    flex: 1,
-    gap: 2,
+  purposeCardPressed: {
+    backgroundColor: '#1F1F22',
   },
-  purposeTitle: {
-    fontSize: 13,
+  purposeIconWrapper: {
+    width: 36,
+    height: 36,
+    borderRadius: 10,
+    backgroundColor: 'rgba(255, 85, 0, 0.1)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  purposeText: {
+    color: '#FFFFFF',
+    fontSize: 14,
     fontWeight: '700',
-    fontFamily: FONTS.bold,
   },
-  purposeSubtitle: {
-    fontSize: 10,
-    lineHeight: 13,
-    fontFamily: FONTS.regular,
+  purposeSub: {
+    color: '#71717A',
+    fontSize: 11,
+    marginTop: 2,
   },
-
-  /* Partner Banner */
-  partnerCard: {
+  horizontalProducts: {
+    gap: 16,
+    paddingRight: 16,
+  },
+  productCardSlot: {
+    width: 260,
+  },
+  trustBarWrapper: {
+    paddingHorizontal: 16,
+    marginTop: 40,
+  },
+  trustBar: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#121214',
+    paddingVertical: 20,
+    paddingHorizontal: 16,
     borderRadius: 16,
     borderWidth: 1,
-    overflow: 'hidden',
-  },
-  partnerBackground: {
-    minHeight: 140,
-    justifyContent: 'center',
-    padding: 16,
-  },
-  partnerImage: {
-    borderRadius: 16,
-  },
-  partnerShade: {
-    ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0,0,0,0.55)',
-  },
-  partnerCopy: {
-    gap: 6,
-    zIndex: 2,
-  },
-  partnerTitle: {
-    fontSize: 16,
-    fontWeight: '800',
-    fontFamily: FONTS.bold,
-  },
-  partnerText: {
-    fontSize: 12,
-    lineHeight: 16,
-    fontFamily: FONTS.regular,
-  },
-
-  /* Trust Items */
-  trustRow: {
-    flexDirection: 'row',
-    gap: 8,
+    borderColor: '#27272A',
   },
   trustItem: {
-    flex: 1,
-    borderRadius: 12,
-    borderWidth: 1,
-    padding: 10,
     alignItems: 'center',
-    textAlign: 'center',
-    gap: 6,
+    flex: 1,
+    gap: 8,
   },
-  trustTitle: {
-    fontSize: 10,
-    fontWeight: '700',
-    textAlign: 'center',
-    fontFamily: FONTS.bold,
+  trustDivider: {
+    width: 1,
+    height: 30,
+    backgroundColor: '#27272A',
   },
-  trustSubtitle: {
-    fontSize: 9,
+  trustText: {
+    color: '#A1A1AA',
+    fontSize: 11,
+    fontWeight: '600',
     textAlign: 'center',
-    fontFamily: FONTS.regular,
-  },
-  pressed: {
-    opacity: 0.9,
   },
 });
