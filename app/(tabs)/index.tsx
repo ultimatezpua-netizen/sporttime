@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ScrollView,
   StyleSheet,
@@ -7,6 +7,7 @@ import {
   Pressable,
   Image,
   Dimensions,
+  FlatList,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Header } from '@/components/Header';
@@ -15,43 +16,37 @@ import WatchSimulator from '@/components/WatchSimulator';
 import { PRODUCTS } from '@/data/products';
 import { FONTS } from '@/constants/typography';
 import { Feather, Ionicons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-// Динамически берем первые два товара из базы, чтобы ID гарантированно совпадали
-const firstProduct = PRODUCTS[0] || { id: '1', name: 'FORERUNNER® 965', price: 26500, inStock: true };
-const secondProduct = PRODUCTS[1] || { id: '2', name: 'FĒNIX® 8 AMOLED', price: 43500, inStock: true };
+const FLAGSHIP_SERIES = ['Fenix', 'Forerunner', 'Epix', 'Enduro', 'Tactix', 'MARQ'];
+const FLAGSHIP_NAME_RE = /(fenix|fēnix|forerunner\s*965|epix|enduro|tactix|marq)/i;
+const ACCESSORY_RE = /(ремінець|ремеш|strap|захис|скло|glass|charger|заряд|кріплення|mount|bezel|датчик|sensor)/i;
 
-const HERO_SLIDES = [
-  {
-    id: '1',
-    productId: firstProduct.id,
-    tag: 'FORERUNNER',
-    subTag: 'RUNNING & TRIATHLON',
-    title: firstProduct.name || 'FORERUNNER® 965',
-    subtitle: 'Твій темп. Твій шлях. Кожен крок до перемоги.',
-    btnText: 'ОБРАТИ СВІЙ ТЕМП',
-    image: Array.isArray(firstProduct.images) && firstProduct.images[0] 
-      ? firstProduct.images[0] 
-      : 'https://images.unsplash.com/photo-1510017803434-a899398421b3?q=80&w=1000&auto=format&fit=crop',
-    price: typeof firstProduct.price === 'number' ? `${firstProduct.price.toLocaleString('uk-UA')} ₴` : `${firstProduct.price} ₴`,
-    inStock: firstProduct.inStock ?? true,
-  },
-  {
-    id: '2',
-    productId: secondProduct.id,
-    tag: 'FĒNIX 8',
-    subTag: 'OUTDOOR & MULTISPORT',
-    title: secondProduct.name || 'FĒNIX® 8 AMOLED',
-    subtitle: 'Будь безмежним. Преміальний мультиспорт.',
-    btnText: 'ДІЗНАТИСЯ БІЛЬШЕ',
-    image: Array.isArray(secondProduct.images) && secondProduct.images[0]
-      ? secondProduct.images[0]
-      : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1000&auto=format&fit=crop',
-    price: typeof secondProduct.price === 'number' ? `${secondProduct.price.toLocaleString('uk-UA')} ₴` : `${secondProduct.price} ₴`,
-    inStock: secondProduct.inStock ?? true,
-  },
-];
+const buildHeroSlides = () => PRODUCTS
+  .filter(product =>
+    FLAGSHIP_SERIES.includes(product.series) &&
+    FLAGSHIP_NAME_RE.test(product.name) &&
+    !ACCESSORY_RE.test([product.name, product.category, ...product.categoryPath].join(' ')) &&
+    Array.isArray(product.images) &&
+    product.images.length > 0,
+  )
+  .slice(0, 4)
+  .map((product, index) => ({
+    id: product.id,
+    productId: product.id,
+    tag: product.series.toUpperCase(),
+    subTag: index % 2 === 0 ? 'PREMIUM SMARTWATCH' : 'OUTDOOR & MULTISPORT',
+    title: product.name,
+    subtitle: product.series === 'Forerunner'
+      ? 'Твій темп. Твій шлях. Кожен крок до перемоги.'
+      : 'Флагманські Garmin для тренувань, пригод і щоденного ритму.',
+    btnText: index === 0 ? 'ДІЗНАТИСЯ БІЛЬШЕ' : 'ОБРАТИ МОДЕЛЬ',
+    image: product.images[0],
+    price: `${product.price.toLocaleString('uk-UA')} ₴`,
+    inStock: product.inStock ?? true,
+  }));
 
 const PURPOSE_CATEGORIES = [
   { id: 'running', title: 'Для бігу', subtitle: 'Трек та асфальт', icon: 'fitness', category: 'running' },
@@ -63,52 +58,87 @@ const PURPOSE_CATEGORIES = [
 export default function HomeScreen() {
   const router = useRouter();
   const [activeSlide, setActiveSlide] = useState(0);
+  const heroListRef = useRef<FlatList<ReturnType<typeof buildHeroSlides>[number]>>(null);
+  const heroSlides = useMemo(buildHeroSlides, []);
+
+  useEffect(() => {
+    if (heroSlides.length < 2) return;
+
+    const timer = setInterval(() => {
+      setActiveSlide(current => {
+        const next = (current + 1) % heroSlides.length;
+        heroListRef.current?.scrollToIndex({ index: next, animated: true });
+        return next;
+      });
+    }, 5000);
+
+    return () => clearInterval(timer);
+  }, [heroSlides.length]);
 
   const popularProducts = PRODUCTS.slice(0, 6);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView edges={['bottom']} style={styles.container}>
       <Header />
 
       <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         
         {/* 1. HERO BANNERS */}
         <View style={styles.heroSection}>
-          <Image
-            source={{ uri: HERO_SLIDES[activeSlide].image }}
-            style={styles.heroImage}
-            resizeMode="cover"
+          <FlatList
+            ref={heroListRef}
+            data={heroSlides}
+            keyExtractor={item => item.id}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onMomentumScrollEnd={event => setActiveSlide(Math.round(event.nativeEvent.contentOffset.x / SCREEN_WIDTH))}
+            renderItem={({ item }) => (
+              <View style={styles.heroSlide}>
+                <Image source={{ uri: item.image }} style={styles.heroImage} resizeMode="cover" />
+              </View>
+            )}
           />
           <View style={styles.heroDarkOverlay} />
           
           <View style={styles.heroContent}>
             <View style={styles.tagRow}>
               <View style={styles.tagOrange}>
-                <Text style={styles.tagOrangeText}>{HERO_SLIDES[activeSlide].tag}</Text>
+                <Text style={styles.tagOrangeText}>{heroSlides[activeSlide].tag}</Text>
               </View>
               <View style={styles.tagDark}>
-                <Text style={styles.tagDarkText}>{HERO_SLIDES[activeSlide].subTag}</Text>
+                <Text style={styles.tagDarkText}>{heroSlides[activeSlide].subTag}</Text>
               </View>
             </View>
             
-            <Text style={styles.heroTitle}>{HERO_SLIDES[activeSlide].title}</Text>
-            <Text style={styles.heroSubtitle}>{HERO_SLIDES[activeSlide].subtitle}</Text>
+            <Text style={styles.heroTitle}>{heroSlides[activeSlide].title}</Text>
+            <Text style={styles.heroSubtitle}>{heroSlides[activeSlide].subtitle}</Text>
             
             <View style={styles.heroPriceRow}>
-              <Text style={styles.heroPrice}>{HERO_SLIDES[activeSlide].price}</Text>
+              <Text style={styles.heroPrice}>{heroSlides[activeSlide].price}</Text>
               <View style={styles.stockBadge}>
                 <View style={styles.stockDot} />
-                <Text style={styles.heroInStock}>{HERO_SLIDES[activeSlide].inStock ? 'У наявності' : 'Під замовлення'}</Text>
+                <Text style={styles.heroInStock}>{heroSlides[activeSlide].inStock ? 'У наявності' : 'Під замовлення'}</Text>
               </View>
             </View>
 
             <Pressable
               style={({ pressed }) => [styles.heroBtn, pressed && styles.heroBtnPressed]}
-              onPress={() => router.push(`/product/${HERO_SLIDES[activeSlide].productId}` as never)}
+              onPress={() => router.push(`/product/${heroSlides[activeSlide].productId}` as never)}
             >
-              <Text style={styles.heroBtnText}>{HERO_SLIDES[activeSlide].btnText}</Text>
+              <Text style={styles.heroBtnText}>{heroSlides[activeSlide].btnText}</Text>
               <Ionicons name="arrow-forward" size={16} color="#FFFFFF" style={{ marginLeft: 6 }} />
             </Pressable>
+          </View>
+          <View style={styles.heroDots}>
+            {heroSlides.map((slide, index) => (
+              <Pressable
+                key={`hero-dot-${slide.id}`}
+                onPress={() => { setActiveSlide(index); heroListRef.current?.scrollToIndex({ index, animated: true }); }}
+                style={[styles.heroDot, index === activeSlide && styles.heroDotActive]}
+                hitSlop={8}
+              />
+            ))}
           </View>
         </View>
 
@@ -223,7 +253,7 @@ export default function HomeScreen() {
           </View>
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -238,6 +268,10 @@ const styles = StyleSheet.create({
   heroSection: {
     height: 480,
     position: 'relative',
+  },
+  heroSlide: {
+    width: SCREEN_WIDTH,
+    height: '100%',
     justifyContent: 'flex-end',
   },
   heroImage: {
@@ -348,6 +382,26 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     fontSize: 14,
     letterSpacing: 0.5,
+  },
+  heroDots: {
+    position: 'absolute',
+    bottom: 18,
+    left: 0,
+    right: 0,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 8,
+    zIndex: 3,
+  },
+  heroDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: 'rgba(255, 255, 255, 0.42)',
+  },
+  heroDotActive: {
+    width: 24,
+    backgroundColor: '#FF5500',
   },
   quickActionsContainer: {
     marginTop: -35,

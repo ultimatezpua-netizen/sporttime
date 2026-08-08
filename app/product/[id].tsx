@@ -14,7 +14,7 @@ import {
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useTheme } from '@/hooks/useTheme';
 import { Ionicons } from '@expo/vector-icons';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
 import { getProductById, formatPrice, ProductFeatureBlock, ProductRichSection } from '@/data/products';
 import { useApp } from '@/context/AppContext';
@@ -43,6 +43,18 @@ const DEFAULT_RICH_FEATURES: ProductFeatureBlock[] = [
   { title: 'Сповіщення', description: 'Повідомлення зі смартфона прямо на зап’ясті.', iconName: 'notifications-outline' },
   { title: 'Ресурс батареї', description: 'Тривала робота без щоденної зарядки.', iconName: 'battery-charging-outline' },
 ];
+
+
+const NAMED_COLOR_HEX: Record<string, string> = {
+  black: '#111111', graphite: '#2C2C2E', gray: '#8E8E93', grey: '#8E8E93', slate: '#5B6470', silver: '#C7C7CC', titanium: '#B8B2A6', white: '#F5F5F7', whitestone: '#E5E0D6', ivory: '#F2E8D5', beige: '#D8C3A5', yellow: '#FFD60A', amp: '#D7FF00', orange: '#FF9500', red: '#FF3B30', blue: '#0A84FF', navy: '#0B1F3A', green: '#34C759', pink: '#FF9BCB', purple: '#AF52DE', gold: '#D4AF37', rose: '#B76E79', moss: '#556B2F', flame: '#FF5500',
+};
+
+function getColorSwatch(colorName: string, colorHex?: string) {
+  if (colorHex && /^#[0-9a-f]{3,8}$/i.test(colorHex)) return colorHex;
+  const normalized = colorName.toLowerCase();
+  const matchedKey = Object.keys(NAMED_COLOR_HEX).find(key => normalized.includes(key));
+  return matchedKey ? NAMED_COLOR_HEX[matchedKey] : '#2C2C2E';
+}
 
 const DEFAULT_HEALTH_FEATURES: ProductFeatureBlock[] = [
   { title: 'Щоденний рух', description: 'Кроки, калорії та хвилини інтенсивності.', iconName: 'walk-outline' },
@@ -190,6 +202,7 @@ export default function ProductDetailScreen() {
   const inCart = isInCart(product.id);
   const favorite = isFavorite(product.id);
   const colorsList = product.colors.length > 0 ? product.colors : ['Стандартний'];
+  const colorHexes = product.colorHexes ?? [];
   const isInstinctE = product.sku === '010-02932-01';
   const currentImage = images[selectedImage] ?? images[0] ?? product.image;
 
@@ -209,7 +222,7 @@ export default function ProductDetailScreen() {
   };
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <SafeAreaView edges={['bottom']} style={[styles.container, { backgroundColor: colors.background }]}>
       <ScrollView
         style={{ flex: 1 }}
         contentContainerStyle={{ paddingBottom: bottomPad }}
@@ -365,13 +378,11 @@ export default function ProductDetailScreen() {
                   index === selectedColor && styles.colorThumbSelected,
                 ]}
               >
-                <ProductImage
-                  product={product}
-                  imageOverride={images[index % images.length] ?? currentImage}
-                  style={styles.colorThumbImg}
-                  resizeMode="contain"
-                  iconSize={18}
-                  useLocalFallback={true}
+                <View
+                  style={[
+                    styles.colorSwatch,
+                    { backgroundColor: getColorSwatch(colorName, colorHexes[index]) },
+                  ]}
                 />
               </Pressable>
             ))}
@@ -649,7 +660,7 @@ export default function ProductDetailScreen() {
           </View>
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -855,8 +866,9 @@ const styles = StyleSheet.create({
     width: 52,
     height: 52,
     borderRadius: 26,
-    backgroundColor: '#FFFFFF',
-    padding: 3,
+    backgroundColor: '#1C1C1E',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderWidth: 3,
     borderColor: '#333338',
   },
@@ -864,9 +876,10 @@ const styles = StyleSheet.create({
     borderColor: '#FF5500',
     borderWidth: 4,
   },
-  colorThumbImg: {
-    width: '100%',
-    height: '100%',
+  colorSwatch: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
   },
   sizeSpecsSection: {
     paddingHorizontal: 16,
