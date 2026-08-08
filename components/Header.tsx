@@ -1,6 +1,5 @@
 import React, { memo, useState } from 'react';
 import {
-  Image,
   Linking,
   Modal,
   Platform,
@@ -17,13 +16,7 @@ import { Feather, FontAwesome5 } from '@expo/vector-icons';
 import { Ionicons } from '@/components/SafeIonicons';
 import { useApp } from '@/context/AppContext';
 import { FONTS } from '@/constants/typography';
-
-let HEADER_LOGO: any = null;
-try {
-  HEADER_LOGO = require('../assets/images/logo-mountain.png');
-} catch {
-  HEADER_LOGO = null;
-}
+import { GarminLogo } from './GarminLogo';
 
 interface HeaderProps {
   showBack?: boolean;
@@ -144,6 +137,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
   const [menuOpen, setMenuOpen] = useState(false);
   const [drawerPage, setDrawerPage] = useState<DrawerPage>('main');
   const [drawerSearchQuery, setDrawerSearchQuery] = useState('');
+  const [isSearchVisible, setIsSearchVisible] = useState(false);
   const topPad = Platform.OS === 'web' ? 10 : insets.top + 6;
 
   const openDrawer = () => {
@@ -268,24 +262,16 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
 
         {/* CENTER SECTION: LOGO */}
         <Pressable onPress={() => router.push('/')} style={styles.logoPressable}>
-          {HEADER_LOGO ? (
-            <Image
-              source={HEADER_LOGO}
-              style={styles.logoImage}
-              resizeMode="contain"
-            />
-          ) : (
-            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-              <Ionicons name="triangle" size={16} color="#FF6400" />
-              <Text style={{ color: '#FFFFFF', fontWeight: '800', fontSize: 16 }}>GARMIN</Text>
-            </View>
-          )}
+          <GarminLogo width={125} height={20} color="#FF6B00" />
         </Pressable>
 
         {/* RIGHT SECTION: SEARCH, CART, PROFILE */}
         <View style={styles.rightActions}>
           <Pressable
-            onPress={onSearch ?? (() => router.push('/catalog'))}
+            onPress={() => {
+              setIsSearchVisible(!isSearchVisible);
+              onSearch?.();
+            }}
             style={styles.iconBtn}
             hitSlop={8}
             accessibilityRole="button"
@@ -301,7 +287,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
             accessibilityRole="button"
             accessibilityLabel={`Кошик, товарів: ${cartDisplayCount}`}
           >
-            <Feather name="shopping-cart" size={22} color="#E5E5E7" />
+            <Feather name="shopping-bag" size={21} color="#FFFFFF" />
             <View style={styles.cartBadge}>
               <Text style={styles.cartBadgeText}>{cartDisplayCount}</Text>
             </View>
@@ -318,6 +304,19 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
           </Pressable>
         </View>
       </View>
+
+      {isSearchVisible && (
+        <View style={styles.searchPanel}>
+          <Feather name="search" size={18} color="#1C1C1E" style={styles.searchPanelIcon} />
+          <TextInput
+            style={styles.searchPanelInput}
+            placeholder="Search garmin.com"
+            placeholderTextColor="#6E6E73"
+            autoFocus
+            returnKeyType="search"
+          />
+        </View>
+      )}
 
       {/* DRAWER MODAL */}
       <Modal
@@ -441,9 +440,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  logoImage: {
-    width: 235,
-    height: 50,
+  searchPanel: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: '#1C1C1E',
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+  },
+  searchPanelIcon: {
+    marginRight: 8,
+  },
+  searchPanelInput: {
+    flex: 1,
+    color: '#1C1C1E',
+    fontSize: 15,
+    fontFamily: FONTS.regular,
   },
   rightActions: {
     flexDirection: 'row',
