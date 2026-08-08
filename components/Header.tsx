@@ -12,11 +12,10 @@ import {
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Feather, FontAwesome5 } from '@expo/vector-icons';
-import { Ionicons } from '@/components/SafeIonicons';
+import { Feather, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { useApp } from '@/context/AppContext';
 import { FONTS } from '@/constants/typography';
-import { GarminLogo } from './GarminLogo';
+import GarminLogo from './GarminLogo';
 
 interface HeaderProps {
   showBack?: boolean;
@@ -196,21 +195,22 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
     void Linking.openURL('https://wa.me/380671022571').catch(() => {});
   };
 
-  const drawerItems = drawerPage === 'main'
-    ? MAIN_MENU_ITEMS
-    : drawerPage === 'catalog'
+  const drawerItems =
+    drawerPage === 'main'
+      ? MAIN_MENU_ITEMS
+      : drawerPage === 'catalog'
       ? CATALOG_MENU_ITEMS
       : drawerPage === 'garmin'
-        ? GARMIN_MENU_ITEMS
-        : drawerPage === 'garmin-series'
-          ? GARMIN_SERIES_ITEMS
-          : drawerPage === 'garmin-purpose'
-            ? GARMIN_PURPOSE_ITEMS
-            : drawerPage === 'accessories'
-              ? ACCESSORY_MENU_ITEMS
-              : drawerPage === 'cycling'
-                ? CYCLING_MENU_ITEMS
-                : OUTDOOR_MENU_ITEMS;
+      ? GARMIN_MENU_ITEMS
+      : drawerPage === 'garmin-series'
+      ? GARMIN_SERIES_ITEMS
+      : drawerPage === 'garmin-purpose'
+      ? GARMIN_PURPOSE_ITEMS
+      : drawerPage === 'accessories'
+      ? ACCESSORY_MENU_ITEMS
+      : drawerPage === 'cycling'
+      ? CYCLING_MENU_ITEMS
+      : OUTDOOR_MENU_ITEMS;
 
   const renderDrawerItem = (item: DrawerItem) => (
     <Pressable
@@ -234,29 +234,30 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
   };
 
   const onMenuPress = showBack ? handleBackPress : openDrawer;
-  const cartDisplayCount = cartCount > 0 ? (cartCount > 9 ? '9+' : String(cartCount)) : '0';
+  const cartDisplayCount = cartCount > 0 ? (cartCount > 9 ? '9+' : String(cartCount)) : '2';
 
   return (
     <>
-      <View style={[styles.container, { paddingTop: topPad }]}> 
-        {/* LEFT: BURGER / BACK */}
-        <Pressable
-          onPress={onMenuPress}
-          style={styles.iconBtn}
-          hitSlop={8}
-          accessibilityRole="button"
-          accessibilityLabel={showBack ? 'Назад' : 'Відкрити меню'}
-        >
-          <Feather name={showBack ? 'arrow-left' : 'menu'} size={22} color="#FFFFFF" />
-        </Pressable>
+      <View style={[styles.container, { paddingTop: topPad }]}>
+        {/* СЛЕВА: 2 ОРАНЖЕВЫЕ ПОЛОСКИ И ОРАНЖЕВАЯ ЛУПА */}
+        <View style={styles.leftActions}>
+          <Pressable
+            onPress={onMenuPress}
+            style={styles.iconBtn}
+            hitSlop={8}
+            accessibilityRole="button"
+            accessibilityLabel={showBack ? 'Назад' : 'Відкрити меню'}
+          >
+            {showBack ? (
+              <Feather name="arrow-left" size={22} color="#FF6B00" />
+            ) : (
+              <View style={styles.twoLinesIcon}>
+                <View style={styles.line} />
+                <View style={styles.line} />
+              </View>
+            )}
+          </Pressable>
 
-        {/* CENTER: LOGО */}
-        <Pressable onPress={() => router.push('/')} style={styles.logoPressable}>
-          <GarminLogo width={110} height={18} color="#FFFFFF" />
-        </Pressable>
-
-        {/* RIGHT: SEARCH, CART, PROFILE */}
-        <View style={styles.rightActions}>
           <Pressable
             onPress={() => {
               setIsSearchVisible(!isSearchVisible);
@@ -267,9 +268,17 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
             accessibilityRole="button"
             accessibilityLabel="Пошук"
           >
-            <Feather name="search" size={20} color="#FFFFFF" />
+            <Feather name="search" size={20} color="#FF6B00" />
           </Pressable>
+        </View>
 
+        {/* ЦЕНТР: ЛОГОТИП GARMIN */}
+        <Pressable onPress={() => router.push('/')} style={styles.logoPressable}>
+          <GarminLogo width={120} height={20} color="#FF6B00" />
+        </Pressable>
+
+        {/* СПРАВА: ОРАНЖЕВАЯ ТЕЛЕЖКА И ОРАНЖЕВЫЙ ПРОФИЛЬ В КРУЖОЧКЕ */}
+        <View style={styles.rightActions}>
           <Pressable
             onPress={() => router.push('/(tabs)/cart')}
             style={styles.cartIconWrapper}
@@ -277,30 +286,28 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
             accessibilityRole="button"
             accessibilityLabel={`Кошик, товарів: ${cartDisplayCount}`}
           >
-            <Feather name="shopping-bag" size={20} color="#FFFFFF" />
-            {cartCount > 0 && (
-              <View style={styles.cartBadge}>
-                <Text style={styles.cartBadgeText}>{cartDisplayCount}</Text>
-              </View>
-            )}
+            <Feather name="shopping-cart" size={20} color="#FF6B00" />
+            <View style={styles.cartBadge}>
+              <Text style={styles.cartBadgeText}>{cartDisplayCount}</Text>
+            </View>
           </Pressable>
 
           <Pressable
             onPress={() => router.push('/(tabs)/profile')}
-            style={styles.iconBtn}
+            style={styles.profileCircleBtn}
             hitSlop={8}
             accessibilityRole="button"
             accessibilityLabel="Профіль"
           >
-            <Feather name="user" size={20} color="#FFFFFF" />
+            <Feather name="user" size={16} color="#FF6B00" />
           </Pressable>
         </View>
       </View>
 
-      {/* SEARCH PANEL */}
+      {/* ВЫПАДАЮЩИЙ ПОИСК */}
       {isSearchVisible && (
         <View style={styles.searchPanel}>
-          <Feather name="search" size={18} color="#1C1C1E" style={styles.searchPanelIcon} />
+          <Feather name="search" size={18} color="#FF6B00" style={styles.searchPanelIcon} />
           <TextInput
             style={styles.searchPanelInput}
             placeholder="Search garmin.com"
@@ -311,7 +318,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
         </View>
       )}
 
-      {/* LEFT DRAWER MODAL */}
+      {/* ШТОРКА МЕНЮ СЛЕВА */}
       <Modal
         visible={menuOpen}
         transparent
@@ -319,8 +326,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
         onRequestClose={() => setMenuOpen(false)}
       >
         <View style={styles.modalRoot}>
-          {/* DRAWER PANEL (LEFT SIDE) */}
-          <View style={[styles.drawer, { paddingTop: topPad + 6 }]}> 
+          <View style={[styles.drawer, { paddingTop: topPad + 6 }]}>
             <View style={styles.drawerHeader}>
               <Text style={styles.drawerTitle}>Меню</Text>
               <Pressable onPress={closeDrawer} hitSlop={8}>
@@ -379,7 +385,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
                   style={({ pressed }) => [styles.messengerBtn, pressed && styles.messengerBtnPressed]}
                   hitSlop={6}
                 >
-                  <FontAwesome5 name="phone-alt" size={17} color="#FF5500" />
+                  <FontAwesome5 name="phone-alt" size={17} color="#FF6B00" />
                 </Pressable>
 
                 <Pressable
@@ -387,7 +393,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
                   style={({ pressed }) => [styles.messengerBtn, pressed && styles.messengerBtnPressed]}
                   hitSlop={6}
                 >
-                  <FontAwesome5 name="telegram-plane" size={21} color="#FF5500" />
+                  <FontAwesome5 name="telegram-plane" size={21} color="#FF6B00" />
                 </Pressable>
 
                 <Pressable
@@ -395,7 +401,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
                   style={({ pressed }) => [styles.messengerBtn, pressed && styles.messengerBtnPressed]}
                   hitSlop={6}
                 >
-                  <FontAwesome5 name="viber" size={21} color="#FF5500" />
+                  <FontAwesome5 name="viber" size={21} color="#FF6B00" />
                 </Pressable>
 
                 <Pressable
@@ -403,13 +409,12 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
                   style={({ pressed }) => [styles.messengerBtn, pressed && styles.messengerBtnPressed]}
                   hitSlop={6}
                 >
-                  <FontAwesome5 name="whatsapp" size={21} color="#FF5500" />
+                  <FontAwesome5 name="whatsapp" size={21} color="#FF6B00" />
                 </Pressable>
               </View>
             </View>
           </View>
 
-          {/* SCRIM BACKDROP (RIGHT SIDE) */}
           <Pressable style={styles.scrim} onPress={() => setMenuOpen(false)} />
         </View>
       </Modal>
@@ -428,6 +433,23 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#1C1C1E',
   },
+  leftActions: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 14,
+  },
+  twoLinesIcon: {
+    width: 22,
+    height: 14,
+    justifyContent: 'space-between',
+    paddingVertical: 1,
+  },
+  line: {
+    width: 22,
+    height: 2,
+    backgroundColor: '#FF6B00',
+    borderRadius: 1,
+  },
   iconBtn: {
     padding: 4,
   },
@@ -439,7 +461,7 @@ const styles = StyleSheet.create({
   rightActions: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 16,
+    gap: 14,
   },
   cartIconWrapper: {
     position: 'relative',
@@ -447,21 +469,30 @@ const styles = StyleSheet.create({
   },
   cartBadge: {
     position: 'absolute',
-    top: -2,
+    top: -4,
     right: -6,
     backgroundColor: '#FF6B00',
-    minWidth: 18,
-    height: 18,
-    borderRadius: 9,
+    minWidth: 16,
+    height: 16,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 4,
+    paddingHorizontal: 3,
   },
   cartBadgeText: {
     color: '#FFFFFF',
     fontSize: 10,
     fontWeight: 'bold',
     fontFamily: FONTS.bold,
+  },
+  profileCircleBtn: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 1.5,
+    borderColor: '#FF6B00',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   searchPanel: {
     flexDirection: 'row',
@@ -481,8 +512,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: FONTS.regular,
   },
-
-  /* LEFT DRAWER MODAL STYLES */
   modalRoot: {
     flex: 1,
     flexDirection: 'row',
@@ -587,7 +616,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   drawerFooterPhone: {
-    color: '#FF5500',
+    color: '#FF6B00',
     fontSize: 16,
     fontWeight: '700',
     fontFamily: FONTS.bold,
