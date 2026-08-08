@@ -80,6 +80,14 @@ type CatalogTag = {
   category?: CatalogCategoryKey;
 };
 
+
+const PURPOSE_CATEGORY_FILTERS: Record<string, { series?: Series[]; categoryIds?: string[]; keywords?: string[] }> = {
+  running: { series: ['Forerunner'], categoryIds: ['1103'], keywords: ['біг', 'running', 'run'] },
+  tactical: { series: ['Tactix', 'Instinct'], categoryIds: ['1108', '1116'], keywords: ['tactix', 'тактич', 'tactical'] },
+  outdoor: { series: ['Fenix', 'Epix', 'Enduro', 'Instinct'], categoryIds: ['1099', '1100', '1102', '1104', '1088'], keywords: ['outdoor', 'туризм', 'навігатор', 'fenix', 'enduro', 'instinct'] },
+  women: { series: ['Lily', 'Venu', 'Vivomove'], categoryIds: ['1105', '1109', '1112', '1114'], keywords: ['жіноч', 'women', 'lily'] },
+};
+
 const CATALOG_TAGS: CatalogTag[] = [
   { key: 'all', label: 'Усі', type: 'all' },
   { key: 'sale', label: '🔥 Акции', type: 'sale' },
@@ -127,8 +135,8 @@ export default function CatalogScreen() {
   const [minPriceInput, setMinPriceInput] = useState('');
   const [maxPriceInput, setMaxPriceInput] = useState('');
   const [priceRange, setPriceRange] = useState<{ min?: number; max?: number }>({});
-  const [showOnlySale, setShowOnlySale] = useState(params.sale === '1');
-  const [showOnlyNew, setShowOnlyNew] = useState(params.isNew === '1');
+  const [showOnlySale, setShowOnlySale] = useState(params.sale === '1' || params.sale === 'true');
+  const [showOnlyNew, setShowOnlyNew] = useState(params.isNew === '1' || params.isNew === 'true');
   const [searchQuery, setSearchQuery] = useState(params.q ?? '');
   const [sort, setSort] = useState<SortOption>(initialSort);
 
@@ -194,6 +202,7 @@ export default function CatalogScreen() {
     setShowSolar(false);
     setShowInStock(false);
     setShowOnlySale(false);
+    setShowOnlyNew(false);
     setSelectedFacets({});
     setSelectedColors([]);
     setPriceRange({});
@@ -210,6 +219,7 @@ export default function CatalogScreen() {
     (showSolar ? 1 : 0) +
     (showInStock ? 1 : 0) +
     (showOnlySale ? 1 : 0) +
+    (showOnlyNew ? 1 : 0) +
     Object.values(selectedFacets).filter(Boolean).length +
     selectedFilterSeries.length +
     selectedColors.length +
@@ -274,7 +284,17 @@ export default function CatalogScreen() {
     }
 
     if (initialCategoryId) {
-      result = result.filter(p => p.categoryId === initialCategoryId || p.categoryPath.includes(initialCategoryId));
+      const purposeFilter = PURPOSE_CATEGORY_FILTERS[initialCategoryId];
+      if (purposeFilter) {
+        result = result.filter(p => {
+          const haystack = [p.name, p.description, p.shortDescription, p.series, ...p.categoryPath].join(' ').toLowerCase();
+          return (purposeFilter.series?.includes(p.series) ?? false) ||
+            (purposeFilter.categoryIds?.some(id => p.categoryId === id || p.categoryPath.includes(id)) ?? false) ||
+            (purposeFilter.keywords?.some(keyword => haystack.includes(keyword.toLowerCase())) ?? false);
+        });
+      } else {
+        result = result.filter(p => p.categoryId === initialCategoryId || p.categoryPath.includes(initialCategoryId));
+      }
     }
 
     if (selectedCategory === 'watch-accessories') {
@@ -357,6 +377,8 @@ export default function CatalogScreen() {
     return sorted;
   }, [
     showOnlySale,
+    showOnlyNew,
+    initialCategoryId,
     selectedCategory,
     selectedSeries,
     selectedFilterSeries,
