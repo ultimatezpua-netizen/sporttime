@@ -10,7 +10,7 @@
     "backgroundColor": "#111113",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/images/logo-mountain.png",
+      "image": "./assets/images/splash-screen-localized.png",
       "resizeMode": "contain",
       "backgroundColor": "#111113"
     },
