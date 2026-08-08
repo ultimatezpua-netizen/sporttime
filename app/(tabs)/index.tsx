@@ -11,7 +11,7 @@ import {
 import { useRouter } from 'expo-router';
 import { Header } from '@/components/Header';
 import { ProductCard } from '@/components/ProductCard';
-import { WatchSimulator } from '@/components/WatchSimulator';
+import WatchSimulator from '@/components/WatchSimulator';
 import { PRODUCTS } from '@/data/products';
 import { FONTS } from '@/constants/typography';
 import { Feather, Ionicons } from '@expo/vector-icons';
