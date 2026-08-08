@@ -31,23 +31,25 @@ const TIMER_CIRCUMFERENCE = 2 * Math.PI * 18; // ~113.1
 
 const mainSlides = [
   {
-    id: 'edge1050-cycling',
-    title: 'EDGE® 1050',
-    accent: 'PREMIUM CYCLING',
-    subtitle: 'ВІДКРИВАЙ НОВІ МАРШРУТИ ТА ДОСЯГАЙ МЕТИ.',
-    buttonText: 'ДІЗНАТИСЯ БІЛЬШЕ',
-    image: require('../../assets/images/watch-forerunner.png'),
-    route: '/catalog',
-    badge: 'EDGE 1050',
+    id: 'fenix8-premium',
+    sku: '010-02905-20',
+    title: 'FĒNIX® 8',
+    accent: 'PREMIUM AMOLED',
+    subtitle: 'ТИТАНОВИЙ КОРПУС, AMOLED ТА ГОТОВНІСТЬ ДО БУДЬ-ЯКОЇ ДИСТАНЦІЇ.',
+    buttonText: 'ПЕРЕГЛЯНУТИ МОДЕЛЬ',
+    image: require('../../assets/images/watch-fenix.png'),
+    route: '/product/[id]',
+    badge: 'ХІТ GARMIN',
   },
   {
     id: 'forerunner-running',
+    sku: '010-02809-00',
     title: 'FORERUNNER® 965',
     accent: 'RUNNING & TRIATHLON',
     subtitle: 'ТВІЙ ТЕМП. ТВІЙ ШЛЯХ. КОЖЕН КРОК ДО ПЕРЕМОГИ.',
     buttonText: 'ОБРАТИ СВІЙ ТЕМП',
-    image: require('../../assets/images/watch-fenix.png'),
-    route: '/catalog',
+    image: require('../../assets/images/watch-forerunner.png'),
+    route: '/product/[id]',
     badge: 'FORERUNNER',
   },
   {
@@ -56,8 +58,9 @@ const mainSlides = [
     accent: 'SOLAR & TACTICAL',
     subtitle: 'СТВОРЕНІ ДЛЯ ЕКСТРЕМУ ТА НАДЗВИЧАЙНИХ УМОВ.',
     buttonText: 'ТАКТИЧНА СЕРІЯ',
+    sku: '010-02805-13',
     image: require('../../assets/images/watch-instinct.png'),
-    route: '/catalog',
+    route: '/product/[id]',
     badge: 'TACTIX',
   },
 ];
@@ -69,9 +72,18 @@ const PROMO_IMAGE_SOURCE =
 
 const quickActions = [
   { icon: 'grid-outline', label: 'Каталог', route: '/catalog' },
-  { icon: 'star-outline', label: 'Новинки', route: '/catalog' },
-  { icon: 'pricetag-outline', label: 'Акции', route: '/catalog' },
+  { icon: 'star-outline', label: 'Новинки', route: '/catalog', params: { isNew: '1', sort: 'rating' } },
+  { icon: 'pricetag-outline', label: 'Акції', route: '/catalog', params: { sale: '1' } },
   { icon: 'heart-outline', label: 'Обране', route: '/(tabs)/favorites' },
+] as const;
+
+const purposeLinks = [
+  { icon: 'walk-outline', title: 'Для бігу', subtitle: 'Forerunner', category: '1103' },
+  { icon: 'trail-sign-outline', title: 'Для туризму', subtitle: 'Fēnix / Instinct', category: '1117' },
+  { icon: 'shield-outline', title: 'Тактичні', subtitle: 'Tactix / Solar', category: '1116' },
+  { icon: 'bicycle-outline', title: 'Велоспорт', subtitle: 'Edge та датчики', category: '1098' },
+  { icon: 'watch-outline', title: 'Щоденні', subtitle: 'Venu / Vivoactive', category: '1118' },
+  { icon: 'diamond-outline', title: 'Преміум', subtitle: 'MARQ / Fēnix', category: '1119' },
 ] as const;
 
 const heroOffers = [
@@ -161,11 +173,24 @@ export default function HomeScreen() {
     ...model,
     product: getProduct(model.sku),
   }));
+  const activeMainProduct = getProduct(mainSlides[activeMainSlide].sku);
   const bottomPad = Platform.OS === 'web' ? 94 : insets.bottom + 90;
   const heroWidth = Math.max(280, screenWidth - 32);
 
   const openProduct = (product: Product) => {
     router.push({ pathname: '/product/[id]', params: { id: product.id } });
+  };
+
+  const openMainSlide = () => {
+    openProduct(activeMainProduct);
+  };
+
+  const openQuickAction = (action: typeof quickActions[number]) => {
+    if ('params' in action) {
+      router.push({ pathname: action.route, params: action.params } as never);
+      return;
+    }
+    router.push(action.route as never);
   };
 
   return (
@@ -191,12 +216,19 @@ export default function HomeScreen() {
               </View>
               <Text style={styles.mainHeroTitle}>{mainSlides[activeMainSlide].title}</Text>
               <Text style={styles.mainHeroSubtitle}>{mainSlides[activeMainSlide].subtitle}</Text>
+              <View style={styles.mainHeroMetaRow}>
+                <View style={styles.mainHeroStockPill}>
+                  <View style={[styles.mainHeroStockDot, { backgroundColor: activeMainProduct.inStock ? '#33C56E' : '#F05A4F' }]} />
+                  <Text style={styles.mainHeroStockText}>{activeMainProduct.inStock ? 'В наявності' : 'Під замовлення'}</Text>
+                </View>
+                <Text style={styles.mainHeroPrice}>від {formatPrice(activeMainProduct.price)}</Text>
+              </View>
               <Pressable
                 style={({ pressed }) => [
                   styles.mainHeroBtn,
                   pressed && { opacity: 0.9, transform: [{ scale: 0.98 }] },
                 ]}
-                onPress={() => router.push(mainSlides[activeMainSlide].route as any)}
+                onPress={openMainSlide}
               >
                 <Text style={styles.mainHeroBtnText}>{mainSlides[activeMainSlide].buttonText}</Text>
               </Pressable>
@@ -309,12 +341,20 @@ export default function HomeScreen() {
           </View>
         </View>
 
+        <View style={[styles.trustStrip, { backgroundColor: colors.card, borderColor: colors.border }]}>
+          <Text style={[styles.trustStripText, { color: colors.foreground }]}>Офіційний Garmin</Text>
+          <View style={styles.trustStripDivider} />
+          <Text style={[styles.trustStripText, { color: colors.foreground }]}>Гарантія 24 міс.</Text>
+          <View style={styles.trustStripDivider} />
+          <Text style={[styles.trustStripText, { color: colors.foreground }]}>Швидка доставка</Text>
+        </View>
+
         {/* 3. Quick categories */}
         <View style={[styles.quickActions, { backgroundColor: colors.card, borderColor: colors.border }]}>
           {quickActions.map(action => (
             <Pressable
               key={action.label}
-              onPress={() => router.push(action.route)}
+              onPress={() => openQuickAction(action)}
               style={({ pressed }) => [styles.quickAction, pressed && styles.pressed]}
             >
               <Ionicons name={action.icon} size={29} color={colors.foreground} />
@@ -330,7 +370,25 @@ export default function HomeScreen() {
           ))}
         </View>
 
-        <WatchSimulator />
+        <View style={styles.sectionHeader}>
+          <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Підібрати за ціллю</Text>
+        </View>
+
+        <View style={styles.purposeGrid}>
+          {purposeLinks.map(item => (
+            <Pressable
+              key={item.title}
+              onPress={() => router.push({ pathname: '/catalog', params: { category: item.category } } as never)}
+              style={({ pressed }) => [styles.purposeCard, { backgroundColor: colors.card, borderColor: colors.border }, pressed && styles.pressed]}
+            >
+              <Ionicons name={item.icon as any} size={22} color={colors.primary} />
+              <View style={styles.purposeCopy}>
+                <Text style={[styles.purposeTitle, { color: colors.foreground }]}>{item.title}</Text>
+                <Text style={[styles.purposeSubtitle, { color: colors.mutedForeground }]}>{item.subtitle}</Text>
+              </View>
+            </Pressable>
+          ))}
+        </View>
 
         {/* 4. Popular models */}
         <View style={styles.sectionHeader}>
@@ -345,11 +403,15 @@ export default function HomeScreen() {
           </Pressable>
         </View>
 
-        <View style={styles.productRow}>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.productRow}>
           {products.map(({ product }) => (
-            <ProductCard key={product.id} product={product} />
+            <View key={product.id} style={styles.productCardSlot}>
+              <ProductCard product={product} />
+            </View>
           ))}
-        </View>
+        </ScrollView>
+
+        <WatchSimulator />
 
         <Pressable
           onPress={() => router.push('/catalog')}
@@ -367,7 +429,7 @@ export default function HomeScreen() {
                 Офіційний партнер{'\n'}GARMIN в Україні
               </Text>
               <Text style={[styles.partnerText, { color: '#D8DDDE' }]}>
-                Премиальный опыт.{'\n'}Надежность. Точность.{'\n'}Для активной жизни.
+                Преміальний досвід.{'\n'}Надійність. Точність.{'\n'}Для активного життя.
               </Text>
             </View>
           </ImageBackground>
@@ -376,7 +438,7 @@ export default function HomeScreen() {
         <View style={styles.trustRow}>
           <TrustItem icon="shield-checkmark-outline" title="ОФІЦІЙНА" subtitle="ПРОДУКЦІЯ" colors={colors} />
           <TrustItem icon="car-outline" title="ШВИДКА" subtitle="ДОСТАВКА" colors={colors} />
-          <TrustItem icon="ribbon-outline" title="ГАРАНТИЯ" subtitle="2 ГОДА" colors={colors} />
+          <TrustItem icon="ribbon-outline" title="ГАРАНТІЯ" subtitle="2 РОКИ" colors={colors} />
         </View>
       </ScrollView>
     </View>
@@ -643,6 +705,59 @@ const styles = StyleSheet.create({
     height: 6,
     borderRadius: 3,
   },
+  mainHeroMetaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    flexWrap: 'wrap',
+  },
+  mainHeroStockPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    backgroundColor: 'rgba(255,255,255,0.14)',
+    borderRadius: 999,
+    paddingHorizontal: 9,
+    paddingVertical: 4,
+  },
+  mainHeroStockDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+  },
+  mainHeroStockText: {
+    color: '#FFFFFF',
+    fontSize: 10,
+    fontFamily: FONTS.medium,
+  },
+  mainHeroPrice: {
+    color: '#FFFFFF',
+    fontSize: 13,
+    fontWeight: '800',
+    fontFamily: FONTS.bold,
+  },
+  trustStrip: {
+    borderWidth: 1,
+    borderRadius: 14,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  trustStripText: {
+    fontSize: 11,
+    fontFamily: FONTS.medium,
+  },
+  trustStripDivider: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: '#FF5500',
+    opacity: 0.8,
+  },
 
   /* 3. Quick Actions */
   quickActions: {
@@ -685,6 +800,39 @@ const styles = StyleSheet.create({
   productRow: {
     flexDirection: 'row',
     gap: 12,
+    paddingRight: 16,
+  },
+  productCardSlot: {
+    width: 252,
+  },
+  purposeGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+  },
+  purposeCard: {
+    width: '48%',
+    minHeight: 78,
+    borderRadius: 14,
+    borderWidth: 1,
+    padding: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  purposeCopy: {
+    flex: 1,
+    gap: 2,
+  },
+  purposeTitle: {
+    fontSize: 13,
+    fontWeight: '700',
+    fontFamily: FONTS.bold,
+  },
+  purposeSubtitle: {
+    fontSize: 10,
+    lineHeight: 13,
+    fontFamily: FONTS.regular,
   },
 
   /* Partner Banner */

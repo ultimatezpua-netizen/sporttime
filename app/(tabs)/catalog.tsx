@@ -113,10 +113,12 @@ export default function CatalogScreen() {
   const insets = useSafeAreaInsets();
   const { compareList } = useApp();
   const searchInputRef = useRef<TextInput>(null);
-  const params = useLocalSearchParams<{ q?: string; series?: string; category?: string }>();
+  const params = useLocalSearchParams<{ q?: string; series?: string; category?: string; sale?: string; isNew?: string; sort?: SortOption }>();
 
   const initialSeries = params.series && SERIES_CHIPS.includes(params.series as Series) ? (params.series as Series) : null;
   const initialCategory: CatalogCategoryKey = params.category === 'watch-accessories' ? 'watch-accessories' : 'all';
+  const initialCategoryId = params.category && params.category !== 'watch-accessories' ? params.category : undefined;
+  const initialSort: SortOption = params.sort && Object.keys(SORT_LABELS).includes(params.sort) ? params.sort : 'popular';
 
   const [selectedCategory, setSelectedCategory] = useState<CatalogCategoryKey>(initialCategory);
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(initialSeries);
@@ -125,9 +127,10 @@ export default function CatalogScreen() {
   const [minPriceInput, setMinPriceInput] = useState('');
   const [maxPriceInput, setMaxPriceInput] = useState('');
   const [priceRange, setPriceRange] = useState<{ min?: number; max?: number }>({});
-  const [showOnlySale, setShowOnlySale] = useState(false);
+  const [showOnlySale, setShowOnlySale] = useState(params.sale === '1');
+  const [showOnlyNew, setShowOnlyNew] = useState(params.isNew === '1');
   const [searchQuery, setSearchQuery] = useState(params.q ?? '');
-  const [sort, setSort] = useState<SortOption>('popular');
+  const [sort, setSort] = useState<SortOption>(initialSort);
 
   const [showAmoled, setShowAmoled] = useState(false);
   const [showSolar, setShowSolar] = useState(false);
@@ -150,17 +153,21 @@ export default function CatalogScreen() {
       setSelectedSeries(null);
       setSelectedFilterSeries([]);
       setShowOnlySale(false);
+      setShowOnlyNew(false);
     } else if (tag.type === 'sale') {
       setShowOnlySale(current => !current);
       setSelectedCategory('all');
       setSelectedSeries(null);
+      setShowOnlyNew(false);
     } else if (tag.type === 'series' && tag.series) {
       setShowOnlySale(false);
+      setShowOnlyNew(false);
       setSelectedCategory('watches');
       setSelectedSeries(current => current === tag.series ? null : tag.series!);
       setSelectedFilterSeries(current => current.includes(tag.series!) ? current.filter(series => series !== tag.series) : [...current, tag.series!]);
     } else if (tag.type === 'category' && tag.category) {
       setShowOnlySale(false);
+      setShowOnlyNew(false);
       setSelectedCategory(current => current === tag.category ? 'all' : tag.category!);
       setSelectedSeries(null);
     }
@@ -260,6 +267,14 @@ export default function CatalogScreen() {
       result = result.filter(
         p => (p.oldPrice && p.oldPrice > p.price) || (p.discount && p.discount > 0),
       );
+    }
+
+    if (showOnlyNew) {
+      result = result.filter(p => p.isNew);
+    }
+
+    if (initialCategoryId) {
+      result = result.filter(p => p.categoryId === initialCategoryId || p.categoryPath.includes(initialCategoryId));
     }
 
     if (selectedCategory === 'watch-accessories') {
