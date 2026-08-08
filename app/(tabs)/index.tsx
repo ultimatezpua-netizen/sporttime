@@ -19,8 +19,8 @@ import { Feather, Ionicons } from '@expo/vector-icons';
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 // Динамически берем первые два товара из базы, чтобы ID гарантированно совпадали
-const firstProduct = PRODUCTS[0] || { id: '1', title: 'FORERUNNER® 965', price: 26500 };
-const secondProduct = PRODUCTS[1] || { id: '2', title: 'FĒNIX® 8 AMOLED', price: 43500 };
+const firstProduct = PRODUCTS[0] || { id: '1', name: 'FORERUNNER® 965', price: 26500, inStock: true };
+const secondProduct = PRODUCTS[1] || { id: '2', name: 'FĒNIX® 8 AMOLED', price: 43500, inStock: true };
 
 const HERO_SLIDES = [
   {
@@ -28,26 +28,28 @@ const HERO_SLIDES = [
     productId: firstProduct.id,
     tag: 'FORERUNNER',
     subTag: 'RUNNING & TRIATHLON',
-    title: firstProduct.title || 'FORERUNNER® 965',
+    title: firstProduct.name || 'FORERUNNER® 965',
     subtitle: 'Твій темп. Твій шлях. Кожен крок до перемоги.',
     btnText: 'ОБРАТИ СВІЙ ТЕМП',
     image: Array.isArray(firstProduct.images) && firstProduct.images[0] 
       ? firstProduct.images[0] 
       : 'https://images.unsplash.com/photo-1510017803434-a899398421b3?q=80&w=1000&auto=format&fit=crop',
     price: typeof firstProduct.price === 'number' ? `${firstProduct.price.toLocaleString('uk-UA')} ₴` : `${firstProduct.price} ₴`,
+    inStock: firstProduct.inStock ?? true,
   },
   {
     id: '2',
     productId: secondProduct.id,
     tag: 'FĒNIX 8',
     subTag: 'OUTDOOR & MULTISPORT',
-    title: secondProduct.title || 'FĒNIX® 8 AMOLED',
+    title: secondProduct.name || 'FĒNIX® 8 AMOLED',
     subtitle: 'Будь безмежним. Преміальний мультиспорт.',
     btnText: 'ДІЗНАТИСЯ БІЛЬШЕ',
     image: Array.isArray(secondProduct.images) && secondProduct.images[0]
       ? secondProduct.images[0]
       : 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=1000&auto=format&fit=crop',
     price: typeof secondProduct.price === 'number' ? `${secondProduct.price.toLocaleString('uk-UA')} ₴` : `${secondProduct.price} ₴`,
+    inStock: secondProduct.inStock ?? true,
   },
 ];
 
@@ -55,7 +57,7 @@ const PURPOSE_CATEGORIES = [
   { id: 'running', title: 'Для бігу', subtitle: 'Трек та асфальт', icon: 'fitness', category: 'running' },
   { id: 'tactical', title: 'Тактичні', subtitle: 'Надійність', icon: 'shield-checkmark', category: 'tactical' },
   { id: 'outdoor', title: 'Туризм', subtitle: 'Гори та ліс', icon: 'compass', category: 'outdoor' },
-  { id: 'women', title: 'Жіночі', subtitle: 'Стиль та фітнес', icon: 'women' },
+  { id: 'women', title: 'Жіночі', subtitle: 'Стиль та фітнес', icon: 'female', category: 'women' },
 ];
 
 export default function HomeScreen() {
@@ -96,7 +98,7 @@ export default function HomeScreen() {
               <Text style={styles.heroPrice}>{HERO_SLIDES[activeSlide].price}</Text>
               <View style={styles.stockBadge}>
                 <View style={styles.stockDot} />
-                <Text style={styles.heroInStock}>У наявності</Text>
+                <Text style={styles.heroInStock}>{HERO_SLIDES[activeSlide].inStock ? 'У наявності' : 'Під замовлення'}</Text>
               </View>
             </View>
 
@@ -120,14 +122,14 @@ export default function HomeScreen() {
               <Text style={styles.actionText}>Каталог</Text>
             </Pressable>
 
-            <Pressable style={styles.actionItem} onPress={() => router.push({ pathname: '/catalog', params: { isNew: 'true' } } as never)}>
+            <Pressable style={styles.actionItem} onPress={() => router.push({ pathname: '/catalog', params: { isNew: '1' } } as never)}>
               <View style={[styles.actionIconBox, styles.actionIconBoxActive]}>
                 <Ionicons name="sparkles" size={22} color="#FF5500" />
               </View>
               <Text style={styles.actionTextActive}>Новинки</Text>
             </Pressable>
 
-            <Pressable style={styles.actionItem} onPress={() => router.push({ pathname: '/catalog', params: { sale: 'true' } } as never)}>
+            <Pressable style={styles.actionItem} onPress={() => router.push({ pathname: '/catalog', params: { sale: '1' } } as never)}>
               <View style={styles.actionIconBox}>
                 <Ionicons name="pricetag" size={22} color="#FFFFFF" />
               </View>

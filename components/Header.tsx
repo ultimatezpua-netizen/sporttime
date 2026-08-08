@@ -234,7 +234,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
   };
 
   const onMenuPress = showBack ? handleBackPress : openDrawer;
-  const cartDisplayCount = cartCount > 0 ? (cartCount > 9 ? '9+' : String(cartCount)) : '2';
+  const cartDisplayCount = cartCount > 99 ? '99+' : String(cartCount);
 
   return (
     <>
@@ -289,9 +289,11 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
             <View style={styles.iconCircleBox}>
               <Ionicons name="cart-sharp" size={22} color="#FF5500" />
             </View>
-            <View style={styles.cartBadge}>
-              <Text style={styles.cartBadgeText}>{cartDisplayCount}</Text>
-            </View>
+            {cartCount > 0 && (
+              <View style={styles.cartBadge}>
+                <Text style={styles.cartBadgeText}>{cartDisplayCount}</Text>
+              </View>
+            )}
           </Pressable>
 
           <Pressable
