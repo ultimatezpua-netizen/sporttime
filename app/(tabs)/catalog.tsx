@@ -10,7 +10,7 @@ import {
   View,
 } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '@/hooks/useTheme';
 import { useApp } from '@/context/AppContext';
 import { Ionicons } from '@/components/SafeIonicons';
@@ -46,6 +46,9 @@ const FILTER_SERIES: Series[] = [
   'Fenix',
   'Epix',
 ];
+
+const paramToString = (value?: string | string[]) => Array.isArray(value) ? value[0] : value;
+const isTruthyParam = (value?: string | string[]) => ['1', 'true'].includes((paramToString(value) ?? '').toLowerCase());
 
 const COLOR_FILTERS = [
   { key: 'black', label: 'Чорний', hex: '#111111', aliases: ['black', 'чорн'] },
@@ -121,12 +124,18 @@ export default function CatalogScreen() {
   const insets = useSafeAreaInsets();
   const { compareList } = useApp();
   const searchInputRef = useRef<TextInput>(null);
-  const params = useLocalSearchParams<{ q?: string; series?: string; category?: string; sale?: string; isNew?: string; sort?: SortOption }>();
+  const params = useLocalSearchParams<{ q?: string | string[]; series?: string | string[]; category?: string | string[]; sale?: string | string[]; isNew?: string | string[]; sort?: SortOption | SortOption[] }>();
+  const qParam = paramToString(params.q);
+  const seriesParam = paramToString(params.series);
+  const categoryParam = paramToString(params.category);
+  const saleParam = paramToString(params.sale);
+  const isNewParam = paramToString(params.isNew);
+  const sortParam = paramToString(params.sort);
 
-  const initialSeries = params.series && SERIES_CHIPS.includes(params.series as Series) ? (params.series as Series) : null;
-  const initialCategory: CatalogCategoryKey = params.category === 'watch-accessories' ? 'watch-accessories' : 'all';
-  const initialCategoryId = params.category && params.category !== 'watch-accessories' ? params.category : undefined;
-  const initialSort: SortOption = params.sort && Object.keys(SORT_LABELS).includes(params.sort) ? params.sort : 'popular';
+  const initialSeries = seriesParam && SERIES_CHIPS.includes(seriesParam as Series) ? (seriesParam as Series) : null;
+  const initialCategory: CatalogCategoryKey = categoryParam === 'watch-accessories' ? 'watch-accessories' : 'all';
+  const initialCategoryId = categoryParam && categoryParam !== 'watch-accessories' ? categoryParam : undefined;
+  const initialSort: SortOption = sortParam && Object.keys(SORT_LABELS).includes(sortParam) ? (sortParam as SortOption) : 'popular';
 
   const [selectedCategory, setSelectedCategory] = useState<CatalogCategoryKey>(initialCategory);
   const [selectedSeries, setSelectedSeries] = useState<Series | null>(initialSeries);
@@ -135,9 +144,9 @@ export default function CatalogScreen() {
   const [minPriceInput, setMinPriceInput] = useState('');
   const [maxPriceInput, setMaxPriceInput] = useState('');
   const [priceRange, setPriceRange] = useState<{ min?: number; max?: number }>({});
-  const [showOnlySale, setShowOnlySale] = useState(params.sale === '1' || params.sale === 'true');
-  const [showOnlyNew, setShowOnlyNew] = useState(params.isNew === '1' || params.isNew === 'true');
-  const [searchQuery, setSearchQuery] = useState(params.q ?? '');
+  const [showOnlySale, setShowOnlySale] = useState(isTruthyParam(saleParam));
+  const [showOnlyNew, setShowOnlyNew] = useState(isTruthyParam(isNewParam));
+  const [searchQuery, setSearchQuery] = useState(qParam ?? '');
   const [sort, setSort] = useState<SortOption>(initialSort);
 
   const [showAmoled, setShowAmoled] = useState(false);
@@ -393,7 +402,7 @@ export default function CatalogScreen() {
   ]);
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <SafeAreaView edges={['bottom']} style={[styles.container, { backgroundColor: colors.background }]}>
       <Header onSearch={handleHeaderSearch} />
 
       {/* Simplified Minimalist Sticky Top Header */}
@@ -680,7 +689,7 @@ export default function CatalogScreen() {
           <Ionicons name="arrow-forward" size={16} color="#FFFFFF" />
         </Pressable>
       )}
-    </View>
+    </SafeAreaView>
   );
 }
 

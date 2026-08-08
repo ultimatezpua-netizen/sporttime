@@ -11,7 +11,7 @@ import {
   View,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Feather, FontAwesome5, Ionicons } from '@expo/vector-icons';
 import { useApp } from '@/context/AppContext';
 import { FONTS } from '@/constants/typography';
@@ -315,7 +315,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
           <TextInput
             style={styles.searchPanelInput}
             placeholder="Search garmin.com"
-            placeholderTextColor="#6E6E73"
+            placeholderTextColor="#8E8E93"
             autoFocus
             returnKeyType="search"
           />
@@ -330,7 +330,8 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
         onRequestClose={() => setMenuOpen(false)}
       >
         <View style={styles.modalRoot}>
-          <View style={[styles.drawer, { paddingTop: topPad + 6 }]}>
+          <SafeAreaView edges={['top', 'bottom']} style={styles.drawerSafeArea}>
+          <View style={styles.drawer}>
             <View style={styles.drawerHeader}>
               <Text style={styles.drawerTitle}>Меню</Text>
               <Pressable onPress={closeDrawer} hitSlop={8}>
@@ -339,7 +340,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
             </View>
 
             <View style={styles.drawerSearchBox}>
-              <Ionicons name="search-outline" size={18} color="#8E8E93" style={styles.searchIcon} />
+              <Ionicons name="search-outline" size={18} color="#FF5500" style={styles.searchIcon} />
               <TextInput
                 style={styles.drawerSearchInput}
                 placeholder="Пошук моделей та аксесуарів..."
@@ -418,6 +419,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
               </View>
             </View>
           </View>
+          </SafeAreaView>
 
           <Pressable style={styles.scrim} onPress={() => setMenuOpen(false)} />
         </View>
@@ -446,11 +448,9 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: '#18181B',
+    backgroundColor: '#1C1C1E',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: '#2A2A2E',
   },
   twoLinesIcon: {
     width: 20,
@@ -500,18 +500,14 @@ const styles = StyleSheet.create({
     width: 36,
     height: 36,
     borderRadius: 18,
-    backgroundColor: '#18181B',
-    borderWidth: 1.5,
-    borderColor: '#FF5500',
+    backgroundColor: '#1C1C1E',
     alignItems: 'center',
     justifyContent: 'center',
   },
   searchPanel: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#1C1C1E',
+    backgroundColor: '#1C1C1E',
     paddingHorizontal: 14,
     paddingVertical: 10,
   },
@@ -520,7 +516,7 @@ const styles = StyleSheet.create({
   },
   searchPanelInput: {
     flex: 1,
-    color: '#1C1C1E',
+    color: '#FFFFFF',
     fontSize: 15,
     fontFamily: FONTS.regular,
   },
@@ -530,9 +526,13 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
   },
-  drawer: {
+  drawerSafeArea: {
     width: 300,
-    backgroundColor: '#161618',
+    backgroundColor: '#121214',
+  },
+  drawer: {
+    flex: 1,
+    backgroundColor: '#121214',
     paddingHorizontal: 16,
     paddingBottom: 24,
     borderRightWidth: 1,
@@ -540,7 +540,7 @@ const styles = StyleSheet.create({
   },
   scrim: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.6)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
   },
   drawerHeader: {
     flexDirection: 'row',
@@ -548,7 +548,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#2C2C2E',
+    borderBottomColor: 'rgba(255, 85, 0, 0.18)',
   },
   drawerTitle: {
     color: '#FFFFFF',
@@ -559,10 +559,10 @@ const styles = StyleSheet.create({
   drawerSearchBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#0B0B0C',
-    borderRadius: 10,
+    backgroundColor: '#1C1C1E',
+    borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#2C2C2E',
+    borderColor: 'rgba(255, 85, 0, 0.18)',
     paddingHorizontal: 10,
     marginVertical: 12,
   },
@@ -601,25 +601,29 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   menuItem: {
+    backgroundColor: '#1C1C1E',
+    borderRadius: 14,
+    paddingHorizontal: 14,
+    marginBottom: 8,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: '#242426',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 85, 0, 0.08)',
   },
   menuItemPressed: {
-    backgroundColor: '#242426',
+    backgroundColor: 'rgba(255, 85, 0, 0.12)',
   },
   menuLabel: {
-    color: '#E5E5EA',
+    color: '#FFFFFF',
     fontSize: 14,
     fontFamily: FONTS.medium,
   },
   drawerFooter: {
     borderTopWidth: 1,
-    borderTopColor: '#2C2C2E',
-    paddingTop: 14,
+    borderTopColor: 'rgba(255, 85, 0, 0.18)',
+    paddingTop: 16,
     gap: 8,
   },
   drawerFooterTitle: {
@@ -644,14 +648,14 @@ const styles = StyleSheet.create({
     width: 38,
     height: 38,
     borderRadius: 19,
-    backgroundColor: '#0B0B0C',
+    backgroundColor: 'rgba(255, 85, 0, 0.1)',
     borderWidth: 1,
-    borderColor: '#2C2C2E',
+    borderColor: 'rgba(255, 85, 0, 0.22)',
     alignItems: 'center',
     justifyContent: 'center',
   },
   messengerBtnPressed: {
-    backgroundColor: '#242426',
+    backgroundColor: 'rgba(255, 85, 0, 0.18)',
   },
 });
 
