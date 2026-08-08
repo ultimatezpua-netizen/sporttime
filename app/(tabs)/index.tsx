@@ -73,7 +73,7 @@ const PROMO_IMAGE_SOURCE =
 const quickActions = [
   { icon: 'grid-outline', label: 'Каталог', route: '/catalog' },
   { icon: 'star-outline', label: 'Новинки', route: '/catalog', params: { isNew: '1', sort: 'rating' } },
-  { icon: 'pricetag-outline', label: 'Акції', route: '/catalog', params: { sale: '1' } },
+  { icon: 'pricetag-outline', label: 'Акции', route: '/catalog', params: { sale: '1' } },
   { icon: 'heart-outline', label: 'Обране', route: '/(tabs)/favorites' },
 ] as const;
 
