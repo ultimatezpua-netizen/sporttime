@@ -8,21 +8,21 @@ interface GarminLogoProps {
 }
 
 export const GarminLogo: React.FC<GarminLogoProps> = ({
-  width = 120,
-  height = 20,
-  color = '#FF6B00',
+  width = 130,
+  height = 22,
+  color = '#FF5500',
 }) => {
   return (
-    <Svg width={width} height={height} viewBox="0 0 120 20">
+    <Svg width={width} height={height} viewBox="0 0 130 22">
       <SvgText
-        x="60"
-        y="15"
+        x="65"
+        y="17"
         fill={color}
-        fontSize="17"
+        fontSize="19"
         fontWeight="900"
-        fontFamily="Arial, Helvetica, sans-serif"
+        fontFamily="Arial Black, Impact, sans-serif"
         textAnchor="middle"
-        letterSpacing="2.5"
+        letterSpacing="3"
       >
         GARMIN
       </SvgText>

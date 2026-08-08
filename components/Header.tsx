@@ -239,17 +239,17 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
   return (
     <>
       <View style={[styles.container, { paddingTop: topPad }]}>
-        {/* СЛЕВА: 2 ОРАНЖЕВЫЕ ПОЛОСКИ И ОРАНЖЕВАЯ ЛУПА */}
+        {/* СЛЕВА: 2 ПЛОТНЫЕ ОРАНЖЕВЫЕ ПОЛОСКИ И ЯРКИЙ ПОИСК */}
         <View style={styles.leftActions}>
           <Pressable
             onPress={onMenuPress}
-            style={styles.iconBtn}
+            style={styles.iconCircleBox}
             hitSlop={8}
             accessibilityRole="button"
             accessibilityLabel={showBack ? 'Назад' : 'Відкрити меню'}
           >
             {showBack ? (
-              <Feather name="arrow-left" size={22} color="#FF6B00" />
+              <Ionicons name="arrow-back" size={22} color="#FF5500" />
             ) : (
               <View style={styles.twoLinesIcon}>
                 <View style={styles.line} />
@@ -263,21 +263,21 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
               setIsSearchVisible(!isSearchVisible);
               onSearch?.();
             }}
-            style={styles.iconBtn}
+            style={styles.iconCircleBox}
             hitSlop={8}
             accessibilityRole="button"
             accessibilityLabel="Пошук"
           >
-            <Feather name="search" size={20} color="#FF6B00" />
+            <Ionicons name="search-sharp" size={20} color="#FF5500" />
           </Pressable>
         </View>
 
         {/* ЦЕНТР: ЛОГОТИП GARMIN */}
         <Pressable onPress={() => router.push('/')} style={styles.logoPressable}>
-          <GarminLogo width={120} height={20} color="#FF6B00" />
+          <GarminLogo width={130} height={22} color="#FF5500" />
         </Pressable>
 
-        {/* СПРАВА: ОРАНЖЕВАЯ ТЕЛЕЖКА И ОРАНЖЕВЫЙ ПРОФИЛЬ В КРУЖОЧКЕ */}
+        {/* СПРАВА: ПЛОТНАЯ ТЕЛЕЖКА И ПРОФИЛЬ В КРУЖОЧКЕ */}
         <View style={styles.rightActions}>
           <Pressable
             onPress={() => router.push('/(tabs)/cart')}
@@ -286,7 +286,9 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
             accessibilityRole="button"
             accessibilityLabel={`Кошик, товарів: ${cartDisplayCount}`}
           >
-            <Feather name="shopping-cart" size={20} color="#FF6B00" />
+            <View style={styles.iconCircleBox}>
+              <Ionicons name="cart-sharp" size={22} color="#FF5500" />
+            </View>
             <View style={styles.cartBadge}>
               <Text style={styles.cartBadgeText}>{cartDisplayCount}</Text>
             </View>
@@ -299,7 +301,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
             accessibilityRole="button"
             accessibilityLabel="Профіль"
           >
-            <Feather name="user" size={16} color="#FF6B00" />
+            <Ionicons name="person-sharp" size={17} color="#FF5500" />
           </Pressable>
         </View>
       </View>
@@ -307,7 +309,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
       {/* ВЫПАДАЮЩИЙ ПОИСК */}
       {isSearchVisible && (
         <View style={styles.searchPanel}>
-          <Feather name="search" size={18} color="#FF6B00" style={styles.searchPanelIcon} />
+          <Ionicons name="search" size={20} color="#FF5500" style={styles.searchPanelIcon} />
           <TextInput
             style={styles.searchPanelInput}
             placeholder="Search garmin.com"
@@ -385,7 +387,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
                   style={({ pressed }) => [styles.messengerBtn, pressed && styles.messengerBtnPressed]}
                   hitSlop={6}
                 >
-                  <FontAwesome5 name="phone-alt" size={17} color="#FF6B00" />
+                  <FontAwesome5 name="phone-alt" size={17} color="#FF5500" />
                 </Pressable>
 
                 <Pressable
@@ -393,7 +395,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
                   style={({ pressed }) => [styles.messengerBtn, pressed && styles.messengerBtnPressed]}
                   hitSlop={6}
                 >
-                  <FontAwesome5 name="telegram-plane" size={21} color="#FF6B00" />
+                  <FontAwesome5 name="telegram-plane" size={21} color="#FF5500" />
                 </Pressable>
 
                 <Pressable
@@ -401,7 +403,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
                   style={({ pressed }) => [styles.messengerBtn, pressed && styles.messengerBtnPressed]}
                   hitSlop={6}
                 >
-                  <FontAwesome5 name="viber" size={21} color="#FF6B00" />
+                  <FontAwesome5 name="viber" size={21} color="#FF5500" />
                 </Pressable>
 
                 <Pressable
@@ -409,7 +411,7 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
                   style={({ pressed }) => [styles.messengerBtn, pressed && styles.messengerBtnPressed]}
                   hitSlop={6}
                 >
-                  <FontAwesome5 name="whatsapp" size={21} color="#FF6B00" />
+                  <FontAwesome5 name="whatsapp" size={21} color="#FF5500" />
                 </Pressable>
               </View>
             </View>
@@ -428,7 +430,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
+    paddingHorizontal: 14,
     paddingBottom: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#1C1C1E',
@@ -436,22 +438,28 @@ const styles = StyleSheet.create({
   leftActions: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 14,
+    gap: 10,
+  },
+  iconCircleBox: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#18181B',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#2A2A2E',
   },
   twoLinesIcon: {
-    width: 22,
-    height: 14,
+    width: 20,
+    height: 12,
     justifyContent: 'space-between',
-    paddingVertical: 1,
   },
   line: {
-    width: 22,
-    height: 2,
-    backgroundColor: '#FF6B00',
-    borderRadius: 1,
-  },
-  iconBtn: {
-    padding: 4,
+    width: 20,
+    height: 3,
+    backgroundColor: '#FF5500',
+    borderRadius: 2,
   },
   logoPressable: {
     flex: 1,
@@ -461,36 +469,38 @@ const styles = StyleSheet.create({
   rightActions: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 14,
+    gap: 10,
   },
   cartIconWrapper: {
     position: 'relative',
-    padding: 4,
   },
   cartBadge: {
     position: 'absolute',
     top: -4,
-    right: -6,
-    backgroundColor: '#FF6B00',
-    minWidth: 16,
-    height: 16,
-    borderRadius: 8,
+    right: -4,
+    backgroundColor: '#FF5500',
+    minWidth: 18,
+    height: 18,
+    borderRadius: 9,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 3,
+    paddingHorizontal: 4,
+    borderWidth: 1.5,
+    borderColor: '#0B0B0C',
   },
   cartBadgeText: {
     color: '#FFFFFF',
     fontSize: 10,
-    fontWeight: 'bold',
+    fontWeight: '900',
     fontFamily: FONTS.bold,
   },
   profileCircleBtn: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#18181B',
     borderWidth: 1.5,
-    borderColor: '#FF6B00',
+    borderColor: '#FF5500',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -512,6 +522,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: FONTS.regular,
   },
+
+  /* DRAWER STYLES */
   modalRoot: {
     flex: 1,
     flexDirection: 'row',
@@ -616,7 +628,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   drawerFooterPhone: {
-    color: '#FF6B00',
+    color: '#FF5500',
     fontSize: 16,
     fontWeight: '700',
     fontFamily: FONTS.bold,
