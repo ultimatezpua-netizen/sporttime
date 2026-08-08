@@ -240,15 +240,15 @@ export const Header = memo(function Header({ showBack = false, title, onSearch }
     </Pressable>
   );
 
-  const onMenuPress = showBack
-    ? () => {
-        if (router.canGoBack()) {
-          router.back();
-        } else {
-          router.replace('/');
-        }
-      }
-    : openDrawer;
+  const handleBackPress = () => {
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace('/');
+    }
+  };
+
+  const onMenuPress = showBack ? handleBackPress : openDrawer;
 
   const cartDisplayCount = cartCount > 0 ? (cartCount > 9 ? '9+' : String(cartCount)) : '2';
 
