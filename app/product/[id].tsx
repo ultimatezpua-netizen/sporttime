@@ -16,7 +16,7 @@ import { useTheme } from '@/hooks/useTheme';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import * as Haptics from 'expo-haptics';
-import { getProductById, formatPrice } from '@/data/products';
+import { getProductById, formatPrice, ProductFeatureBlock, ProductRichSection } from '@/data/products';
 import { useApp } from '@/context/AppContext';
 import { ProductImage } from '@/components/ProductImage';
 import { FONTS } from '@/constants/typography';
@@ -27,6 +27,33 @@ const BANNERS = [
   require('../../assets/images/banners/banner1.jpg'),
   require('../../assets/images/banners/banner2.jpg'),
   require('../../assets/images/banners/banner3.jpg'),
+];
+
+const DEFAULT_PROMO_BANNERS = [
+  require('../../assets/images/banners/82308521458585.jpg'),
+  require('../../assets/images/banners/90797-POD-HALF-HEALTH.jpg'),
+  require('../../assets/images/banners/90797-PODS-THIRD-BOUNCE.jpg'),
+];
+
+const DEFAULT_RICH_FEATURES: ProductFeatureBlock[] = [
+  { title: 'Сонячна зарядка', description: 'Power Glass™ допомагає продовжити автономність під час активностей.', iconName: 'sunny-outline' },
+  { title: 'Міцний дизайн', description: 'Корпус створений для тренувань, походів та щоденного ритму.', iconName: 'shield-checkmark-outline' },
+  { title: 'Вбудований ліхтарик', description: 'Швидке світло для нічних пробіжок, кемпінгу або дороги додому.', iconName: 'flashlight-outline' },
+  { title: 'Моніторинг сну', description: 'Оцінка сну, відновлення та рекомендації для нового дня.', iconName: 'moon-outline' },
+  { title: 'Сповіщення', description: 'Повідомлення зі смартфона прямо на зап’ясті.', iconName: 'notifications-outline' },
+  { title: 'Ресурс батареї', description: 'Тривала робота без щоденної зарядки.', iconName: 'battery-charging-outline' },
+];
+
+const DEFAULT_HEALTH_FEATURES: ProductFeatureBlock[] = [
+  { title: 'Щоденний рух', description: 'Кроки, калорії та хвилини інтенсивності.', iconName: 'walk-outline' },
+  { title: 'Статус ВСР', description: 'Оцінка відновлення за варіабельністю серцевого ритму.', iconName: 'pulse-outline' },
+  { title: 'Частота серця', description: 'Цілодобовий пульс з попередженнями.', iconName: 'heart-outline' },
+  { title: 'Стрес-трекінг', description: 'Рівень стресу та дихальні вправи.', iconName: 'leaf-outline' },
+  { title: 'Ранковий звіт', description: 'Сон, погода й тренування на одному екрані.', iconName: 'partly-sunny-outline' },
+  { title: 'Знімок здоров’я', description: 'Швидкий огляд ключових метрик.', iconName: 'medkit-outline' },
+  { title: 'Пульсоксиметр', description: 'Оцінка насичення крові киснем.', iconName: 'water-outline' },
+  { title: 'Тренер Garmin', description: 'Адаптивні плани бігу та підказки.', iconName: 'fitness-outline' },
+  { title: 'Створення тренувань', description: 'Власні тренування з синхронізацією.', iconName: 'create-outline' },
 ];
 
 function isProductPhoto(url: string) {
@@ -126,6 +153,25 @@ export default function ProductDetailScreen() {
       .filter(spec => !/колір|цвет|color/i.test(spec.label) && !/колір|цвет|color/i.test(spec.key))
       .filter((spec, index, array) => array.findIndex(item => item.label.toLowerCase() === spec.label.toLowerCase()) === index);
   }, [product, selectedSize]);
+
+
+  const highlights = useMemo(() => {
+    const fallback = [
+      product?.display ? `${product.display} дисплей для чіткого перегляду даних` : 'AMOLED-дисплей з високою читабельністю',
+      product?.solar ? 'Сонячна зарядка для довших пригод' : 'Тривала автономність для тренувань і подорожей',
+      product?.gps ? 'Точна навігація та GPS-треки' : 'Смарт-функції для щоденного використання',
+      product?.heartRate ? 'Цілодобовий моніторинг пульсу та здоров’я' : 'Спортивні профілі та аналітика активності',
+    ];
+    return product?.highlights && product.highlights.length > 0 ? product.highlights : fallback;
+  }, [product]);
+
+  const richSections = useMemo<ProductRichSection[]>(() => {
+    if (product?.richSections && product.richSections.length > 0) return product.richSections;
+    return [{ title: 'ЩО ВАМ СПОДОБАЄТЬСЯ', subtitle: 'Ключові можливості Garmin, які відчуваються щодня', features: DEFAULT_RICH_FEATURES }];
+  }, [product]);
+
+  const promoBanners = product?.promoBanners && product.promoBanners.length > 0 ? product.promoBanners : DEFAULT_PROMO_BANNERS;
+  const healthFeatures = product?.featureGrid && product.featureGrid.length > 0 ? product.featureGrid : DEFAULT_HEALTH_FEATURES;
 
   const topPad = Platform.OS === 'web' ? 12 : insets.top;
   const bottomPad = Platform.OS === 'web' ? 88 : insets.bottom + 74;
@@ -388,23 +434,84 @@ export default function ProductDetailScreen() {
           </View>
         ) : null}
 
-        {/* 8. Features Bullet List */}
+        {/* 8. Rich Promo Content */}
         <View style={styles.featuresBulletSection}>
-          <Text style={styles.featuresHeading}>Особливості</Text>
-          <View style={styles.bulletList}>
-            <Text style={styles.bulletItem}>• Сапфірове скло Sapphire Crystal</Text>
-            <Text style={styles.bulletItem}>• Сонячна зарядка Solar, Готовність до тренувань</Text>
-            {product.waterResistance > 0 && (
-              <Text style={styles.bulletItem}>• Водозахист {product.waterResistance} ATM</Text>
-            )}
-            {product.gps && (
-              <Text style={styles.bulletItem}>• Мультидіапазонний GPS & Топографічні карти</Text>
-            )}
+          <Text style={styles.featuresHeading}>Головні переваги</Text>
+          <View style={styles.highlightList}>
+            {highlights.map(item => (
+              <View key={item} style={styles.highlightItem}>
+                <Ionicons name={'checkmark-circle' as any} size={18} color="#FF5500" />
+                <Text style={styles.highlightText}>{item}</Text>
+              </View>
+            ))}
           </View>
+        </View>
+
+        {richSections.map((section, sectionIndex) => (
+          <View key={`${section.title}-${sectionIndex}`} style={styles.richSection}>
+            {section.bannerImage ? <Image source={typeof section.bannerImage === 'string' ? { uri: section.bannerImage } : section.bannerImage} style={styles.richBannerImage} resizeMode="cover" /> : null}
+            <Text style={styles.richSectionTitle}>{section.title}</Text>
+            {section.subtitle ? <Text style={styles.richSectionSubtitle}>{section.subtitle}</Text> : null}
+            <View style={styles.richCardsGrid}>
+              {section.features.map((feature, index) => (
+                <View key={`${feature.title}-${index}`} style={styles.richCard}>
+                  <View style={styles.richCardImageCircle}>
+                    {feature.image ? (
+                      <Image source={typeof feature.image === 'string' ? { uri: feature.image } : feature.image} style={styles.richCardImage} resizeMode="cover" />
+                    ) : (
+                      <ProductImage product={product} imageOverride={images[index % images.length] ?? currentImage} style={styles.richCardImage} resizeMode="contain" iconSize={22} useLocalFallback={true} />
+                    )}
+                  </View>
+                  <Text style={styles.richCardTitle}>{feature.title}</Text>
+                  <Text style={styles.richCardDescription}>{feature.description}</Text>
+                </View>
+              ))}
+            </View>
+          </View>
+        ))}
+
+        <View style={styles.promoBannerSection}>
+          {promoBanners.map((banner, index) => (
+            <Image key={`promo-${index}`} source={typeof banner === 'string' ? { uri: banner } : banner} style={styles.promoBannerImage} resizeMode="cover" />
+          ))}
+        </View>
+
+        <View style={styles.healthSection}>
+          <Text style={styles.healthEyebrow}>ЗДОРОВ'Я ТА ФІТНЕС</Text>
+          <Text style={styles.healthTitle}>Функції та датчики для спорту</Text>
+          <View style={styles.healthGrid}>
+            {healthFeatures.map(feature => (
+              <View key={feature.title} style={styles.healthFeatureCard}>
+                <View style={styles.healthIconCircle}>
+                  <Ionicons name={(feature.iconName || 'ellipse-outline') as any} size={20} color="#FF6400" />
+                </View>
+                <Text style={styles.healthFeatureTitle}>{feature.title}</Text>
+                <Text style={styles.healthFeatureDescription}>{feature.description}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+
+        <View style={styles.fullSpecsSection}>
+          <Text style={styles.fullSpecsTitle}>Технічні характеристики</Text>
+          <View style={styles.specsListContainer}>
+            {specifications.slice(0, expandedSpecs ? undefined : 10).map((spec, index) => (
+              <View key={`full-${spec.key || spec.label}`} style={[styles.specItemRow, index % 2 === 1 && styles.specItemRowAlt]}>
+                <Text style={styles.specItemLabel}>{spec.label}</Text>
+                <Text style={styles.specItemValue}>{spec.value}</Text>
+              </View>
+            ))}
+          </View>
+          {specifications.length > 10 ? (
+            <Pressable onPress={() => setExpandedSpecs(!expandedSpecs)} style={styles.showAllSpecsButton} hitSlop={8}>
+              <Text style={styles.showAllSpecsText}>{expandedSpecs ? 'Сховати характеристики' : 'Показати всі характеристики'}</Text>
+            </Pressable>
+          ) : null}
         </View>
 
         {/* 9. Bottom Banner Auto-Slider */}
         <BannerAutoSlider />
+
       </ScrollView>
 
       <View style={[styles.bottomNav, { backgroundColor: colors.card, borderTopColor: colors.border, paddingBottom: Platform.OS === 'web' ? 4 : insets.bottom + 4 }]}>
@@ -873,6 +980,34 @@ const styles = StyleSheet.create({
     fontSize: 13,
     lineHeight: 18,
   },
+
+  highlightList: { gap: 10 },
+  highlightItem: { flexDirection: 'row', alignItems: 'flex-start', gap: 10, backgroundColor: '#16191E', borderRadius: 14, padding: 12, borderWidth: 1, borderColor: '#242832' },
+  highlightText: { flex: 1, color: '#FFFFFF', fontSize: 13, lineHeight: 18, fontFamily: FONTS.medium },
+  richSection: { paddingHorizontal: 16, marginBottom: 24 },
+  richBannerImage: { width: '100%', height: 170, borderRadius: 18, marginBottom: 18, backgroundColor: '#171717' },
+  richSectionTitle: { color: '#FFFFFF', fontSize: 20, lineHeight: 24, fontFamily: FONTS.condensedBold, letterSpacing: 1.1, textAlign: 'center' },
+  richSectionSubtitle: { color: '#A0A5B1', fontSize: 13, lineHeight: 19, textAlign: 'center', marginTop: 6, marginBottom: 16 },
+  richCardsGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, justifyContent: 'space-between' },
+  richCard: { width: '31.5%', minWidth: 96, backgroundColor: '#15181D', borderRadius: 16, padding: 10, alignItems: 'center', borderWidth: 1, borderColor: '#242832' },
+  richCardImageCircle: { width: 68, height: 68, borderRadius: 34, backgroundColor: '#FFFFFF', overflow: 'hidden', alignItems: 'center', justifyContent: 'center', marginBottom: 9 },
+  richCardImage: { width: '100%', height: '100%' },
+  richCardTitle: { color: '#FFFFFF', fontSize: 11, lineHeight: 14, fontFamily: FONTS.bold, textAlign: 'center' },
+  richCardDescription: { color: '#8F96A3', fontSize: 9, lineHeight: 12, textAlign: 'center', marginTop: 4 },
+  promoBannerSection: { paddingHorizontal: 16, gap: 14, marginBottom: 24 },
+  promoBannerImage: { width: '100%', height: 190, borderRadius: 20, backgroundColor: '#171717' },
+  healthSection: { paddingHorizontal: 16, marginBottom: 24 },
+  healthEyebrow: { color: '#FF6400', fontSize: 11, fontFamily: FONTS.condensedBold, letterSpacing: 1.2, marginBottom: 5 },
+  healthTitle: { color: '#FFFFFF', fontSize: 19, lineHeight: 24, fontFamily: FONTS.condensedBold, letterSpacing: 0.6, marginBottom: 14 },
+  healthGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, justifyContent: 'space-between' },
+  healthFeatureCard: { width: '48.5%', backgroundColor: '#15181D', borderRadius: 16, padding: 12, minHeight: 142, borderWidth: 1, borderColor: '#242832' },
+  healthIconCircle: { width: 38, height: 38, borderRadius: 19, backgroundColor: 'rgba(255,100,0,0.12)', alignItems: 'center', justifyContent: 'center', marginBottom: 10 },
+  healthFeatureTitle: { color: '#FFFFFF', fontSize: 13, fontFamily: FONTS.bold, marginBottom: 5 },
+  healthFeatureDescription: { color: '#A0A5B1', fontSize: 11, lineHeight: 16 },
+  fullSpecsSection: { paddingHorizontal: 16, marginBottom: 24 },
+  fullSpecsTitle: { color: '#FFFFFF', fontSize: 18, fontFamily: FONTS.condensedBold, letterSpacing: 0.8, marginBottom: 12 },
+  showAllSpecsButton: { marginTop: 12, minHeight: 44, borderRadius: 22, borderWidth: 1, borderColor: '#FF6400', alignItems: 'center', justifyContent: 'center' },
+  showAllSpecsText: { color: '#FF6400', fontSize: 13, fontFamily: FONTS.bold },
   galleryThumbSection: {
     paddingHorizontal: 16,
     marginBottom: 20,
